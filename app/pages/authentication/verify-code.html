@@ -1,0 +1,45 @@
+<GridLayout class="login-cover-image">
+    <GridLayout rows="*, auto" >
+        <StackLayout row="0" verticalAlignment="center"  class="login-container">
+            <GridLayout rows="auto,auto,auto" class="p-20">
+                <StackLayout row="0" horizontalAlignment="center" class="m-y-10">
+                    <StackLayout verticalAlignment="center" class="text-center">
+                        <Label class="h4" text="We just sent an email with a code for you enter here" textWrap="true">
+                        </Label>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout row="1">
+                    <TextField class="input input-border input-border-primary input-field" hint="Verification code"
+                               [(ngModel)]="verificationCode"
+                               autocorrect="false" autocapitalizationType="none" id="verification-code"></TextField>
+                    <Label *ngIf="verificationCodeError" visibility="{{ verificationCode ? 'collapse' : 'visible' }}" text="code can't be blank" class="error-label"></Label>
+                </StackLayout>
+
+                <StackLayout row="2" orientation="horizontal" class="m-t-10">
+                    <Gridlayout rows="auto" columns="auto,*" verticalAlignment="center" orientation="horizontal">
+
+                        <Button row="0" col="0"  isEnabled="{{ isLoading ? false : true }}" text="Resend"
+                                horizontalAlignment="left"  class="btn btn-primary btn-rounded-sm font-weight-bold" (tap)="resend()"></Button>
+
+                        <Button row="0" col="1"  isEnabled="{{ isLoading ? false : true }}" text="Verify"
+                                horizontalAlignment="right"  class="btn btn-primary btn-rounded-sm font-weight-bold" (tap)="verify()"></Button>
+
+
+
+                    </Gridlayout>
+                </StackLayout>
+            </GridLayout>
+        </StackLayout>
+
+        <StackLayout row="1" verticalAlignment="bottom" class="btn-icon" orientation="horizontal">
+            <Label text=""> </Label>
+        </StackLayout>
+    </GridLayout>
+
+    <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
+    <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
+        <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+    </GridLayout>
+
+</GridLayout>

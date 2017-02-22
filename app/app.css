@@ -19,15 +19,9 @@ refer to http://docs.nativescript.org/ui/theme.
 
 /* THEME OVERRIDES*/
 
-.btn {
-    font-size: 18;
-}
-
-
 .text-muted {
     color: #cccccc;
 }
-
 
 .material-icons {
     font-family: MaterialIcons-Regular, Material Icons;
@@ -53,13 +47,146 @@ refer to http://docs.nativescript.org/ui/theme.
 /* application css*/
 
 Page {
-    background-color: #ffffff;
-    font-size: 14;
+    font-size: 15;
     font-family: Roboto-Regular;
     color: #656469;
 }
 
 TextField {
     padding: 10;
-    font-size: 14;
+    font-size: 15;
 }
+
+
+
+@keyframes glow {
+    0% {
+        background-color: #eeeeee;
+    }
+    50% {
+        background-color: #b7b7b7;
+    }
+    100% {
+        background-color: #eeeeee;
+    }
+}
+
+.anim {
+    animation-name: glow;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+/*Activity Indicator*/
+StackLayout.dimmer{
+    background-color:rgba(0, 0, 0, 0.2);
+    /*opacity: 0.7;*/
+}
+ActivityIndicator.busy {
+    color: black;
+}
+
+.hr-shadow{
+    height:2;
+    background-color:#e0e0e0;
+    width:100%;
+    border: 0;
+    box-shadow: 0 10 10 -10 #8c8b8b inset;
+}
+
+
+/* Card related styles */
+.whiteCard{
+    background-color: white;
+}
+
+
+
+.input-border{
+    border-width:2;
+    border-color:#656469;
+    border-radius:2;
+    padding: 8;
+}
+
+.input-border-white {
+    border-color: white;
+}
+.input-field{
+    text-align: center;
+}
+
+.input-without-border-bottom{
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.input-border-success {
+    border-color: #b7d6a9;
+}
+
+.input-border-error {
+    border-color: #e89999;
+}
+.btn-submit{
+    border-radius: 4;
+    /*override default margin 16*/
+    margin-right: 0;
+    font-size: 17;
+    font-weight: bolder;
+}
+
+.error-label {
+    color: #d9534f;
+    font-style: italic;
+}
+
+
+.btn-secondary {
+    background-color: #faad41;
+}
+
+.btn-secondary {
+    border-color: #faad41;
+}
+
+.btn-secondary {
+    color: #f8f8f8;
+}
+
+
+.btn-icon{
+    color: white;
+}
+
+StackLayout.small-avatar-with-name{
+    border-radius: 20;
+    height: 40;
+    width: 40;
+    font-size: 16;
+    font-weight: bold;
+}
+
+StackLayout.medium-avatar-with-name{
+    border-radius: 30;
+    height: 60;
+    width: 60;
+    font-size: 18;
+    font-weight: bold;
+}
+
+StackLayout.large-avatar-with-name{
+    border-radius: 38;
+    height: 75;
+    width: 75;
+    font-size: 21;
+    font-weight: bold;
+}
+StackLayout.extra-large-avatar-with-name{
+    border-radius: 50;
+    height: 100;
+    width: 100;
+    font-size: 23;
+    font-weight: bold;
+}
+

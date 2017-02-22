@@ -10,15 +10,16 @@ var view = require("ui/core/view");
     moduleId: module.id,
     selector: "my-app",
     providers: [],
-    templateUrl: "./verify-email.html",
+    templateUrl: "./verify-code.html",
     styleUrls: ["./authentication.css"]
 })
 
-export class VerifyEmailComponent implements OnInit {
-    isLoggingIn = false;
+export class FillProfileDetailsComponent implements OnInit {
     isLoading: Boolean = false;
-    public email: string = '';
-    public emailError: Boolean = false;
+    public firstName: string = '';
+    public lastName: string = '';
+    public firstNameError: Boolean = false;
+    public lastNameError: Boolean = false;
 
     constructor(private router: Router,
                 private routerExtensions: RouterExtensions, private page: Page,
@@ -30,23 +31,26 @@ export class VerifyEmailComponent implements OnInit {
         this.page.actionBarHidden = true;
     }
 
-    submitEmail() {
-        let emailField = view.getViewById(this.page, "email");
-        emailField.dismissSoftInput();
+    sendDetails(){
+        let fnameField = view.getViewById(this.page, "first-name");
+        let lnameField = view.getViewById(this.page, "last-name");
+        fnameField.dismissSoftInput();
+        lnameField.dismissSoftInput();
         let hasErrors = false;
-        if (this.email === '') {
-            this.emailError = true;
+        if(this.firstName === ''){
+            this.firstNameError = true;
             hasErrors = true;
         }
-        if (hasErrors) {
-            return;
-        } else {
-            this.routerExtensions.navigate(["/verify-password"],
-                {
-                    transition: {name: "flip"}
-                });
+        if(this.lastName === ''){
+            this.lastNameError = true;
+            hasErrors = true;
         }
+        if(hasErrors){
+            return;
+        }else{
 
-
+        }
     }
+
+
 }

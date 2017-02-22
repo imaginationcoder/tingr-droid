@@ -10,15 +10,15 @@ var view = require("ui/core/view");
     moduleId: module.id,
     selector: "my-app",
     providers: [],
-    templateUrl: "./verify-email.html",
+    templateUrl: "./verify-code.html",
     styleUrls: ["./authentication.css"]
 })
 
-export class VerifyEmailComponent implements OnInit {
+export class VerifyCodeComponent implements OnInit {
     isLoggingIn = false;
     isLoading: Boolean = false;
-    public email: string = '';
-    public emailError: Boolean = false;
+    public verificationCode: string = '';
+    public verificationCodeError: Boolean = false;
 
     constructor(private router: Router,
                 private routerExtensions: RouterExtensions, private page: Page,
@@ -30,23 +30,23 @@ export class VerifyEmailComponent implements OnInit {
         this.page.actionBarHidden = true;
     }
 
-    submitEmail() {
-        let emailField = view.getViewById(this.page, "email");
-        emailField.dismissSoftInput();
+    verify() {
+        let verificationCodeField = view.getViewById(this.page, "verification-code");
+        verificationCodeField.dismissSoftInput();
         let hasErrors = false;
-        if (this.email === '') {
-            this.emailError = true;
+        if (this.verificationCode === '') {
+            this.verificationCodeError = true;
             hasErrors = true;
         }
         if (hasErrors) {
             return;
         } else {
-            this.routerExtensions.navigate(["/verify-password"],
-                {
-                    transition: {name: "flip"}
-                });
-        }
 
+        }
+    }
+
+    resend(){
 
     }
+
 }

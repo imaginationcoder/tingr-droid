@@ -10,7 +10,10 @@ import {SIDEDRAWER_DIRECTIVES} from "nativescript-telerik-ui/sidedrawer/angular"
 import { LISTVIEW_DIRECTIVES } from 'nativescript-telerik-ui/listview/angular';
 import {APP_ROUTES, navigatableComponents} from "./app.routes";
 
+import { ServerErrorService } from "./services/server.error.service"
+
 import {ModalDialogService, ModalDialogOptions} from "nativescript-angular/modal-dialog";
+import { ModalServerError } from "./pages/dialogs/modal-server-error";
 
 import { DatePipe } from '@angular/common';
 
@@ -60,12 +63,14 @@ if (applicationModule.android) {
     ],
     providers: [
         DatePipe,
-        ModalDialogService
+        ModalDialogService,
+        ServerErrorService
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ],
     entryComponents: [
+        ModalServerError
     ]
 })
 export class AppModule {
