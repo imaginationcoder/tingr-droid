@@ -20,6 +20,8 @@ export class FillProfileDetailsComponent implements OnInit {
     public lastName: string = '';
     public firstNameError: Boolean = false;
     public lastNameError: Boolean = false;
+    public selectedImages = [];
+    public picUploaded: Boolean = false;
 
     constructor(private router: Router,
                 private routerExtensions: RouterExtensions, private page: Page,
