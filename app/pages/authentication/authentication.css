@@ -32,3 +32,7 @@ StackLayout.login-container{
     margin: 25;
     border-radius: 10;
 }
+
+Image.parent-profile-pic{
+    border-radius: 50;
+}

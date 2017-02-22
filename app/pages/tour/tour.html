@@ -1,0 +1,30 @@
+<GridLayout #container>
+    <GridLayout rows="*">
+        <Carousel indicatorColor="#46c8f0" indicatorColorUnselected="#696969"
+                  ios:autoPagingInterval="2" android:indicatorAnimation="drop" >
+            <CarouselItem id="slide1">
+                <Image src="~/images/tour/1.jpg"></Image>
+            </CarouselItem>
+
+            <CarouselItem id="slide2">
+                <Image src="~/images/tour/2.jpg"></Image>
+            </CarouselItem>
+
+            <CarouselItem id="slide3">
+                <Image src="~/images/tour/3.jpg"></Image>
+            </CarouselItem>
+
+            <CarouselItem id="slide4">
+                <Image src="~/images/tour/4.jpg"></Image>
+            </CarouselItem>
+
+            <CarouselItem id="slide5">
+                <Image src="~/images/tour/5.jpg"></Image>
+            </CarouselItem>
+        </Carousel>
+    </GridLayout>
+    <GridLayout rows="*" horizontalAlignment="right" verticalAlignment="bottom" class="m-r-20">
+            <Button text="{{ fromSettingsPage ?  'exit' : 'skip >'}}"
+                    class="btn btn-primary btn-rounded-sm btn-submit " (tap)="skip()"></Button>
+    </GridLayout>
+</GridLayout>
