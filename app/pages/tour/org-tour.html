@@ -1,0 +1,28 @@
+<ActionBar title="">
+
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 ios:horizontalAlignment="center"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label text="Org Tour" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+    <ActionItem ios.position="right" andriod.postion="actionBar" text="Next"
+                (tap)="next()">
+    </ActionItem>
+</ActionBar>
+
+<GridLayout>
+
+
+    <ScrollView>
+        <WebView [src]="orgTourUrl"></WebView>
+    </ScrollView>
+
+    <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
+    <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
+        <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+    </GridLayout>
+</GridLayout>

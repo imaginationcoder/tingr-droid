@@ -6,17 +6,20 @@ import { ChoosePasswordComponent } from "./pages/authentication/choose-password.
 import { VerifyCodeComponent } from "./pages/authentication/verify-code.component";
 import { FillProfileComponent } from "./pages/my-profile/fill-profile.component";
 import { TourComponent } from "./pages/tour/tour.component";
+import { HomeComponent } from "./pages/home/home.component";
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
 
 export const APP_ROUTES = [
-    { path: "", redirectTo: "/tour", pathMatch: 'full'},
+    { path: "", redirectTo: "/home", pathMatch: 'full'},
     { path: "verify-email", component: VerifyEmailComponent},
     { path: "verify-password", component: VerifyPasswordComponent},
     { path: "forgot-password", component: ForgotPasswordComponent},
     { path: "choose-password", component: ChoosePasswordComponent},
     { path: "verify-code", component: VerifyCodeComponent},
     { path: "fill-profile", component: FillProfileComponent},
-    { path: "tour", component: TourComponent}
+    { path: "tour", component: TourComponent},
+    { path: "org-tour", component: TourComponent},
+    { path: "home", component: HomeComponent, canActivate: [AuthGuard]}
 ];
 
 export const navigatableComponents = [
@@ -27,6 +30,7 @@ export const navigatableComponents = [
     VerifyCodeComponent,
     FillProfileComponent,
     TourComponent,
+    HomeComponent,
     ModalServerError
 ];
 

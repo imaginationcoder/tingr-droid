@@ -8,7 +8,7 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import {AppComponent} from "./app.component";
 import {SIDEDRAWER_DIRECTIVES} from "nativescript-telerik-ui/sidedrawer/angular";
 import { LISTVIEW_DIRECTIVES } from 'nativescript-telerik-ui/listview/angular';
-import {APP_ROUTES, navigatableComponents} from "./app.routes";
+import {APP_ROUTES, authProviders, navigatableComponents} from "./app.routes";
 
 import { ServerErrorService } from "./services/server.error.service"
 
@@ -16,6 +16,11 @@ import {ModalDialogService, ModalDialogOptions} from "nativescript-angular/modal
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
 
 import { DatePipe } from '@angular/common';
+
+import { ParentInfo } from "./providers/data/parent_info";
+import { TokenService } from "./services/token.service";
+import {SharedData} from "./providers/data/shared_data"
+
 
 import { TNSFrescoModule } from "nativescript-fresco/angular";
 import * as frescoModule from "nativescript-fresco";
@@ -62,7 +67,11 @@ if (applicationModule.android) {
         NativeScriptRouterModule.forRoot(APP_ROUTES)
     ],
     providers: [
+        ParentInfo,
+        TokenService,
+        authProviders,
         DatePipe,
+        SharedData,
         ModalDialogService,
         ServerErrorService
     ],

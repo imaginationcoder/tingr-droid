@@ -1,8 +1,4 @@
-import { Injectable } from "@angular/core";
 import { getString, setString , setNumber, getNumber} from "application-settings";
-
-//const tokenKey = "token";
-
 export class TokenService {
 
     static isLoggedIn(): boolean {

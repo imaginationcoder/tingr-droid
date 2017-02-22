@@ -52,8 +52,6 @@ export class TourComponent implements OnInit{
                     clearHistory: true
                 });
         }
-
-
     }
 
 
