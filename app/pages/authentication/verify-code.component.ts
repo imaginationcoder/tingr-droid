@@ -62,7 +62,6 @@ export class VerifyCodeComponent implements OnInit {
                         // check for tour
                         let navigateTo = 'home';
                         let parentDetails =  ParentInfo.parsedDetails;
-                        console.log("Details "+ JSON.stringify(parentDetails));
                         if(parentDetails.onboarding){
                             if(parentDetails.onboarding_tour && parentDetails.onboarding_tour.length){
                                 navigateTo = 'org-tour';
@@ -80,7 +79,16 @@ export class VerifyCodeComponent implements OnInit {
                     },
                     (error) => {
                         this.isLoading = false;
-                        this.serverErrorService.showErrorModal();
+                        let snackbar = new SnackBar();
+                        let options: SnackBarOptions = {
+                            actionText: 'Ok',
+                            actionTextColor: '#3daee3',
+                            snackText: error.message,
+                            hideDelay: 3500
+                        };
+                        snackbar.action(options);
+
+                        //this.serverErrorService.showErrorModal();
                     }
                 );
         }

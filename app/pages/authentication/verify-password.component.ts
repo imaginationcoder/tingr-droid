@@ -81,7 +81,6 @@ export class VerifyPasswordComponent implements OnInit {
                     (result) => {
                         this.isLoading = false;
                         let body = result.body;
-                        console.log("signInUser Response: "+ JSON.stringify(body));
                         TokenService.authToken = body.auth_token;
                         TokenService.userVerified = body.verified;
                         // save parent info in app-settings to invoke rest api's ..

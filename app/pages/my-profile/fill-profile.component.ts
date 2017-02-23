@@ -169,12 +169,10 @@ export class FillProfileComponent implements OnInit {
             .subscribe(
                 (result) => {
                     let body = result.body;
-                    console.log("Pic response "+ JSON.stringify(body));
                     this.uploadedPicId = body.document.kl_id;
                 },
                 (error) => {
                     this.isLoading = false;
-                    console.log("Pic error "+ JSON.stringify(error));
                     this.serverErrorService.showErrorModal();
                 }
             );
@@ -203,7 +201,6 @@ export class FillProfileComponent implements OnInit {
                     (result) => {
                         this.isLoading = false;
                         let body = result.body;
-                        console.log("signInUser Response: "+ JSON.stringify(body));
                         TokenService.authToken = body.auth_token;
                         TokenService.userVerified = body.verified;
                         // save parent info in app-settings to invoke rest api's ..
@@ -229,7 +226,6 @@ export class FillProfileComponent implements OnInit {
                     },
                     (error) => {
                         this.isLoading = false;
-                        console.log("signInUser Error: "+ JSON.stringify(error));
                         alert(error.message);
                         //this.serverErrorService.showErrorModal();
                     }

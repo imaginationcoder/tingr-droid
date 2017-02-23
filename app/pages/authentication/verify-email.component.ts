@@ -107,7 +107,6 @@ export class VerifyEmailComponent implements OnInit {
                     (result) => {
                         this.isLoading = false;
                         let body = result.body;
-                        console.log("evalute User Response: " + JSON.stringify(body));
                         let navigateTo = '';
                         // if signup --choose pass then profile fill
                         // if create_user -- choose pass and singIn the user

@@ -71,7 +71,6 @@ export class HomeComponent implements OnInit {
                 },
                 (error) => {
                     this.isLoading = false;
-                    console.log("Error :"+ JSON.stringify(error))
                     this.serverErrorService.showErrorModal();
                 }
             );
