@@ -8,6 +8,9 @@ import { ParentInfo } from "../../providers/data/parent_info";
 import { TokenService } from "../../services/token.service";
 
 import {ServerErrorService} from "../../services/server.error.service";
+import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
+import { isAndroid } from "platform";
+
 import dialogs = require("ui/dialogs");
 let app = require("application");
 let view = require("ui/core/view");
@@ -66,14 +69,18 @@ export class ChoosePasswordComponent implements OnInit {
             this.confirmPasswordError = true;
             this.passwordError = true;
             hasErrors = true;
-            alert('Password mismatch');
+            if(isAndroid){
+                let snackbar = new SnackBar();
+                snackbar.simple('Password mismatch')
+            }else{
+                alert('Password mismatch')
+            }
             return;
         }
 
         if(hasErrors){
             return;
         }else{
-            console.log("bbbbb "+ this.sharedData.afterEmailNavigateTo);
             if(this.sharedData.afterEmailNavigateTo === 'signup'){
                 // save pass in shareddata to available in next pages
                 this.sharedData.email = this.email;
@@ -116,9 +123,22 @@ export class ChoosePasswordComponent implements OnInit {
                         },
                         (error) => {
                             this.isLoading = false;
-                            console.log("signInUser Error: "+ JSON.stringify(error));
-                            alert(error.message);
-                            //this.serverErrorService.showErrorModal();
+                            if(isAndroid){
+                                let snackbar = new SnackBar();
+                                let options: SnackBarOptions = {
+                                    actionText: 'Ok',
+                                    actionTextColor: '#3daee3',
+                                    snackText: error.message,
+                                    hideDelay: 3500
+                                };
+                                snackbar.action(options);
+                            }else{
+                                dialogs.alert({
+                                    title: "",
+                                    message: error.message,
+                                    okButtonText: "Ok"
+                                }).then(()=> { });
+                            }
                         }
                     );
 

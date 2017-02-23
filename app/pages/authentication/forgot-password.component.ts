@@ -5,6 +5,9 @@ import {Page} from "ui/page";
 import { LoginService } from "../../services/login.service";
 import { SharedData } from "../../providers/data/shared_data";
 import dialogs = require("ui/dialogs");
+import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
+import { isAndroid } from "platform";
+
 var view = require("ui/core/view");
 var app = require("application");
 let tnsfx = require('nativescript-effects');
@@ -77,12 +80,22 @@ export class ForgotPasswordComponent implements OnInit {
                     },
                     (error) => {
                         this.isLoading = false;
-                        dialogs.alert({
-                            title: "",
-                            message: error.message,
-                            okButtonText: "Ok"
-                        }).then(()=> {
-                        });
+                        if(isAndroid){
+                            let snackbar = new SnackBar();
+                            let options: SnackBarOptions = {
+                                actionText: 'Ok',
+                                actionTextColor: '#3daee3',
+                                snackText: error.message,
+                                hideDelay: 3500
+                            };
+                            snackbar.action(options);
+                        }else{
+                            dialogs.alert({
+                                title: "",
+                                message: error.message,
+                                okButtonText: "Ok"
+                            }).then(()=> { });
+                        }
                     }
                 );
         }

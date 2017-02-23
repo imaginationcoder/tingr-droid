@@ -8,6 +8,9 @@ import { ParentService } from "../../services/parent_service";
 import { ParentInfo } from "../../providers/data/parent_info";
 import { SharedData } from "../../providers/data/shared_data";
 import dialogs = require("ui/dialogs");
+import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
+import { isAndroid } from "platform";
+
 var app = require("application");
 var view = require("ui/core/view");
 
@@ -74,8 +77,6 @@ export class VerifyCodeComponent implements OnInit {
                                 clearHistory: true
                             });
 
-
-
                     },
                     (error) => {
                         this.isLoading = false;
@@ -91,11 +92,22 @@ export class VerifyCodeComponent implements OnInit {
             .subscribe(
                 (result) => {
                     this.isLoading = false;
-                    dialogs.alert({
-                        title: "",
-                        message: result.message,
-                        okButtonText: "Ok"
-                    }).then(()=> { });
+                    if(isAndroid){
+                        let snackbar = new SnackBar();
+                        let options: SnackBarOptions = {
+                            actionText: 'Ok',
+                            actionTextColor: '#3daee3',
+                            snackText: result.message,
+                            hideDelay: 3500
+                        };
+                        snackbar.action(options);
+                    }else{
+                        dialogs.alert({
+                            title: "",
+                            message: result.message,
+                            okButtonText: "Ok"
+                        }).then(()=> { });
+                    }
                 },
                 (error) => {
                     this.isLoading = false;

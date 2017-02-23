@@ -9,6 +9,10 @@ import { LoginService } from "../../services/login.service";
 import { TokenService } from "../../services/token.service";
 import { ParentInfo } from "../../providers/data/parent_info";
 import dialogs = require("ui/dialogs");
+
+import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
+import { isAndroid } from "platform";
+
 let app = require("application");
 let view = require("ui/core/view");
 let tnsfx = require('nativescript-effects');
@@ -103,13 +107,22 @@ export class VerifyPasswordComponent implements OnInit {
                     },
                     (error) => {
                         this.isLoading = false;
-                        console.log("signInUser Error: "+ JSON.stringify(error));
-                        dialogs.alert({
-                            title: "",
-                            message: error.message,
-                            okButtonText: "Ok"
-                        }).then(()=> { });
-                        //this.serverErrorService.showErrorModal();
+                        if(isAndroid){
+                            let snackbar = new SnackBar();
+                            let options: SnackBarOptions = {
+                                actionText: 'Ok',
+                                actionTextColor: '#3daee3',
+                                snackText: error.message,
+                                hideDelay: 3500
+                            };
+                            snackbar.action(options);
+                        }else{
+                            dialogs.alert({
+                                title: "",
+                                message: error.message,
+                                okButtonText: "Ok"
+                            }).then(()=> { });
+                        }
                     }
                 );
         }
