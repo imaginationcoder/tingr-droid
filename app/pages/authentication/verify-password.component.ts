@@ -104,7 +104,11 @@ export class VerifyPasswordComponent implements OnInit {
                     (error) => {
                         this.isLoading = false;
                         console.log("signInUser Error: "+ JSON.stringify(error));
-                        alert(error.message);
+                        dialogs.alert({
+                            title: "",
+                            message: error.message,
+                            okButtonText: "Ok"
+                        }).then(()=> { });
                         //this.serverErrorService.showErrorModal();
                     }
                 );

@@ -158,12 +158,9 @@
 
 
 .btn[isEnabled=false] {
-    background-color: #faad41;
+    background-color: #9D9FA2;
 }
 
-.btn[isEnabled=false] {
-    border-color: #faad41;
-}
 
 .btn[isEnabled=false] {
     color: #f8f8f8;
