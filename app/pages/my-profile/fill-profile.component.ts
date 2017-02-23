@@ -193,8 +193,8 @@ export class FillProfileComponent implements OnInit {
         if(hasErrors){
             return;
         }else{
-
-            this.loginService.signUpUser(this.email,this.password,this.firstName,this.lastName, this.uploadedPicId)
+            this.isLoading = true;
+            this.loginService.signUpParent(this.email,this.password,this.firstName,this.lastName, this.uploadedPicId)
                 .subscribe(
                     (result) => {
                         this.isLoading = false;
@@ -210,7 +210,7 @@ export class FillProfileComponent implements OnInit {
                             navigateTo = 'verify-code';
                         }else if(body.onboarding){
                             if(body.onboarding_tour && body.onboarding_tour.length){
-                                navigateTo = 'org_tour';
+                                navigateTo = 'org-tour';
                                 this.sharedData.orgTourUrl =  body.onboarding_tour;
                             }else{
                                 navigateTo = 'tour';

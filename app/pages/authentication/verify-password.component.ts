@@ -88,7 +88,7 @@ export class VerifyPasswordComponent implements OnInit {
                             navigateTo = 'verify-code';
                         }else if(body.onboarding){
                             if(body.onboarding_tour && body.onboarding_tour.length){
-                                navigateTo = 'org_tour';
+                                navigateTo = 'org-tour';
                                 this.sharedData.orgTourUrl =  body.onboarding_tour;
                             }else{
                                 navigateTo = 'tour';

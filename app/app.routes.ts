@@ -6,6 +6,7 @@ import { ChoosePasswordComponent } from "./pages/authentication/choose-password.
 import { VerifyCodeComponent } from "./pages/authentication/verify-code.component";
 import { FillProfileComponent } from "./pages/my-profile/fill-profile.component";
 import { TourComponent } from "./pages/tour/tour.component";
+import { OrgTourComponent } from "./pages/tour/org-tour.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
 
@@ -17,8 +18,8 @@ export const APP_ROUTES = [
     { path: "choose-password", component: ChoosePasswordComponent},
     { path: "verify-code", component: VerifyCodeComponent},
     { path: "fill-profile", component: FillProfileComponent},
-    { path: "tour", component: TourComponent},
-    { path: "org-tour", component: TourComponent},
+    { path: "tour", component: TourComponent, canActivate: [AuthGuard]},
+    { path: "org-tour", component: OrgTourComponent, canActivate: [AuthGuard]},
     { path: "home", component: HomeComponent, canActivate: [AuthGuard]}
 ];
 
@@ -30,6 +31,7 @@ export const navigatableComponents = [
     VerifyCodeComponent,
     FillProfileComponent,
     TourComponent,
+    OrgTourComponent,
     HomeComponent,
     ModalServerError
 ];

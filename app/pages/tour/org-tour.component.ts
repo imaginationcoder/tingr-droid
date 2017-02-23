@@ -28,7 +28,8 @@ export class OrgTourComponent implements OnInit {
                 private sharedData: SharedData,
                 private serverErrorService: ServerErrorService) {
 
-        this.orgTourUrl = this.sharedData.orgTourUrl
+        //this.orgTourUrl = this.sharedData.orgTourUrl
+        this.orgTourUrl = 'http://www.princexml.com/howcome/2016/samples/magic8/index.pdf'
     }
 
     ngOnInit() {

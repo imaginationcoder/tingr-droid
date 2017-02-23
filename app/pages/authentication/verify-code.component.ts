@@ -62,7 +62,7 @@ export class VerifyCodeComponent implements OnInit {
                         console.log("Details "+ JSON.stringify(parentDetails));
                         if(parentDetails.onboarding){
                             if(parentDetails.onboarding_tour && parentDetails.onboarding_tour.length){
-                                navigateTo = 'org_tour';
+                                navigateTo = 'org-tour';
                                 this.sharedData.orgTourUrl =  parentDetails.onboarding_tour;
                             }else{
                                 navigateTo = 'tour';

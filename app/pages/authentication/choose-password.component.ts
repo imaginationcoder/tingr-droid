@@ -4,6 +4,8 @@ import {RouterExtensions} from 'nativescript-angular/router';
 import {Page} from "ui/page";
 import { SharedData } from "../../providers/data/shared_data";
 import { LoginService } from "../../services/login.service";
+import { ParentInfo } from "../../providers/data/parent_info";
+import { TokenService } from "../../services/token.service";
 
 import {ServerErrorService} from "../../services/server.error.service";
 import dialogs = require("ui/dialogs");
@@ -81,6 +83,45 @@ export class ChoosePasswordComponent implements OnInit {
                         name: "slideLeft"
                     },
                 });
+            }else if(this.sharedData.afterEmailNavigateTo === 'create_user'){
+                this.isLoading = true;
+                this.loginService.signUpUser(this.email,this.password)
+                    .subscribe(
+                        (result) => {
+                            this.isLoading = false;
+                            let body = result.body;
+                            console.log("signInUser Response: "+ JSON.stringify(body));
+                            TokenService.authToken = body.auth_token;
+                            TokenService.userVerified = body.verified;
+                            // save parent info in app-settings to invoke rest api's ..
+                            ParentInfo.details = JSON.stringify(body);
+                            // check onboarding => tour or org_tour
+                            let navigateTo = 'home';
+                            if(body.verified === false){
+                                navigateTo = 'verify-code';
+                            }else if(body.onboarding){
+                                if(body.onboarding_tour && body.onboarding_tour.length){
+                                    navigateTo = 'org-tour';
+                                    this.sharedData.orgTourUrl =  body.onboarding_tour;
+                                }else{
+                                    navigateTo = 'tour';
+                                }
+                            }
+                            this.routerExtensions.navigate(["/"+navigateTo],
+                                {
+                                    transition: {name: "slideLeft"},
+                                    clearHistory: true
+                                });
+
+                        },
+                        (error) => {
+                            this.isLoading = false;
+                            console.log("signInUser Error: "+ JSON.stringify(error));
+                            alert(error.message);
+                            //this.serverErrorService.showErrorModal();
+                        }
+                    );
+
             }
         }
     }
