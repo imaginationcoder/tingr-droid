@@ -1,8 +1,18 @@
-<GridLayoout>
+<ActionBar title="">
+    <NavigationButton icon="res://icon"></NavigationButton>
+    <StackLayout orientation="horizontal"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label text="Tingr" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+</ActionBar>
 
+
+<GridLayoout>
     <StackLayout verticalAlignment="center" horizontalAlignment="center">
-        <Label text="Welcome {{ parentProfile.fname }} {{ parentProfile.lname }}" class="h3"></Label>
-        <Label text="dashboard is under construction" class="h5"></Label>
+        <Label text="Welcome {{ parentProfile.fname }} {{ parentProfile.lname }}" class="h4 text-center"></Label>
+        <Label text="dashboard is under construction" class="h5 text-danger text-center"></Label>
         <Button text="Logout" (tap)="logOff()" class="btn btn-secondary btn-rounded-sm btn-submit"></Button>
     </StackLayout>
 

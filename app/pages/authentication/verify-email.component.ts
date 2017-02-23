@@ -8,8 +8,8 @@ import {AuthService} from "../../services/oauth/auth.service";
 import {LoginService} from "../../services/login.service";
 import {SharedData} from "../../providers/data/shared_data";
 import dialogs = require("ui/dialogs");
-import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
-import { isAndroid } from "platform";
+import {SnackBar, SnackBarOptions} from "nativescript-snackbar";
+import {isAndroid} from "platform";
 var app = require("application");
 var view = require("ui/core/view");
 
@@ -24,7 +24,8 @@ var view = require("ui/core/view");
 export class VerifyEmailComponent implements OnInit {
     isLoggingIn = false;
     isLoading: Boolean = false;
-    public email: string = 'qamaisa@gmail.com';
+    public email: string = '';
+    //public email: string = 'qamaisa@gmail.com';
     public emailError: Boolean = false;
 
     constructor(private router: Router,
@@ -68,14 +69,13 @@ export class VerifyEmailComponent implements OnInit {
             hasErrors = true;
             return;
         }
-        //check email valid or not
-        if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)){
+
+        if(this.isValideEmail(this.email)){
             hasErrors = false;
-        }
-        else {
+        }else{
             hasErrors = true;
             let msg = 'not a valid email address';
-            if(isAndroid){
+            if (isAndroid) {
                 let snackbar = new SnackBar();
                 let options: SnackBarOptions = {
                     actionText: 'Ok',
@@ -84,15 +84,17 @@ export class VerifyEmailComponent implements OnInit {
                     hideDelay: 3500
                 };
                 snackbar.action(options);
-            }else{
+            } else {
                 dialogs.alert({
                     title: "",
                     message: msg,
                     okButtonText: "Ok"
-                }).then(()=> { });
+                }).then(()=> {
+                });
             }
-            return
+            return;
         }
+
 
         if (hasErrors) {
             return;
@@ -137,7 +139,10 @@ export class VerifyEmailComponent implements OnInit {
                 );
 
         }
+    }
 
-
+    isValideEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
 }

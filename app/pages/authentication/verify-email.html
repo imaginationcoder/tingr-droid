@@ -3,7 +3,7 @@
         <StackLayout row="0" verticalAlignment="center"  class="login-container">
             <GridLayout rows="auto,auto" class="p-20">
                 <StackLayout row="0">
-                    <TextField  class="input input-text-center" hint="Email Address"
+                    <TextField  class="input input-text-center" hint="Enter your email"
                                 keyboardType="email" [(ngModel)]="email"
                                 autocorrect="false" autocapitalizationType="none" id="email"></TextField>
                     <Label *ngIf="emailError" visibility="{{ email ? 'collapse' : 'visible' }}" text="email can't be blank" class="error-label"></Label>
