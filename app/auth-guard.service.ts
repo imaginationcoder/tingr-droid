@@ -9,6 +9,11 @@ export class AuthGuard implements CanActivate {
 
     canActivate() {
 
+        if(TokenService.isLoggedIn() && !TokenService.isVerified()){
+            this.router.navigate(["/verify-code"]);
+            return false;
+        }
+
         if (TokenService.isLoggedIn()) {
             return true;
         }

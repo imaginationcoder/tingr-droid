@@ -8,7 +8,6 @@ export class SharedData {
     public email: string;
     public afterEmailNavigateTo: string;
     public password: string;
-    public confirmPassword: string;
     public orgTourUrl: string;
     public constructor() { }
 

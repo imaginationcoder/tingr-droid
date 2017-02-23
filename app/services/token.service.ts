@@ -1,8 +1,14 @@
 import { getString, setString , setNumber, getNumber} from "application-settings";
+import {getBoolean} from "application-settings";
+import {setBoolean} from "application-settings";
 export class TokenService {
 
     static isLoggedIn(): boolean {
         return !!getString("authToken");
+    }
+
+    static isVerified(): boolean {
+        return getBoolean("userVerified");
     }
 
     static get accessToken(): string {
@@ -11,6 +17,14 @@ export class TokenService {
 
     static set accessToken(str: string) {
         setString("accessToken", str);
+    }
+
+    static get userVerified(): boolean {
+        return getBoolean("userVerified");
+    }
+
+    static set userVerified(val: boolean) {
+        setBoolean("userVerified", val);
     }
 
 

@@ -79,14 +79,19 @@ export class VerifyPasswordComponent implements OnInit {
                         let body = result.body;
                         console.log("signInUser Response: "+ JSON.stringify(body));
                         TokenService.authToken = body.auth_token;
+                        TokenService.userVerified = body.verified;
                         // save parent info in app-settings to invoke rest api's ..
                         ParentInfo.details = JSON.stringify(body);
                         // check onboarding => tour or org_tour
                         let navigateTo = 'home';
-                        if(body.onboarding){
+                        if(body.verified === false){
+                            navigateTo = 'verify-code';
+                        }else if(body.onboarding){
                             if(body.onboarding_tour && body.onboarding_tour.length){
                                 navigateTo = 'org_tour';
                                 this.sharedData.orgTourUrl =  body.onboarding_tour;
+                            }else{
+                                navigateTo = 'tour';
                             }
                         }
                         this.routerExtensions.navigate(["/"+navigateTo],

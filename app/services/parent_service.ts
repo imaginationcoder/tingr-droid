@@ -8,12 +8,50 @@ import { TokenService } from "./token.service";
 import { ParentInfo } from "../providers/data/parent_info";
 @Injectable()
 export class ParentService {
+    public headers;
     constructor(private http: Http, private parentInfo: ParentInfo) {
+        this.headers =  new Headers();
+        this.headers.append("Content-Type", "application/json");
+    }
+
+
+    verifyCode(code){
+        let data = JSON.stringify({
+            access_token: TokenService.accessToken,
+            auth_token: TokenService.authToken,
+            command: "verify_account",
+            body: {
+                code: code
+            }
+        });
+        return this.http.post(
+            Config.apiUrl + "users", data, {
+                headers: this.headers
+            }
+        )
+            .map(response => response.json())
+            .catch(this.handleErrors);
+    }
+
+
+    resendCode(){
+        let data = JSON.stringify({
+            access_token: TokenService.accessToken,
+            auth_token: TokenService.authToken,
+            command: "resend_code",
+            body: {
+            }
+        });
+        return this.http.post(
+            Config.apiUrl + "users", data, {
+                headers: this.headers
+            }
+        )
+            .map(response => response.json())
+            .catch(this.handleErrors);
     }
 
     logOff() {
-        let headers = new Headers();
-        headers.append("Content-Type", "application/json");
         let data = JSON.stringify({
             access_token: TokenService.accessToken,
             auth_token: TokenService.authToken,
@@ -22,16 +60,37 @@ export class ParentService {
         });
         return this.http.post(
             Config.apiUrl + "users", data, {
-                headers: headers
+                headers: this.headers
             }
         )
             .map(response => response.json())
             .catch(this.handleErrors);
     }
 
+    uploadPicture(imageBase64Data, parent_klid=''){
+        let imageBase64DataWithFormat = "data:image/jpeg;base64," + imageBase64Data;
+        let imageFileName = new Date().getTime() + '.jpeg';
+        let data = JSON.stringify({
+            access_token: TokenService.accessToken,
+            auth_token: TokenService.authToken,
+            command: 'upload_multimedia',
+            body: {
+                profile_id: parent_klid,
+                name: imageFileName,
+                content_type: "image/jpeg",
+                content: imageBase64DataWithFormat
+            }
+        });
+
+        return this.http.post(
+            Config.apiUrl + "document-vault", data, {
+                headers: this.headers
+            }
+        ).map((res: Response) => res.json())
+            .catch(this.handleErrors)
+    }
+
     forgotPassword(email) {
-        let headers = new Headers();
-        headers.append("Content-Type", "application/json");
         let data = JSON.stringify({
             access_token: TokenService.accessToken,
             command: "forgot_password",
@@ -41,7 +100,7 @@ export class ParentService {
         });
         return this.http.post(
             Config.apiUrl + "users", data, {
-                headers: headers
+                headers: this.headers
             }
         )
             .map((res: Response) => res.json())

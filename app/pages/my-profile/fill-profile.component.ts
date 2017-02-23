@@ -3,6 +3,12 @@ import {Router} from "@angular/router";
 import {RouterExtensions} from "nativescript-angular/router";
 import {Page} from "ui/page";
 import {ServerErrorService} from "../../services/server.error.service";
+import { SharedData } from "../../providers/data/shared_data";
+import { LoginService } from "../../services/login.service";
+import { ParentService } from "../../services/parent_service";
+import { ParentInfo } from "../../providers/data/parent_info";
+import { TokenService } from "../../services/token.service";
+
 
 let platformModule = require("platform");
 let permissions = require("nativescript-permissions");
@@ -19,23 +25,33 @@ declare var android: any;
 @Component({
     moduleId: module.id,
     selector: "my-app",
-    providers: [],
+    providers: [ServerErrorService, LoginService, ParentService],
     templateUrl: "./fill-profile.html",
     styleUrls: ["../authentication/authentication.css"]
 })
 
 export class FillProfileComponent implements OnInit {
     isLoading: Boolean = false;
+    public email: string = '';
+    public password: string = '';
     public firstName: string = '';
     public lastName: string = '';
     public firstNameError: Boolean = false;
     public lastNameError: Boolean = false;
     public selectedImages = [];
     public picUploaded: Boolean = false;
+    public uploadedPicId: string = '';
 
     constructor(private router: Router,
                 private routerExtensions: RouterExtensions, private page: Page,
-                private vcRef: ViewContainerRef) {
+                private loginService: LoginService,
+                private parentService: ParentService,
+                private sharedData: SharedData,
+                private vcRef: ViewContainerRef,
+                private serverErrorService: ServerErrorService) {
+        this.email = this.sharedData.email;
+        this.password = this.sharedData.password;
+
 
     }
 
@@ -94,7 +110,7 @@ export class FillProfileComponent implements OnInit {
             let imageBase64Data =  imageAsset.toBase64String(enums.ImageFormat.jpeg);
             this.picUploaded = true;
             teacherProfilePicView.src = imageAsset;
-            this.changePhoto(imageBase64Data);
+            this.uploadPicture(imageBase64Data);
             GC();
         });
     }
@@ -131,7 +147,7 @@ export class FillProfileComponent implements OnInit {
                         let imageBase64Data = imageSource.toBase64String(enums.ImageFormat.jpeg);
                         this.picUploaded = true;
                         teacherProfilePicView.src = imageSource;
-                        this.changePhoto(imageBase64Data);
+                        this.uploadPicture(imageBase64Data);
 
                     }).catch((e) => {
                     //console.log("Error: " + e);
@@ -144,8 +160,20 @@ export class FillProfileComponent implements OnInit {
 
     }
 
-    changePhoto(imageBase64Data){
-        //TODO send the imageBase64 in background
+    uploadPicture(imageBase64Data){
+        this.parentService.uploadPicture(imageBase64Data)
+            .subscribe(
+                (result) => {
+                    let body = result.body;
+                    console.log("Pic response "+ JSON.stringify(body));
+                    this.uploadedPicId = body.document.kl_id;
+                },
+                (error) => {
+                    this.isLoading = false;
+                    console.log("Pic error "+ JSON.stringify(error));
+                    this.serverErrorService.showErrorModal();
+                }
+            );
     }
 
     submitDetails(){
@@ -165,6 +193,43 @@ export class FillProfileComponent implements OnInit {
         if(hasErrors){
             return;
         }else{
+
+            this.loginService.signUpUser(this.email,this.password,this.firstName,this.lastName, this.uploadedPicId)
+                .subscribe(
+                    (result) => {
+                        this.isLoading = false;
+                        let body = result.body;
+                        console.log("signInUser Response: "+ JSON.stringify(body));
+                        TokenService.authToken = body.auth_token;
+                        TokenService.userVerified = body.verified;
+                        // save parent info in app-settings to invoke rest api's ..
+                        ParentInfo.details = JSON.stringify(body);
+                        // check onboarding => tour or org_tour
+                        let navigateTo = 'home';
+                        if(body.verified === false){
+                            navigateTo = 'verify-code';
+                        }else if(body.onboarding){
+                            if(body.onboarding_tour && body.onboarding_tour.length){
+                                navigateTo = 'org_tour';
+                                this.sharedData.orgTourUrl =  body.onboarding_tour;
+                            }else{
+                                navigateTo = 'tour';
+                            }
+                        }
+                        this.routerExtensions.navigate(["/"+navigateTo],
+                            {
+                                transition: {name: "slideLeft"},
+                                clearHistory: true
+                            });
+
+                    },
+                    (error) => {
+                        this.isLoading = false;
+                        console.log("signInUser Error: "+ JSON.stringify(error));
+                        alert(error.message);
+                        //this.serverErrorService.showErrorModal();
+                    }
+                );
 
         }
     }

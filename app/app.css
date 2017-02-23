@@ -132,15 +132,12 @@ ActivityIndicator.busy {
     border-radius: 4;
     /*override default margin 16*/
     margin-right: 0;
-    font-size: 17;
-    font-weight: bolder;
 }
 
 .error-label {
     color: #d9534f;
     font-style: italic;
 }
-
 
 .btn-secondary {
     background-color: #faad41;

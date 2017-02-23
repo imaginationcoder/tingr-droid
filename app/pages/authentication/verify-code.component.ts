@@ -3,13 +3,18 @@ import {Router} from "@angular/router";
 import {RouterExtensions} from "nativescript-angular/router";
 import {Page} from "ui/page";
 import {ServerErrorService} from "../../services/server.error.service";
+import { TokenService } from "../../services/token.service";
+import { ParentService } from "../../services/parent_service";
+import { ParentInfo } from "../../providers/data/parent_info";
+import { SharedData } from "../../providers/data/shared_data";
+import dialogs = require("ui/dialogs");
 var app = require("application");
 var view = require("ui/core/view");
 
 @Component({
     moduleId: module.id,
     selector: "my-app",
-    providers: [],
+    providers: [ServerErrorService, ParentService],
     templateUrl: "./verify-code.html",
     styleUrls: ["./authentication.css"]
 })
@@ -22,7 +27,10 @@ export class VerifyCodeComponent implements OnInit {
 
     constructor(private router: Router,
                 private routerExtensions: RouterExtensions, private page: Page,
-                private vcRef: ViewContainerRef) {
+                private vcRef: ViewContainerRef,
+                private parentService: ParentService,
+                private sharedData: SharedData,
+                private serverErrorService: ServerErrorService) {
 
     }
 
@@ -41,12 +49,59 @@ export class VerifyCodeComponent implements OnInit {
         if (hasErrors) {
             return;
         } else {
+            this.isLoading = true;
+            this.parentService.verifyCode(this.verificationCode)
+                .subscribe(
+                    (result) => {
+                        this.isLoading = false;
+                        // set userVerified in app settings
+                        TokenService.userVerified = true;
+                        // check for tour
+                        let navigateTo = 'home';
+                        let parentDetails =  ParentInfo.parsedDetails;
+                        console.log("Details "+ JSON.stringify(parentDetails));
+                        if(parentDetails.onboarding){
+                            if(parentDetails.onboarding_tour && parentDetails.onboarding_tour.length){
+                                navigateTo = 'org_tour';
+                                this.sharedData.orgTourUrl =  parentDetails.onboarding_tour;
+                            }else{
+                                navigateTo = 'tour';
+                            }
+                        }
+                        this.routerExtensions.navigate(["/"+navigateTo],
+                            {
+                                transition: {name: "slideLeft"},
+                                clearHistory: true
+                            });
 
+
+
+                    },
+                    (error) => {
+                        this.isLoading = false;
+                        this.serverErrorService.showErrorModal();
+                    }
+                );
         }
     }
 
     resend(){
-
+        this.isLoading = true;
+        this.parentService.resendCode()
+            .subscribe(
+                (result) => {
+                    this.isLoading = false;
+                    dialogs.alert({
+                        title: "",
+                        message: result.message,
+                        okButtonText: "Ok"
+                    }).then(()=> { });
+                },
+                (error) => {
+                    this.isLoading = false;
+                    this.serverErrorService.showErrorModal();
+                }
+            );
     }
 
 }

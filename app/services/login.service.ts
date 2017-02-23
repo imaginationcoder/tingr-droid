@@ -48,6 +48,30 @@ export class LoginService {
             .catch(this.handleErrors);
     }
 
+    signUpUser(email,pass,fname,lname,photoId){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        let data = JSON.stringify({
+            access_token: TokenService.accessToken,
+            command: "signup_parent",
+            body: {
+                 email : email,
+                 password : pass,
+                 password_confirmation : pass,
+                 fname : fname,
+                 lname : lname,
+                 photo_id : photoId
+            }
+        });
+        return this.http.post(
+            Config.apiUrl + "users", data, {
+                headers: headers
+            }
+        )
+            .map(response => response.json())
+            .catch(this.handleErrors);
+    }
+
     forgotPassword(email) {
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
