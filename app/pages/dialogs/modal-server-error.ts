@@ -11,7 +11,7 @@ let app = require("application");
           <Image src="~/images/server-error.jpg" stretch="aspectFit"></Image>     
          </StackLayout> 
          <Button width="100" text="Ok"
-                    class="btn btn-primary blue2-background btn-rounded-sm" (tap)="close('close')"></Button>   
+                    class="btn btn-primary btn-rounded-sm" (tap)="close('close')"></Button>   
        </StackLayout>
     `
 })

@@ -5,15 +5,18 @@ import {Page} from "ui/page";
 import {ServerErrorService} from "../../services/server.error.service";
 import {TokenService} from "../../services/token.service";
 import {AuthService} from "../../services/oauth/auth.service";
-import { LoginService } from "../../services/login.service";
-import { SharedData } from "../../providers/data/shared_data";
+import {LoginService} from "../../services/login.service";
+import {SharedData} from "../../providers/data/shared_data";
+import dialogs = require("ui/dialogs");
+import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
+import { isAndroid } from "platform";
 var app = require("application");
 var view = require("ui/core/view");
 
 @Component({
     moduleId: module.id,
     selector: "my-app",
-    providers: [AuthService,ServerErrorService, LoginService],
+    providers: [AuthService, ServerErrorService, LoginService],
     templateUrl: "./verify-email.html",
     styleUrls: ["./authentication.css"]
 })
@@ -63,7 +66,34 @@ export class VerifyEmailComponent implements OnInit {
         if (this.email === '') {
             this.emailError = true;
             hasErrors = true;
+            return;
         }
+        //check email valid or not
+        if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)){
+            hasErrors = false;
+        }
+        else {
+            hasErrors = true;
+            let msg = 'not a valid email address';
+            if(isAndroid){
+                let snackbar = new SnackBar();
+                let options: SnackBarOptions = {
+                    actionText: 'Ok',
+                    actionTextColor: '#3daee3',
+                    snackText: msg,
+                    hideDelay: 3500
+                };
+                snackbar.action(options);
+            }else{
+                dialogs.alert({
+                    title: "",
+                    message: msg,
+                    okButtonText: "Ok"
+                }).then(()=> { });
+            }
+            return
+        }
+
         if (hasErrors) {
             return;
         } else {
@@ -75,7 +105,7 @@ export class VerifyEmailComponent implements OnInit {
                     (result) => {
                         this.isLoading = false;
                         let body = result.body;
-                        console.log("evalute User Response: "+ JSON.stringify(body));
+                        console.log("evalute User Response: " + JSON.stringify(body));
                         let navigateTo = '';
                         // if signup --choose pass then profile fill
                         // if create_user -- choose pass and singIn the user
@@ -102,7 +132,7 @@ export class VerifyEmailComponent implements OnInit {
                     },
                     (error) => {
                         this.isLoading = false;
-                       // this.serverErrorService.showErrorModal();
+                        // this.serverErrorService.showErrorModal();
                     }
                 );
 

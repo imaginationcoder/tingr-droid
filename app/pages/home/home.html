@@ -1,4 +1,13 @@
-<StackLayout verticalAlignment="center" horizontalAlignment="center">
-    <Label text="Hello World" class="h3"></Label>
-    <Label text="Logout" class="h4 text-primary" (tap)="logOff()"></Label>
-</StackLayout>
+<GridLayoout>
+
+    <StackLayout verticalAlignment="center" horizontalAlignment="center">
+        <Label text="Welcome {{ parentProfile.fname }} {{ parentProfile.lname }}" class="h3"></Label>
+        <Label text="dashboard is under construction" class="h5"></Label>
+        <Button text="Logout" (tap)="logOff()" class="btn btn-secondary btn-rounded-sm btn-submit"></Button>
+    </StackLayout>
+
+    <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
+    <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
+        <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+    </GridLayout>
+</GridLayoout>

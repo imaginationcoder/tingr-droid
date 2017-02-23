@@ -24,6 +24,7 @@ let nstoasts = require("nativescript-toasts");
 })
 export class HomeComponent implements OnInit {
     isLoading: Boolean = false;
+    public parentProfile: any;
 
 
     constructor(private router: Router, private route: ActivatedRoute,
@@ -32,6 +33,8 @@ export class HomeComponent implements OnInit {
                 private parentService: ParentService,
                 private vcRef: ViewContainerRef,
                 private serverErrorService: ServerErrorService) {
+
+        this.parentProfile = ParentInfo.parsedDetails.profile;
     }
 
     ngOnInit() {
