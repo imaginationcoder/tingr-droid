@@ -56,6 +56,8 @@ export class ChoosePasswordComponent implements OnInit {
         passsTextfield.dismissSoftInput();
         confirmPassTextfield.dismissSoftInput();
         let hasErrors = false;
+        let snackbar = new SnackBar();
+        let errorText = '';
         if(this.password === ''){
             this.passwordError = true;
             hasErrors = true;
@@ -65,16 +67,18 @@ export class ChoosePasswordComponent implements OnInit {
             hasErrors = true;
         }
 
+        if(this.password.length < 6){
+            this.passwordError = true;
+            hasErrors = true;
+            snackbar.simple('Password must be at least 6 characters.');
+            return;
+        }
+
         if(this.password !== this.confirmPassword){
             this.confirmPasswordError = true;
             this.passwordError = true;
             hasErrors = true;
-            if(isAndroid){
-                let snackbar = new SnackBar();
-                snackbar.simple('Password mismatch')
-            }else{
-                alert('Password mismatch')
-            }
+            snackbar.simple('Password mismatch');
             return;
         }
 
@@ -124,7 +128,6 @@ export class ChoosePasswordComponent implements OnInit {
                         (error) => {
                             this.isLoading = false;
                             if(isAndroid){
-                                let snackbar = new SnackBar();
                                 let options: SnackBarOptions = {
                                     actionText: 'Ok',
                                     actionTextColor: '#3daee3',
