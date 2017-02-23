@@ -141,7 +141,7 @@
 }
 
 .btn-outline {
-    border-color: #faad41;
+    border-color: #3daee3;
 }
 
 .btn-outline {
@@ -153,17 +153,7 @@
 }
 
 .btn-outline {
-    color: #faad41;
-}
-
-
-.btn[isEnabled=false] {
-    background-color: #9D9FA2;
-}
-
-
-.btn[isEnabled=false] {
-    color: #f8f8f8;
+    color: #3daee3;
 }
 
 .btn-rounded-sm {
