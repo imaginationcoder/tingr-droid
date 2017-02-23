@@ -10,7 +10,7 @@
                 </StackLayout>
 
                 <StackLayout row="1">
-                    <TextField class="input input-border input-border-primary input-field" hint="Verification code"
+                    <TextField class="input input-text-center" hint="Verification code"
                                [(ngModel)]="verificationCode"
                                autocorrect="false" autocapitalizationType="none" id="verification-code"></TextField>
                     <Label *ngIf="verificationCodeError" visibility="{{ verificationCode ? 'collapse' : 'visible' }}" text="code can't be blank" class="error-label"></Label>

@@ -2,6 +2,7 @@ import {Component, ViewContainerRef, OnInit} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {RouterExtensions} from 'nativescript-angular/router';
 import {Page} from "ui/page";
+import * as appSettings from "application-settings"
 
 import {ServerErrorService} from "../../services/server.error.service";
 import { ParentService } from "../../services/parent_service";
@@ -67,6 +68,7 @@ export class HomeComponent implements OnInit {
                 },
                 (error) => {
                     this.isLoading = false;
+                    console.log("Error :"+ JSON.stringify(error))
                     this.serverErrorService.showErrorModal();
                 }
             );

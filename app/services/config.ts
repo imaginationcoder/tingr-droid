@@ -1,6 +1,6 @@
 export class Config {
   static apiUrl = "https://tingr.org/api/";
   static token = "";
-  static clientId = "5a0ebafb2f327e4ece3cb0dcec7300ed21f0b3dec1fc6f3a4c778ee75d1ada37";
-  static clientSecret = "fb427d58ea8677daff6f36af08cc34fd47f9015b67dbf08daeee582e86496acf";
+  static clientId = "ee489fd3b1e913a9242dc46095f85b8a225636ddc3607e57f9e847990e423f43";
+  static clientSecret = "cff39e5497d166fdf6b0452a28da0afbf8d8d5de0d8fbc0e30fcefae8071fbcd";
 }

@@ -38,17 +38,17 @@ export class VerifyEmailComponent implements OnInit {
         this.page.actionBarHidden = true;
         // get AccessToken
         if (!!TokenService.accessToken === false) {
-            this.isLoading = true;
+            //this.isLoading = true;
             this.authService.getAccessToken()
                 .subscribe(
                     (result) => {
                         // save accessToken in appSettings and authData
                         TokenService.accessToken = result.access_token;
                         TokenService.accessTokenExpiry = result.expires_in;
-                        this.isLoading = false;
+                        //this.isLoading = false;
                     },
                     (error) => {
-                        this.isLoading = false;
+                        //this.isLoading = false;
                         this.serverErrorService.showErrorModal();
                     }
                 );

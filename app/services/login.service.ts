@@ -48,6 +48,25 @@ export class LoginService {
             .catch(this.handleErrors);
     }
 
+    forgotPassword(email) {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        let data = JSON.stringify({
+            access_token: TokenService.accessToken,
+            command: "forgot_password",
+            body: {
+                email: email
+            }
+        });
+        return this.http.post(
+            Config.apiUrl + "users", data, {
+                headers: headers
+            }
+        )
+            .map((res:Response) => res.json())
+            .catch(this.handleErrors);
+    }
+
 
     handleErrors(error: Response) {
         return Observable.throw(error.json() || {error: 'Server error'})
