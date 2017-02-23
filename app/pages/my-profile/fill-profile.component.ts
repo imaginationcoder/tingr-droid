@@ -59,6 +59,10 @@ export class FillProfileComponent implements OnInit {
         this.page.actionBarHidden = true;
     }
 
+    goBack() {
+        this.routerExtensions.backToPreviousPage();
+    }
+
     selectPictureOption(){
         dialogs.action({
             //message: "",
