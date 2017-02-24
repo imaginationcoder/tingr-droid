@@ -15,12 +15,16 @@ import { ServerErrorService } from "./services/server.error.service"
 import {ModalDialogService, ModalDialogOptions} from "nativescript-angular/modal-dialog";
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
 
-import { DatePipe } from '@angular/common';
+
 
 import { ParentInfo } from "./providers/data/parent_info";
 import { TokenService } from "./services/token.service";
 import {SharedData} from "./providers/data/shared_data"
 
+import { DatePipe } from '@angular/common';
+import { KeysPipe } from './utils/keys.pipe';
+import { TimeAgoPipe } from './utils/timeago.pipe';
+import { ShortNamePipe } from './utils/short-name.pipe';
 
 import { TNSFrescoModule } from "nativescript-fresco/angular";
 import * as frescoModule from "nativescript-fresco";
@@ -38,6 +42,7 @@ registerElement("PullToRefresh", () => {
 
 registerElement("Carousel", () => require("nativescript-carousel").Carousel);
 registerElement("CarouselItem", () => require("nativescript-carousel").CarouselItem);
+registerElement("Fab", () => require("nativescript-floatingactionbutton").Fab);
 //registerElement("FrescoDrawee", () => frescoModule.FrescoDrawee);
 
 if (applicationModule.android) {
@@ -53,6 +58,9 @@ if (applicationModule.android) {
         SIDEDRAWER_DIRECTIVES,
         LISTVIEW_DIRECTIVES,
         AppComponent,
+        KeysPipe,
+        TimeAgoPipe,
+        ShortNamePipe,
         ...navigatableComponents
     ],
     bootstrap: [

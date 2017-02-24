@@ -1,0 +1,69 @@
+<GridLayout class="drawer-header">
+    <Stacklayout class="parent-info">
+        <GridLayout cols="*, auto" class="m-x-10 m-t-20 m-b-10">
+            <StackLayout col="0" orientation="vertical" horizontalAlignment="left" class="m-l-10">
+                <StackLayout>
+                    <StackLayout horizontalAlignment="left">
+                        <FrescoDrawee *ngIf="parentInfo.photograph" height="60" width="60"
+                                      class="parent-profile-pic"
+                                      imageUri="{{ parentInfo.photograph }}"
+                                      verticalAlignment="top"
+                                      roundAsCircle="true"
+                                      fadeDuration="600"></FrescoDrawee>
+                    </StackLayout>
+                    <StackLayout *ngIf="!parentInfo.photograph"
+                                 class="blue-circle-border large-avatar-with-name text-center"  horizontalAlignment="left" verticalAlignment="center">
+                        <Label [text]="parentInfo | shortName | uppercase"></Label>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout class="m-t-10">
+                    <Label text="{{ parentFullname }}" class="parent-name"></Label>
+                </StackLayout>
+                <StackLayout>
+                    <Label text="{{ parentEmail }}" class="parent-email"></Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout col="1" horizontalAlignment="right" [nsRouterLink]="['/parent-profile']"
+                         pageTransition="slideLeft">
+                <Label text="edit" class="edit-profile"></Label>
+            </StackLayout>
+        </GridLayout>
+    </Stacklayout>
+</GridLayout>
+
+<StackLayout class="drawer-separator">
+</StackLayout>
+
+<StackLayout class="drawer-links m-t-10" orientation="vertical">
+
+    <StackLayout class="drawer-link"
+                 [nsRouterLinkActive]="['active-drawer-link']"
+                 orientation="horizontal"
+                 [nsRouterLink]="['/home']"
+                 pageTransition="slideLeft">
+        <Label class="material-icons md-24 md-home" text="&#xE88A;"></Label>
+        <Label class="text" text="Home"></Label>
+    </StackLayout>
+
+    <StackLayout class="drawer-link"
+                 [nsRouterLinkActive]="['active-drawer-link']"
+                 orientation="horizontal">
+        <Label class="material-icons md-24 md-message" text="&#xE0C9;"></Label>
+        <Label class="text" text="Messages (20)"></Label>
+    </StackLayout>
+    <StackLayout class="drawer-link"
+                 orientation="horizontal"
+                 [nsRouterLinkActive]="['active-drawer-link']">
+        <Label class="material-icons md-24 md-group" text="&#xE7EF;"></Label>
+        <Label class="text" text="My Family"></Label>
+    </StackLayout>
+
+
+    <StackLayout class="drawer-link"
+                 orientation="horizontal"
+                 [nsRouterLinkActive]="['active-drawer-link']">
+        <Label class="material-icons md-24 md-settings" text="&#xE8B8;"></Label>
+        <Label class="text" text="Settings"></Label>
+    </StackLayout>
+
+</StackLayout>

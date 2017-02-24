@@ -1,4 +1,5 @@
 import { AuthGuard } from "./auth-guard.service";
+import {DrawerComponent} from "./components/drawer/drawer.component";
 import { VerifyEmailComponent } from "./pages/authentication/verify-email.component";
 import { VerifyPasswordComponent } from "./pages/authentication/verify-password.component";
 import { ForgotPasswordComponent } from "./pages/authentication/forgot-password.component";
@@ -24,6 +25,7 @@ export const APP_ROUTES = [
 ];
 
 export const navigatableComponents = [
+    DrawerComponent,
     VerifyEmailComponent,
     VerifyPasswordComponent,
     ForgotPasswordComponent,
