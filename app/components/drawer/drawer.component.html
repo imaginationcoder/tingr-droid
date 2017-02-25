@@ -47,10 +47,13 @@
 
     <StackLayout class="drawer-link"
                  [nsRouterLinkActive]="['active-drawer-link']"
-                 orientation="horizontal">
+                 orientation="horizontal"
+                 [nsRouterLink]="['/conversations']"
+                 pageTransition="slideLeft">
         <Label class="material-icons md-24 md-message" text="&#xE0C9;"></Label>
-        <Label class="text" text="Messages (20)"></Label>
+        <Label class="text" text="Messages"></Label>
     </StackLayout>
+
     <StackLayout class="drawer-link"
                  orientation="horizontal"
                  [nsRouterLinkActive]="['active-drawer-link']">
@@ -60,8 +63,10 @@
 
 
     <StackLayout class="drawer-link"
+                 [nsRouterLinkActive]="['active-drawer-link']"
                  orientation="horizontal"
-                 [nsRouterLinkActive]="['active-drawer-link']">
+                 [nsRouterLink]="['/settings']"
+                 pageTransition="slideLeft">
         <Label class="material-icons md-24 md-settings" text="&#xE8B8;"></Label>
         <Label class="text" text="Settings"></Label>
     </StackLayout>

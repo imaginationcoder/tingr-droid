@@ -1,0 +1,94 @@
+<ActionBar title="">
+    <!-- left area  -->
+
+    <NavigationButton android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label text="" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+</ActionBar>
+<Gridlayout class="messages-container">
+    <StackLayout *ngIf="isMessagesEmpty(msgs)" visibility="{{ isLoading ? 'collapsed' : 'visible'}}"
+                 verticalAlignment="center">
+        <StackLayout orientation="vertical" horizontalAlignment="center" class="empty-page">
+            <Label class="message text-center" text="get conversation started with parent(s)" textWrap="true"></Label>
+        </StackLayout>
+    </StackLayout>
+    <GridLayout rows="*, auto">
+        <GridLayout row="0">
+            <PullToRefresh (refresh)="refreshList($event)" #pullToRefresh>
+                <ScrollView #messagesScroll>
+                    <Stacklayout class="m-t-10" *ngIf="!this.isMessagesEmpty(msgs)">
+                        <StackLayout *ngFor="let groupedMessages of msgs | keys">
+                            <StackLayout orinatation="vertical">
+                                <Label text="{{ groupedMessages.key | date: 'MM/dd/yyyy' }}"
+                                       class="text-center text-muted m-b-5 message-date"></Label>
+                                <StackLayout class="hr-shadow"></StackLayout>
+                            </StackLayout>
+                            <StackLayout class="messages">
+                                <StackLayout *ngFor="let message of groupedMessages.value" class="message-item">
+                                    <GridLayout rows="*" columns="auto,*">
+                                        <StackLayout row="0" col="0" class="profile-pic-container">
+                                            <FrescoDrawee *ngIf="message.photograph" height="60" width="60"
+                                                          class="profile-pic"
+                                                          imageUri="{{ message.photograph }}"
+                                                          verticalAlignment="top"
+                                                          roundAsCircle="true"
+                                                          fadeDuration="600"></FrescoDrawee>
+                                            <StackLayout *ngIf="!message.photograph"
+                                                         class="blue-circle-border medium-avatar-with-name text-center"
+                                                         verticalAlignment="center">
+                                                <Label [text]="message | shortName | uppercase"></Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout row="0" col="1" verticalAlignment="center" orientation="vertical">
+                                            <GridLayout columns="*,*,auto">
+                                                <Label col="0" [text]="message.sender_name"
+                                                       class="profile-name"></Label>
+                                                <StackLayout col="1">
+                                                    <Label *ngIf="message.child_name"
+                                                           text="{{ message.child_name }}'s {{message.child_relationship }}"
+                                                           class="profile-relationship text-muted"></Label>
+                                                </StackLayout>
+                                                <Label col="2" class="text-muted m-l-5 text-right"
+                                                       style="font-size: 13;"
+                                                       [text]="message.created_at | date: 'HH:mm' "></Label>
+
+                                            </GridLayout>
+                                            <Label class="message-text" [text]="message.text" textWrap="true"></Label>
+                                        </StackLayout>
+
+
+                                    </GridLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </Stacklayout>
+                </ScrollView>
+            </PullToRefresh>
+        </GridLayout>
+        <StackLayout #messageBox row="1">
+            <StackLayout>
+                <GridLayout columns="*, auto" class="message-form" verticalAlignment="center">
+                    <TextView class="input-without-border-bottom" id="newMessageText"
+                              col="0"
+                              hint="type your message here..." borderColor="white"></TextView>
+                    <Button (tap)="sendMessage()" col="1"
+                            text="Send"
+                            class="btn btn-secondary" margin="2"></Button>
+                </GridLayout>
+            </StackLayout>
+        </StackLayout>
+    </GridLayout>
+
+    <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
+    <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
+        <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+    </GridLayout>
+
+</Gridlayout>

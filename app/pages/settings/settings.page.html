@@ -1,0 +1,46 @@
+<ActionBar title="">
+    <!-- left area  -->
+
+    <NavigationButton android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label text="Settings" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+</ActionBar>
+
+
+
+<GridLayout rows="*,auto">
+    <StackLayout style="background-color: #f6f6f6" class="p-t-20">
+        <CardView margin="0 5 0 5" radius="5" elevation="5" shadowOffsetWidth="1" shadowOffsetHeight="1" class="whiteCard">
+            <Stacklayout  padding="0 15 0 15">
+                <Gridlayout rows="auto" columns="auto,*,auto" verticalAlignment="center" class="settings-item"
+                            orientation="horizontal" (tap)="getTour()">
+                    <Label row="0" col="0" text=""></Label>
+                    <Label row="0" col="1" verticalAlignment="center" text="Tingr Tour"
+                           class="text-left font-weight-bold"></Label>
+                    <Label row="0" col="2" verticalAlignment="center" horizontalAlignment="right"
+                           class="material-icons md-24 md-chevron-right text-right" text="&#xE5CC;"></Label>
+                </Gridlayout>
+
+                <StackLayout class="hr-light"></StackLayout>
+
+                <Gridlayout rows="auto" columns="auto,*,auto" verticalAlignment="center" class="settings-item"
+                            orientation="horizontal"  (tap)="logOut()">
+                    <Label row="0" col="0" text=""></Label>
+                    <Label row="0" col="1" verticalAlignment="center" text="Logout"
+                           class="text-left font-weight-bold"></Label>
+                    <Label row="0" col="2" verticalAlignment="center" horizontalAlignment="right"
+                           class="material-icons md-24 md-chevron-right text-right" text="&#xE5CC;"></Label>
+                </Gridlayout>
+            </Stacklayout>
+        </CardView>
+    </StackLayout>
+
+</GridLayout>
+

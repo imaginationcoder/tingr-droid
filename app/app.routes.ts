@@ -9,7 +9,12 @@ import { FillProfileComponent } from "./pages/my-profile/fill-profile.component"
 import { TourComponent } from "./pages/tour/tour.component";
 import { OrgTourComponent } from "./pages/tour/org-tour.component";
 import { HomeComponent } from "./pages/home/home.component";
+import { LikesComponent } from "./pages/posts/likes.component";
+import { SettingsComponent } from "./pages/settings/settings.page";
+import { ConversationsComponent } from "./pages/conversations/conversations.component";
+import { MessagesComponent } from "./pages/conversations/messages.component";
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
+import { ModalPostComment } from "./pages/dialogs/modal-post-comment";
 
 export const APP_ROUTES = [
     { path: "", redirectTo: "/home", pathMatch: 'full'},
@@ -21,7 +26,11 @@ export const APP_ROUTES = [
     { path: "fill-profile", component: FillProfileComponent},
     { path: "tour", component: TourComponent, canActivate: [AuthGuard]},
     { path: "org-tour", component: OrgTourComponent, canActivate: [AuthGuard]},
-    { path: "home", component: HomeComponent, canActivate: [AuthGuard]}
+    { path: "home", component: HomeComponent, canActivate: [AuthGuard]},
+    { path: "settings", component: SettingsComponent, canActivate: [AuthGuard]},
+    { path: "post-likes", component: LikesComponent, canActivate: [AuthGuard]},
+    { path: "conversations", component: ConversationsComponent, canActivate: [AuthGuard]},
+    { path: "messages", component: MessagesComponent, canActivate: [AuthGuard]}
 ];
 
 export const navigatableComponents = [
@@ -35,7 +44,12 @@ export const navigatableComponents = [
     TourComponent,
     OrgTourComponent,
     HomeComponent,
-    ModalServerError
+    LikesComponent,
+    SettingsComponent,
+    ConversationsComponent,
+    MessagesComponent,
+    ModalServerError,
+    ModalPostComment
 ];
 
 export const authProviders = [

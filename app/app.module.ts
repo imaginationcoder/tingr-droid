@@ -14,6 +14,7 @@ import { ServerErrorService } from "./services/server.error.service"
 
 import {ModalDialogService, ModalDialogOptions} from "nativescript-angular/modal-dialog";
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
+import { ModalPostComment } from "./pages/dialogs/modal-post-comment";
 
 
 
@@ -43,6 +44,7 @@ registerElement("PullToRefresh", () => {
 registerElement("Carousel", () => require("nativescript-carousel").Carousel);
 registerElement("CarouselItem", () => require("nativescript-carousel").CarouselItem);
 registerElement("Fab", () => require("nativescript-floatingactionbutton").Fab);
+registerElement("DropDown", () => require("nativescript-drop-down/drop-down").DropDown);
 //registerElement("FrescoDrawee", () => frescoModule.FrescoDrawee);
 
 if (applicationModule.android) {
@@ -87,7 +89,8 @@ if (applicationModule.android) {
         NO_ERRORS_SCHEMA
     ],
     entryComponents: [
-        ModalServerError
+        ModalServerError,
+        ModalPostComment
     ]
 })
 export class AppModule {

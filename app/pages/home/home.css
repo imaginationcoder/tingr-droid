@@ -2,3 +2,107 @@
     font-size: 16;
     font-weight: 600;
 }
+
+/* Moment Container with Cover Image and Org Logo */
+.moment-image-container .cover-image{
+    /* height: 300;*/
+    min-height: 250;
+    height: 250;
+}
+
+.moment-image-container .org-container {
+    margin: 10;
+}
+
+/*Moment Tags section */
+
+GridLayout.moment-tags{
+    margin: 2 10 10 5;
+}
+
+.rounded-corner-icon.tagged-profile-pic{
+    padding: 6;
+}
+
+.tagged-on-date{
+    font-size: 13;
+    font-weight: bold;
+    color: #abacc2;
+}
+
+/* Moment comments */
+.rounded-corner-icon.commenter-profile-pic{
+    padding: 15;
+}
+
+StackLayout.moment-comment-item{
+    margin: 5 10 5 5;
+}
+
+
+.moment-comment-item .kid-name{
+    font-size: 13;
+}
+.moment-comment-item .relation-name{
+    font-size: 11;
+    margin-left: 5;
+    margin-top: 1;
+}
+
+.moment-comment-item .comment-details{
+    margin: 10 5 5 5;
+}
+
+GridLayout.moment-bottom-section{
+    margin: 5 10 5 5;
+}
+
+/* common for all*/
+.horizontal-separator  {
+    height: 1px;
+    background-color: #dddddd;
+    /*margin:0 20px 0 20px;*/
+}
+
+.comment-hr-separator{
+    height: 1px;
+    background-color: #dddddd;
+    margin: 0 10px 0 10;
+}
+
+
+
+Image.parent-profile-pic{
+    border-radius: 30;
+}
+
+
+.comment-label{
+    font-size: 18;
+    color: #999999;
+}
+
+.load-more-posts{
+    background-color: transparent;
+    color: #46c8f0;
+    margin: 10;
+}
+
+.text-only-moment{
+    min-height: 180;
+    color: #EEEDED;
+}
+.text-only-moment .header{
+    background-color: rgba(20,20,20,0.2);
+}
+.text-only-moment .content{
+    vertical-align: middle;
+}
+.text-only-moment .author{
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 5;
+}
+
+.last-item{
+    padding-bottom: 20;
+}

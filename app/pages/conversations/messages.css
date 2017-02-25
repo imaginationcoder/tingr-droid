@@ -1,0 +1,47 @@
+
+.conversation {
+  margin-top: 10;
+}
+
+.conversation .date {
+    color: #cccccc;
+    font-size: 14;
+    font-weight: 700;
+}
+
+.messages .message-item {
+    margin: 8 20 8 10;
+}
+
+.messages .message-item .profile-pic {
+    border-radius: 30;
+}
+
+.messages .message-item .profile-pic-container {
+    margin-right: 10;
+}
+.message-date {
+    font-style: italic;
+}
+
+
+
+
+.message-form{
+    border-width: 1;
+    border-color: #cccccc;
+   /* border-radius: 2;*/
+    background-color: white;
+}
+
+.message-form .send-button{
+    font-weight: bold;
+    color: white;
+}
+
+.message-form .send-button .disabled{
+    background-color: grey;
+}
+
+
+

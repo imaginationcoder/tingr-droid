@@ -20,5 +20,18 @@ export class ParentInfo {
         return JSON.parse(getString("parentDetails"));
     }
 
+    static get profile(): any {
+       return this.parsedDetails.profile;
+    }
+
+
+    static get organizations(): any {
+       return this.profile.organizations;
+    }
+
+    static get managedKids(): any {
+       return this.profile.profiles_manageds;
+    }
+
 
 }

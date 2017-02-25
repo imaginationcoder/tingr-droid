@@ -1,10 +1,10 @@
 .drawer-content {
-    background-color: #ffffff;
+    background-color: #fff;
 }
 
 .drawer-content .drawer-header {
     height: 160;
-    background-image: url("~/images/teacher-header-bg.jpg");
+    background-image: url("~/images/parent-header-bg.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -19,7 +19,7 @@
     border-radius: 30;
 }
 .drawer-content .drawer-header .parent-name{
-    font-size: 16;
+    font-size: 17;
     font-weight: 700;
 }
 .drawer-content .drawer-header .parent-email{
@@ -27,8 +27,8 @@
 }
 
 .drawer-content .drawer-header .edit-profile{
-    font-size: 16;
-    font-weight: 700;
+    font-size: 15;
+    font-weight: 600;
     text-decoration: underline;
 }
 

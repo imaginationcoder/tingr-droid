@@ -1,0 +1,73 @@
+<ActionBar title="">
+    <!-- left area  -->
+
+    <NavigationButton android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label text="Messages" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+</ActionBar>
+
+
+<GridLayout class="conversations-container">
+
+    <StackLayout *ngIf="!conversations.length" visibility="{{ isLoading ? 'collapsed' : 'visible'}}"
+                 verticalAlignment="center">
+        <StackLayout orientation="vertical" horizontalAlignment="center" class="empty-page">
+            <Label class="message text-center" text="Get Conversation started" textWrap="true"></Label>
+        </StackLayout>
+    </StackLayout>
+    <PullToRefresh (refresh)="refreshList($event)" #pullToRefresh>
+        <ListView [items]="conversations" (itemTap)="onItemTap($event)" class="list-group">
+            <template let-item="item" let-index="index">
+                <StackLayout>
+                    <GridLayout rows="auto" class="p-10">
+                        <GridLayout row="0" rows="*" columns="auto,*,auto">
+                            <StackLayout row="0" col="0">
+                                <FrescoDrawee *ngIf="item.org_logo" height="75" width="75"
+                                              imageUri="{{ item.org_logo }}"
+                                              verticalAlignment="top"
+                                              roundAsCircle="true"
+                                              fadeDuration="600"></FrescoDrawee>
+
+                                <StackLayout *ngIf="!item.org_logo"
+                                             class="blue-circle-border large-avatar-with-name text-center"
+                                             verticalAlignment="center">
+                                    <Label [text]=" item.org_name.split(' ')[0] | uppercase"></Label>
+                                </StackLayout>
+                            </StackLayout>
+
+                            <StackLayout row="0" col="1" verticalAlignment="center" class="p-l-20">
+                                <StackLayout>
+                                    <GridLayout columns="*,*">
+                                        <Label col="0" [text]="item.org_name"></Label>
+                                        <Label col="1" [text]="item.kid_name" class="m-l-5 kid-name"></Label>
+                                    </GridLayout>
+                                    <Label [text]="item.recent_message" class="text-muted" textWrap="true"></Label>
+                                </StackLayout>
+                            </StackLayout>
+
+                            <StackLayout row="0" col="2" class="m-t-5" verticalAlignment="center"
+                                         orientation="vertical" horizontalAlignment="right">
+                                <Label class="material-icons md-24 md-chevron-right" text="&#xE5CC;"></Label>
+                            </StackLayout>
+                        </GridLayout>
+
+                    </GridLayout>
+
+                </StackLayout>
+            </template>
+        </ListView>
+    </PullToRefresh>
+
+    <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
+    <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
+        <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+    </GridLayout>
+
+</GridLayout>

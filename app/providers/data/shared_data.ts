@@ -9,6 +9,14 @@ export class SharedData {
     public afterEmailNavigateTo: string;
     public password: string;
     public orgTourUrl: string;
+    // to carry posKlId to next screen like hearters ,commenting on post etc..
+    public postKlId: string;
+    // to edit current post
+    public currentPost: any;
+
+    public organizationId: string;
+    public conversationId: string;
+
     public constructor() { }
 
 }

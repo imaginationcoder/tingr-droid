@@ -49,7 +49,7 @@ refer to http://docs.nativescript.org/ui/theme.
 
 Page {
     font-size: 15;
-    font-family: Roboto-Regular;
+    font-family: Roboto-Light;
     color: #656469;
 }
 
@@ -58,8 +58,12 @@ TextField {
     font-size: 15;
 }
 
-
-
+/*Action bar releated */
+.action-label {
+    color: #46c8f0;
+    font-size: 18;
+    font-weight: 700;
+}
 
 @keyframes glow {
     0% {
@@ -80,45 +84,44 @@ TextField {
 }
 
 /*Activity Indicator*/
-StackLayout.dimmer{
-    background-color:rgba(0, 0, 0, 0.2);
+StackLayout.dimmer {
+    background-color: rgba(0, 0, 0, 0.2);
     /*opacity: 0.7;*/
 }
+
 ActivityIndicator.busy {
-    color: black;
+    color: #656469;
 }
 
-.hr-shadow{
-    height:2;
-    background-color:#e0e0e0;
-    width:100%;
+.hr-shadow {
+    height: 2;
+    background-color: #e0e0e0;
+    width: 100%;
     border: 0;
     box-shadow: 0 10 10 -10 #8c8b8b inset;
 }
 
-
 /* Card related styles */
-.whiteCard{
+.whiteCard {
     background-color: white;
 }
 
-
-
-.input-border{
-    border-width:2;
-    border-color:#656469;
-    border-radius:2;
+.input-border {
+    border-width: 2;
+    border-color: #656469;
+    border-radius: 2;
     padding: 8;
 }
 
 .input-border-white {
     border-color: white;
 }
-.input-text-center{
+
+.input-text-center {
     text-align: center;
 }
 
-.input-without-border-bottom{
+.input-without-border-bottom {
     background-color: transparent;
     border-color: transparent;
 }
@@ -130,7 +133,8 @@ ActivityIndicator.busy {
 .input-border-error {
     border-color: #e89999;
 }
-.btn-submit{
+
+.btn-submit {
     border-radius: 4;
     /*override default margin 16*/
     margin-right: 0;
@@ -153,18 +157,17 @@ ActivityIndicator.busy {
     color: #f8f8f8;
 }
 
-
-.btn-icon{
+.btn-icon {
     color: white;
 }
 
 /* border for circle images ..*/
 .blue-circle-border {
-    border-color:  #6fa8dc;
+    border-color: #46c8f0;
     border-width: 1;
 }
 
-StackLayout.small-avatar-with-name{
+StackLayout.small-avatar-with-name {
     border-radius: 20;
     height: 40;
     width: 40;
@@ -172,7 +175,7 @@ StackLayout.small-avatar-with-name{
     font-weight: bold;
 }
 
-StackLayout.medium-avatar-with-name{
+StackLayout.medium-avatar-with-name {
     border-radius: 30;
     height: 60;
     width: 60;
@@ -180,14 +183,15 @@ StackLayout.medium-avatar-with-name{
     font-weight: bold;
 }
 
-StackLayout.large-avatar-with-name{
+StackLayout.large-avatar-with-name {
     border-radius: 38;
     height: 75;
     width: 75;
     font-size: 21;
     font-weight: bold;
 }
-StackLayout.extra-large-avatar-with-name{
+
+StackLayout.extra-large-avatar-with-name {
     border-radius: 50;
     height: 100;
     width: 100;
@@ -197,9 +201,24 @@ StackLayout.extra-large-avatar-with-name{
 
 .fab-button {
     height: 70;
-margin: 15;
+    margin: 15;
     background-color: #ff4081;
     horizontal-align: right;
     vertical-align: bottom;
+}
+
+.profile-name {
+    font-weight: 700;
+}
+
+.profile-relationship {
+    margin-left: 5;
+    color: #999999;
+    font-style: italic;
+    font-size: 13;
+}
+
+.message-text {
+    margin-top: 4;
 }
 

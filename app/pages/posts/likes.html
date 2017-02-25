@@ -1,0 +1,62 @@
+<ActionBar title="">
+    <!-- left area  -->
+
+    <NavigationButton android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label text="Likes" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+</ActionBar>
+
+
+<GridLayout class="post-hearters-container">
+
+    <StackLayout *ngIf="!hearters.length" visibility="{{ isLoading ? 'collapsed' : 'visible'}}"
+                 verticalAlignment="center">
+        <StackLayout orientation="vertical" horizontalAlignment="center" class="empty-page">
+            <Label class="message text-center" text="No Data available" textWrap="true"></Label>
+        </StackLayout>
+    </StackLayout>
+    <PullToRefresh (refresh)="refreshList($event)" #pullToRefresh>
+        <ScrollView>
+            <StackLayout *ngIf="hearters.length" margin="10 0 0 0">
+                <StackLayout class="hearters-list">
+                    <StackLayout *ngFor="let hearter of hearters">
+                        <Gridlayout rows="auto" columns="auto,*" verticalAlignment="center" orientation="horizontal"
+                                    class="item">
+                            <StackLayout row='0' col="0" >
+
+                                <FrescoDrawee *ngIf="hearter.photograph_url" height="40" width="40"
+                                              class="hearter-profile-pic"
+                                              imageUri="{{ hearter.photograph_url }}"
+                                              verticalAlignment="top"
+                                              roundAsCircle="true"
+                                              fadeDuration="600"></FrescoDrawee>
+                            </StackLayout>
+
+                            <StackLayout *ngIf="!hearter.photograph_url" class="blue-circle-border small-avatar-with-name text-center" verticalAlignment="center" >
+                                <Label [text]="hearter | shortName | uppercase"></Label>
+                            </StackLayout>
+
+                            <Label row="0" col="1" verticalAlignment="center"
+                                   text="{{ hearter.fname }} {{ hearter.lname }}"
+                                   class="m-l-20 font-weight-bold"></Label>
+                        </Gridlayout>
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </PullToRefresh>
+
+    <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
+    <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
+        <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+    </GridLayout>
+
+</GridLayout>
