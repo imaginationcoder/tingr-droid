@@ -15,6 +15,9 @@ export class SharedData {
     public currentPost: any;
 
     public organizationId: string;
+    public schoolUrl: string;
+    public schoolLinkName: string;
+    public organizationName: string;
     public conversationId: string;
 
     public constructor() { }

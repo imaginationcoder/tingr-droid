@@ -1,0 +1,39 @@
+<ActionBar title="">
+    <!-- left area  -->
+    <NavigationButton android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label [text]="orgName" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+</ActionBar>
+
+
+<GridLayout class="school-container">
+    <StackLayout *ngIf="!links.length" visibility="{{ isLoading ? 'collapsed' : 'visible'}}"
+                 verticalAlignment="center">
+        <StackLayout orientation="vertical" horizontalAlignment="center" class="empty-page">
+            <Label class="message text-center" text="No Info available" textWrap="true"></Label>
+        </StackLayout>
+    </StackLayout>
+
+
+    <ListView [items]="links" (itemTap)="onItemTap($event)" class="list-group">
+        <template let-item="item" let-index="index">
+            <GridLayout columsn="*, auto" class="p-15" verticalAlignment="center">
+                <Label col="0" [text]="item.name"  style="font-size: 18; font-weight: 900"></Label>
+                <Label col="1" class="material-icons md-24 md-chevron-right text-right" text="&#xE5CC;"></Label>
+            </GridLayout>
+        </template>
+    </ListView>
+
+    <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
+    <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
+        <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+    </GridLayout>
+
+</GridLayout>

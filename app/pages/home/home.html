@@ -24,10 +24,6 @@
         </StackLayout>
     </ScrollView>
     <GridLayout tkMainContent backgroundColor="#ebebeb">
-
-
-
-
         <StackLayout *ngIf="!posts.length" visibility="{{ isLoading ? 'collapsed' : 'visible'}}"
                      verticalAlignment="center" horizontalAlignment="center" class="m-20">
             <Label [text]="emptyNoteMessage" textWrap="true" class="text-center font-italic empty-note-message"></Label>
@@ -35,48 +31,48 @@
                 <Label text="&#xE145;" class="text-center material-icons md-48 md-chevron-add"></Label>
             </StackLayout>
         </StackLayout>
-
-        <ScrollView>
-            <StackLayout>
-                <Stacklayout *ngFor="let post of posts; let index= index; let isLast=last;">
-                    <CardView margin="5 0 5 0" elevation="7" class="whiteCard">
-                        <GridLayout rows="auto,auto,auto,auto, auto, auto, auto"
-                                    class="post-item">
-                            <GridLayout row="0">
-                                <StackLayout (tap)="openPostImages(post)" *ngIf="!post.text_only">
-                                    <FrescoDrawee height="250" imageUri="{{ post.images[0] }}"
-                                                  aspectRatio="1.33" verticalAlignment="top" showProgressBar="false"
-                                                  placeholderImageUri="~/images/post-placeholder.jpg"
-                                                  fadeDuration="600"
-                                                  failureImageUri="~/images/post-placeholder.jpg"></FrescoDrawee>
-                                </StackLayout>
-                                <StackLayout *ngIf="post.text_only">
-                                    <StackLayout class="text-only-moment"
-                                                 [backgroundColor]="post.text_only_bg">
-                                        <StackLayout class="header">
-                                            <Gridlayout rows="auto" columns="*,auto" margin="12 0 12 0">
-                                                <Label row="0" col="0" [text]="post.new_title"
-                                                       class="text-left font-weight-bold m-l-10"></Label>
-                                                <StackLayout row="0" col="1" class="author m-r-10">
-                                                    <Label class="text-right p-l-5 p-r-5"
-                                                           horizontalAlignment="right"
-                                                           [text]="'by '+ post.author_name"></Label>
-                                                </StackLayout>
-                                            </Gridlayout>
-                                        </StackLayout>
-                                        <StackLayout class="content" verticalAlignment="center"
-                                                     horizontalAlignment="center">
-                                            <Label class="m-5" [text]="post.text" textWrap="true"></Label>
+        <GridLayout rows="*, auto">
+            <ScrollView row="0">
+                <StackLayout>
+                    <Stacklayout *ngFor="let post of posts; let index= index; let isLast=last;">
+                        <CardView margin="5 0 5 0" elevation="7" class="whiteCard">
+                            <GridLayout rows="auto,auto,auto,auto, auto, auto, auto"
+                                        class="post-item">
+                                <GridLayout row="0">
+                                    <StackLayout (tap)="openPostImages(post)" *ngIf="!post.text_only">
+                                        <!-- <FrescoDrawee height="250" imageUri="{{ post.images[0] }}"
+                                                       aspectRatio="1.33" verticalAlignment="top" showProgressBar="false"
+                                                       placeholderImageUri="~/images/post-placeholder.jpg"
+                                                       fadeDuration="600"
+                                                       failureImageUri="~/images/post-placeholder.jpg"></FrescoDrawee>-->
+                                    </StackLayout>
+                                    <StackLayout *ngIf="post.text_only">
+                                        <StackLayout class="text-only-moment"
+                                                     [backgroundColor]="post.text_only_bg">
+                                            <StackLayout class="header">
+                                                <Gridlayout rows="auto" columns="*,auto" margin="12 0 12 0">
+                                                    <Label row="0" col="0" [text]="post.new_title"
+                                                           class="text-left font-weight-bold m-l-10"></Label>
+                                                    <StackLayout row="0" col="1" class="author m-r-10">
+                                                        <Label class="text-right p-l-5 p-r-5"
+                                                               horizontalAlignment="right"
+                                                               [text]="'by '+ post.author_name"></Label>
+                                                    </StackLayout>
+                                                </Gridlayout>
+                                            </StackLayout>
+                                            <StackLayout class="content" verticalAlignment="center"
+                                                         horizontalAlignment="center">
+                                                <Label class="m-5" [text]="post.text" textWrap="true"></Label>
+                                            </StackLayout>
                                         </StackLayout>
                                     </StackLayout>
-                                </StackLayout>
-                            </GridLayout>
-                            <GridLayout row="1" class="moment-tags">
-                                <StackLayout orientation="vertical">
-                                    <GridLayout columns="*, auto" *ngIf="post.tagged_to.length">
-                                        <WrapLayout col="0" row="0" orientation="horizontal">
-                                            <StackLayout *ngFor="let item of post.tagged_to; let i = index"
-                                                         margin="3">
+                                </GridLayout>
+                                <GridLayout row="1" class="moment-tags">
+                                    <StackLayout orientation="vertical">
+                                        <GridLayout columns="*, auto" *ngIf="post.tagged_to.length">
+                                            <WrapLayout col="0" row="0" orientation="horizontal">
+                                                <StackLayout *ngFor="let item of post.tagged_to; let i = index"
+                                                             margin="3">
 
 
                                                     <FrescoDrawee *ngIf="item.photograph" height="40"
@@ -213,78 +209,21 @@
                             </Stacklayout>
                         </StackLayout>
                     </Stacklayout>
-
                 </StackLayout>
-
             </ScrollView>
-            <GridLayout rows="*, auto">
-                <GridLayout row="0">
-                    <PullToRefresh (refresh)="refreshList($event)" #pullToRefresh>
-                        <ScrollView #messagesScroll>
-                            <Stacklayout class="m-t-10" *ngIf="!this.isMessagesEmpty(msgs)">
-                                <StackLayout *ngFor="let groupedMessages of msgs | keys">
-                                    <StackLayout orinatation="vertical">
-                                        <Label text="{{ groupedMessages.key | date: 'MM/dd/yyyy' }}"
-                                               class="text-center text-muted m-b-5 message-date"></Label>
-                                        <StackLayout class="hr-shadow"></StackLayout>
-                                    </StackLayout>
-                                    <StackLayout class="messages">
-                                        <StackLayout *ngFor="let message of groupedMessages.value" class="message-item">
-                                            <GridLayout rows="*" columns="auto,*">
-                                                <StackLayout row="0" col="0" class="profile-pic-container">
-                                                    <FrescoDrawee *ngIf="message.photograph" height="60" width="60"
-                                                                  class="profile-pic"
-                                                                  imageUri="{{ message.photograph }}"
-                                                                  verticalAlignment="top"
-                                                                  roundAsCircle="true"
-                                                                  fadeDuration="600"></FrescoDrawee>
-                                                    <StackLayout *ngIf="!message.photograph"
-                                                                 class="blue-circle-border medium-avatar-with-name text-center"
-                                                                 verticalAlignment="center">
-                                                        <Label [text]="message | shortName | uppercase"></Label>
-                                                    </StackLayout>
-                                                </StackLayout>
-                                                <StackLayout row="0" col="1" verticalAlignment="center" orientation="vertical">
-                                                    <GridLayout columns="*,*,auto">
-                                                        <Label col="0" [text]="message.sender_name"
-                                                               class="profile-name"></Label>
-                                                        <StackLayout col="1">
-                                                            <Label *ngIf="message.child_name"
-                                                                   text="{{ message.child_name }}'s {{message.child_relationship }}"
-                                                                   class="profile-relationship text-muted"></Label>
-                                                        </StackLayout>
-                                                        <Label col="2" class="text-muted m-l-5 text-right"
-                                                               style="font-size: 13;"
-                                                               [text]="message.created_at | date: 'HH:mm' "></Label>
 
-                                                    </GridLayout>
-                                                    <Label class="message-text" [text]="message.text" textWrap="true"></Label>
-                                                </StackLayout>
-
-
-                                            </GridLayout>
-                                        </StackLayout>
-                                    </StackLayout>
-                                </StackLayout>
-                            </Stacklayout>
-                        </ScrollView>
-                    </PullToRefresh>
+            <StackLayout row="1" verticalAlignment="center">
+                <StackLayout class="hr-shadow"></StackLayout>
+                <GridLayout columns="auto,*,auto" class="navigation-menu">
+                    <Label col="0" id="nav-home" class="material-icons md-36 md-chevron-right text-secondary"
+                           text="&#xE88A;"></Label>
+                    <Label col="1" id="nav-add-post" class="material-icons md-36 md-chevron-right text-center"
+                           text="&#xE145;"></Label>
+                    <Label col="2" id="nav-school-info" (tap)="openSchoolInfo()"
+                           class="material-icons md-36 md-chevron-right" text="&#xE88E;"></Label>
                 </GridLayout>
-                <StackLayout row="1">
-                    <StackLayout>
-                        <GridLayout columns="*, auto" class="message-form" verticalAlignment="center">
-                            <TextView class="input-without-border-bottom" id="newMessageText"
-                                      col="0"
-                                      hint="type your message here..." borderColor="white"></TextView>
-                            <Button col="1"
-                                    text="Send"
-                                    class="btn btn-secondary" margin="2"></Button>
-                        </GridLayout>
-                    </StackLayout>
-                </StackLayout>
-            </GridLayout>
+            </StackLayout>
         </GridLayout>
-
         <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
         <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
             <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>

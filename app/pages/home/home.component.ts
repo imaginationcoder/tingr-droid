@@ -15,7 +15,7 @@ import {PostService, Post, TaggedTo, Comment} from "../../services/post.service"
 import {ModalDialogService, ModalDialogOptions} from "nativescript-angular/directives/dialogs";
 import {ModalPostComment} from "../../pages/dialogs/modal-post-comment";
 import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
-
+import * as timerModule  from "timer";
 import dialogs = require("ui/dialogs");
 let app = require("application");
 let view = require("ui/core/view");
@@ -24,6 +24,8 @@ let nstoasts = require("nativescript-toasts");
 let PhotoViewer = require("nativescript-photoviewer");
 let photoViewer = new PhotoViewer();
 let snackbar = new SnackBar();
+require( "nativescript-dom" );
+
 
 @Component({
     moduleId: module.id,
@@ -68,7 +70,7 @@ export class HomeComponent extends DrawerPage implements OnInit {
 
         this.parentProfile = ParentInfo.profile;
         this.organizations = ParentInfo.organizations;
-        console.log("Profile "+ JSON.stringify(ParentInfo.parsedDetails))
+        console.log("Profile "+ JSON.stringify(ParentInfo.parsedDetails));
         if(this.organizations.length){
             let org = this.organizations[0];
             this.organization_id = org.id;
@@ -207,11 +209,7 @@ export class HomeComponent extends DrawerPage implements OnInit {
                         let currentOrg = orgs.filter(report => report.name === result)[0];
                         // set the selected room in application data to access application wide
                         this.currentOrgName = currentOrg.name;
-                        this.organization_id = currentOrg.id;
-                        this.isLoading = true;
-                        this.getOrgPosts(false);
-
-                        //TODO get Posts of this org
+                        this.organization_id = currentOrg.id; 
                         /*
                         TeacherInfo.currentRoom = JSON.stringify(this.currentRoom);
                         this.roomName = this.currentRoom.session_name;
@@ -225,6 +223,23 @@ export class HomeComponent extends DrawerPage implements OnInit {
         }else{
             return
         }
+    }
+
+    openSchoolInfo(){
+        let navView = view.getViewById(this.page, "nav-school-info");
+        navView.classList.add('text-secondary');
+        this.sharedData.organizationId = this.organization_id;
+        this.sharedData.organizationName = this.currentOrgName;
+        this.routerExtensions.navigate(["/school-info"], {
+            transition: {
+                name: "slideLeft"
+            }
+        });
+
+        timerModule.setTimeout(()=> {
+            navView.classList.remove('text-secondary');
+        }, 1000);
+
     }
 
 

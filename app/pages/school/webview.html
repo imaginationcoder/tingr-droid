@@ -1,0 +1,21 @@
+<ActionBar title="">
+    <!-- left area  -->
+    <NavigationButton android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label [text]="schoolLinkName" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+</ActionBar>
+
+
+<GridLayout class="school-webview">
+    <ScrollView>
+        <WebView [src]="schoolUrl"></WebView>
+    </ScrollView>
+
+</GridLayout>

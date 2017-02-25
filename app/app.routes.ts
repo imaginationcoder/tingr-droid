@@ -13,6 +13,8 @@ import { LikesComponent } from "./pages/posts/likes.component";
 import { SettingsComponent } from "./pages/settings/settings.page";
 import { ConversationsComponent } from "./pages/conversations/conversations.component";
 import { MessagesComponent } from "./pages/conversations/messages.component";
+import { SchoolInfoComponent } from "./pages/school/school-info.component";
+import { SchoolInfoWebComponent } from "./pages/school/school-info-web.component";
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
 import { ModalPostComment } from "./pages/dialogs/modal-post-comment";
 
@@ -30,7 +32,9 @@ export const APP_ROUTES = [
     { path: "settings", component: SettingsComponent, canActivate: [AuthGuard]},
     { path: "post-likes", component: LikesComponent, canActivate: [AuthGuard]},
     { path: "conversations", component: ConversationsComponent, canActivate: [AuthGuard]},
-    { path: "messages", component: MessagesComponent, canActivate: [AuthGuard]}
+    { path: "messages", component: MessagesComponent, canActivate: [AuthGuard]},
+    { path: "school-info", component: SchoolInfoComponent, canActivate: [AuthGuard]},
+    { path: "school-webview", component: SchoolInfoWebComponent, canActivate: [AuthGuard]}
 ];
 
 export const navigatableComponents = [
@@ -47,6 +51,8 @@ export const navigatableComponents = [
     LikesComponent,
     SettingsComponent,
     ConversationsComponent,
+    SchoolInfoComponent,
+    SchoolInfoWebComponent,
     MessagesComponent,
     ModalServerError,
     ModalPostComment

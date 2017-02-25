@@ -107,6 +107,24 @@ export class ParentService {
             .catch(this.handleErrors);
     }
 
+    schoolInfo(orgId){
+        let data = JSON.stringify({
+            access_token: TokenService.accessToken,
+            auth_token: TokenService.authToken,
+            command: "school_info",
+            body: {
+                organization_id: orgId
+            }
+        });
+        return this.http.post(
+            Config.apiUrl + "organizations", data, {
+                headers: this.headers
+            }
+        )
+            .map((res: Response) => res.json())
+            .catch(this.handleErrors);
+    }
+
     handleErrors(error: Response) {
         return Observable.throw(error.json() || {error: 'Server error'})
     }
