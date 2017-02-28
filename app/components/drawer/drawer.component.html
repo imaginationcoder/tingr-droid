@@ -55,8 +55,10 @@
     </StackLayout>
 
     <StackLayout class="drawer-link"
+                 [nsRouterLinkActive]="['active-drawer-link']"
                  orientation="horizontal"
-                 [nsRouterLinkActive]="['active-drawer-link']">
+                 [nsRouterLink]="['/my-family']"
+                 pageTransition="slideLeft">
         <Label class="material-icons md-24 md-group" text="&#xE7EF;"></Label>
         <Label class="text" text="My Family"></Label>
     </StackLayout>

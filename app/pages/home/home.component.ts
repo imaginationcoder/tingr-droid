@@ -90,11 +90,11 @@ export class HomeComponent extends DrawerPage implements OnInit {
     }
 
     ngOnInit() {
-        this.isLoading = true;
+        //this.isLoading = true;
         this.posts = [];
         // load posts only if org exists
         if(this.organization_id){
-            this.getOrgPosts(false);
+          //  this.getOrgPosts(false);
         }
 
     }
@@ -209,7 +209,7 @@ export class HomeComponent extends DrawerPage implements OnInit {
                         let currentOrg = orgs.filter(report => report.name === result)[0];
                         // set the selected room in application data to access application wide
                         this.currentOrgName = currentOrg.name;
-                        this.organization_id = currentOrg.id; 
+                        this.organization_id = currentOrg.id;
                         /*
                         TeacherInfo.currentRoom = JSON.stringify(this.currentRoom);
                         this.roomName = this.currentRoom.session_name;

@@ -1,0 +1,17 @@
+
+.add-moment{
+    background-color: #fafafa;
+}
+
+.hr-shadow {
+    height: 2;
+    background-color: #cccccc;
+    width: 100%;
+    border: 0;
+    box-shadow: 0 10 10 -10 #cccccc inset;
+}
+
+.kid-profile-details{
+    background-color: #ffffff;
+    padding: 10 20 5 20;
+}

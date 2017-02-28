@@ -125,6 +125,22 @@ export class ParentService {
             .catch(this.handleErrors);
     }
 
+    myFamily(){
+        let data = JSON.stringify({
+            access_token: TokenService.accessToken,
+            auth_token: TokenService.authToken,
+            command: "family_info",
+            body: { }
+        });
+        return this.http.post(
+            Config.apiUrl + "/v2/profiles", data, {
+                headers: this.headers
+            }
+        )
+            .map((res: Response) => res.json())
+            .catch(this.handleErrors);
+    }
+
     handleErrors(error: Response) {
         return Observable.throw(error.json() || {error: 'Server error'})
     }

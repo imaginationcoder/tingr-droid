@@ -1,0 +1,134 @@
+<ActionBar title="">
+    <!-- left area  -->
+    <NavigationButton icon="res://ic_back_24dp" (tap)="goBack()"></NavigationButton>
+
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label text="My Family" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+    <!-- right area  -->
+    <ActionItem ios.position="right" andriod.postion="actionBar" icon="res://ic_add_24dp">
+    </ActionItem>
+</ActionBar>
+<GridLayout class="conversations-container" backgroundColor="#e3e0dc">
+    <ScrollView>
+        <StackLayout>
+            <!-- #################  Kid List ##################################################### -->
+            <StackLayout>
+                <StackLayout *ngFor="let item of kids" backgroundColor="#ffffff">
+                    <StackLayout (tap)="openKidProfile(item)">
+                        <GridLayout rows="auto,auto" class="p-15">
+                            <GridLayout row="0" rows="*" columns="80,*">
+                                <StackLayout row="0" col="0">
+                                    <FrescoDrawee *ngIf="item.photograph" height="75" width="75"
+                                                  class="kid-profile-pic"
+                                                  imageUri="{{ item.photograph }}"
+                                                  verticalAlignment="top"
+                                                  roundAsCircle="true"
+                                                  fadeDuration="600"></FrescoDrawee>
+
+                                    <StackLayout *ngIf="!item.photograph"
+                                                 class="blue-circle-border large-avatar-with-name text-center"
+                                                 verticalAlignment="center">
+                                        <Label [text]="item | shortName | uppercase"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <StackLayout row="0" col="1" verticalAlignment="center" orientation="vertical"
+                                             class="p-l-20">
+                                    <Label [text]="item.nickname"
+                                           class="kid-name"></Label>
+                                    <Label [text]="item.age+' old'" class="kid-age"></Label>
+                                </StackLayout>
+
+                                <StackLayout row="0" col="2" class="m-t-5" verticalAlignment="center"
+                                             orientation="vertical" horizontalAlignment="right">
+                                    <Image height="21" width="28" verticalAlignment="center" stretch="aspectFill"
+                                           src="~/images/removable/icon-profile.png"></Image>
+                                    <StackLayout class="m-t-5" orientation="horizontal" verticalAlignment="center"
+                                                 horizontalAlignment="center">
+                                        <Image height="21" width="28" verticalAlignment="center" stretch="aspectFill"
+                                               src="~/images/removable/icon-reel.png"></Image>
+                                    </StackLayout>
+                                </StackLayout>
+                            </GridLayout>
+
+                        </GridLayout>
+
+                        <StackLayout class="hr-shadow"></StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+            <!-- #################  Parents List ##################################################### -->
+            <StackLayout margin="10 0 0 0">
+                <StackLayout *ngFor="let item of parents; let index= index;" backgroundColor="#ffffff">
+                    <StackLayout (tap)="openParentProfile(item)">
+                        <GridLayout rows="auto" class="p-12">
+                            <GridLayout row="0" rows="*" columns="80,*">
+                                <StackLayout row="0" col="0">
+                                    <FrescoDrawee *ngIf="item.photograph" height="40" width="40"
+                                                  class="kid-profile-pic"
+                                                  imageUri="{{ item.photograph_url }}"
+                                                  verticalAlignment="top"
+                                                  roundAsCircle="true"
+                                                  fadeDuration="600"></FrescoDrawee>
+
+                                    <StackLayout *ngIf="!item.photograph"
+                                                 class="blue-circle-border small-avatar-with-name text-center"
+                                                 verticalAlignment="center">
+                                        <Label [text]="item | shortName | uppercase"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout row="0" col="1" verticalAlignment="center" orientation="vertical"
+                                             class="p-l-20">
+                                    <Label [text]="index === 0 ? 'Me' : item.fname" class="kid-name"></Label>
+                                    <Label [text]="item.fname" *ngIf="index === 0"></Label>
+                                </StackLayout>
+                            </GridLayout>
+                        </GridLayout>
+                        <StackLayout class="hr-shadow"></StackLayout>
+                    </StackLayout>
+                </StackLayout>
+
+
+                <!-- #################  Add parent ##################################################### -->
+                <StackLayout backgroundColor="#ffffff" visibility="{{ isLoading  ? 'collapse' : 'visible' }}" *ngIf="parents.length < 2">
+                    <StackLayout>
+                        <GridLayout rows="auto" class="p-12">
+                            <GridLayout row="0" rows="*" columns="80,*">
+                                <StackLayout row="0" col="0">
+                                    <FrescoDrawee height="40" width="40"
+                                                  class="kid-profile-pic"
+                                                  imageUri="{{ '~/images/user-icon-100.png' }}"
+                                                  verticalAlignment="top"
+                                                  roundAsCircle="true"
+                                                  fadeDuration="600"></FrescoDrawee>
+
+                                </StackLayout>
+                                <StackLayout row="0" col="1" verticalAlignment="center" orientation="vertical"
+                                             class="p-l-20">
+                                    <Label text="Add parent/caregiver" class="add-parent-or-care "></Label>
+                                    <Label text="Share memories and vault items" class="share-memories-text"></Label>
+                                </StackLayout>
+                            </GridLayout>
+                        </GridLayout>
+                        <StackLayout class="hr-shadow"></StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+
+
+
+            <Stacklayout height="50"></Stacklayout>
+        </StackLayout>
+    </ScrollView>
+
+    <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
+    <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
+        <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+    </GridLayout>
+</GridLayout>
