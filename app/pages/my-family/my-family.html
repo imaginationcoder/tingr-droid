@@ -21,8 +21,8 @@
             <StackLayout>
                 <StackLayout *ngFor="let item of kids" backgroundColor="#ffffff">
                     <StackLayout (tap)="openKidProfile(item)">
-                        <GridLayout rows="auto,auto" class="p-15">
-                            <GridLayout row="0" rows="*" columns="80,*">
+                        <GridLayout rows="auto,auto" padding="10 15 7 15">
+                            <GridLayout row="0" rows="*" columns="75,*">
                                 <StackLayout row="0" col="0">
                                     <FrescoDrawee *ngIf="item.photograph" height="75" width="75"
                                                   class="kid-profile-pic"
@@ -68,7 +68,7 @@
                 <StackLayout *ngFor="let item of parents; let index= index;" backgroundColor="#ffffff">
                     <StackLayout (tap)="openParentProfile(item)">
                         <GridLayout rows="auto" class="p-12">
-                            <GridLayout row="0" rows="*" columns="80,*">
+                            <GridLayout row="0" rows="*" columns="75,*">
                                 <StackLayout row="0" col="0">
                                     <FrescoDrawee *ngIf="item.photograph" height="40" width="40"
                                                   class="kid-profile-pic"

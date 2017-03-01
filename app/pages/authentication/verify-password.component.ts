@@ -99,7 +99,7 @@ export class VerifyPasswordComponent implements OnInit {
                         }
                         this.routerExtensions.navigate(["/"+navigateTo],
                             {
-                                transition: {name: "slideRight"},
+                                transition: {name: "slideLeft"},
                                 clearHistory: true
                             });
 

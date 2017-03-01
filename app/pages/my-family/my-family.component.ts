@@ -44,6 +44,10 @@ export class MyFamilyComponent implements OnInit {
     openParentProfile(parent) {
        // let conversation = this.conversations[args.index];
         this.sharedData.parent = parent;
+        this.routerExtensions.navigate(["/parent-dashboard"],
+            {
+                transition: {name: "slideLeft"}
+            });
     }
 
     openKidProfile(kid) {
@@ -51,7 +55,7 @@ export class MyFamilyComponent implements OnInit {
         this.sharedData.kid = kid;
         this.routerExtensions.navigate(["/kid-dashboard"],
             {
-                transition: {name: "slideTop"}
+                transition: {name: "slideLeft"}
             });
     } 
     getList(){
@@ -109,11 +113,6 @@ export class MyFamilyComponent implements OnInit {
 
 
     goBack() {
-       // this.routerExtensions.backToPreviousPage();
-
-        this.routerExtensions.navigate(["/settings"],
-            {
-                transition: {name: "slideRight"}
-            });
+       this.routerExtensions.backToPreviousPage(); 
     }
 }

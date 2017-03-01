@@ -21,30 +21,28 @@
         <StackLayout row="0" backgroundColor="#ffffff" >
             <StackLayout class="profile-details">
                 <GridLayout rows="*" , columns="*,100" verticalAlignment="center">
-                    <Label row="0" col="0" [text]="kid.nickname" verticalAlignment="center" class="wall-name text-center text-primary"></Label>
+                    <Label row="0" col="0" [text]="parent.fname" verticalAlignment="center" class="wall-name text-center text-primary"></Label>
                     <StackLayout row="0" col="1">
-                        <FrescoDrawee *ngIf="kid.photograph" height="100" width="100"
-                                      imageUri="{{ kid.photograph }}"
+                        <FrescoDrawee *ngIf="parent.photograph" height="100" width="100"
+                                      imageUri="{{ parent.photograph }}"
                                       backgroundUri="~/images/user-icon-100.png"
                                       failureImageUri="~/images/user-icon-100.png"
                                       verticalAlignment="top"
                                       roundAsCircle="true"
                                       fadeDuration="600"></FrescoDrawee>
 
-                        <StackLayout *ngIf="!kid.photograph"
+                        <StackLayout *ngIf="!parent.photograph"
                                      class="blue-circle-border extra-large-avatar-with-name text-center"
                                      verticalAlignment="center">
-                            <Label [text]="kid | shortName | uppercase"></Label>
+                            <Label [text]="parent | shortName | uppercase"></Label>
                         </StackLayout>
                     </StackLayout>
                 </GridLayout>
-                <GridLayout columns="*,*,*" verticalAlignment="center" class="text-center m-t-20">
+                <GridLayout columns="*,*" verticalAlignment="center" class="text-center m-t-20">
                     <Image col="0" width="80" verticalAlignment="center" stretch="aspectFill"
                            src="~/images/removable/profile-details.png"></Image>
                     <Image col="1" width="80"  verticalAlignment="center" stretch="aspectFill"
                            src="~/images/removable/profile-vault.png"></Image>
-                    <Image (tap)="openSchoolsData(kid)" col="2" width="80"  verticalAlignment="center" stretch="aspectFill"
-                           src="~/images/removable/profile-orgs.png"></Image>
                 </GridLayout>
             </StackLayout>
             <StackLayout class="hr-shadow"></StackLayout>

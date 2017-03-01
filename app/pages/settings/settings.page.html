@@ -16,7 +16,7 @@
 
 
 <GridLayout rows="*,auto">
-    <StackLayout style="background-color: #f6f6f6" class="p-t-20">
+    <StackLayout backgroundColor="#e3e0dc" class="p-t-20">
         <CardView margin="0 5 0 5" radius="5" elevation="5" class="whiteCard">
             <Stacklayout  padding="0 15 0 15">
                 <Gridlayout rows="auto" columns="auto,*,auto" verticalAlignment="center" class="settings-item"
@@ -41,6 +41,12 @@
             </Stacklayout>
         </CardView>
     </StackLayout>
+
+
+    <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
+    <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
+        <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+    </GridLayout>
 
 </GridLayout>
 

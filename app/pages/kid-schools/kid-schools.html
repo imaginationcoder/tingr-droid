@@ -1,0 +1,54 @@
+<ActionBar title="">
+    <!-- left area  -->
+    <NavigationButton icon="res://ic_back_24dp" (tap)="goBack()"></NavigationButton>
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 ios:horizontalAlignment="center"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center" (tap)="changeSchool()">
+            <Label [text]="currentSchoolName || 'Tingr'" class="action-label" textWrap="true"></Label>
+            <Label *ngIf="moreThanOneSchool" class="text-primary material-icons md-24 md-arrow-drop-down" margin="3 0 0 3"
+                   text="&#xE5C5;"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+</ActionBar>
+
+
+<GridLayout class="conversations-container">
+
+    <StackLayout *ngIf="!formsAndDocs.length" visibility="{{ isLoading ? 'collapsed' : 'visible'}}"
+                 verticalAlignment="center">
+        <StackLayout orientation="vertical" horizontalAlignment="center" class="empty-page">
+            <Label class="message text-center" text="No data available" textWrap="true"></Label>
+        </StackLayout>
+    </StackLayout>
+    <PullToRefresh (refresh)="refreshList($event)" #pullToRefresh>
+        <ListView [items]="formsAndDocs" (itemTap)="onItemTap($event)" class="list-group">
+            <template let-item="item" let-index="index">
+                <StackLayout padding="10 15 5 15">
+                    <StackLayout orientation="horizontal">
+                        <Label *ngIf="item.status === 'requested'" text="*" verticalAlignment="top" class="requested-star"></Label>
+                        <Label [text]="item.name" class="form-doc-name"></Label>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <StackLayout orientation="horizontal" class="form-doc-subheading">
+                            <Label text="{{ item.status === 'requested' ? 'Requested on '  : 'Submitted on ' }}"> </Label>
+                            <Label  text ="{{ item.status === 'requested' ? item.requested_on.substring(0,10)  : item.submitted_on.substring(0,10) }} "> </Label>
+                            <StackLayout  class="bullet"> </StackLayout>
+                            <Label [text]="item.session"> </Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <Label [text]="item.season" class="form-doc-season"></Label>
+                </StackLayout>
+            </template>
+        </ListView>
+    </PullToRefresh>
+
+    <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
+    <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
+        <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+    </GridLayout>
+
+</GridLayout>

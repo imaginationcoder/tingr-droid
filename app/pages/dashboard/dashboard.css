@@ -11,12 +11,12 @@
     box-shadow: 0 10 10 -10 #cccccc inset;
 }
 
-.kid-profile-details{
+.profile-details{
     background-color: #ffffff;
     padding: 10 20 5 20;
 }
 
-.kid-wall-name{
+.wall-name{
     font-size: 20;
     font-weight: bold;
     font-style: italic;

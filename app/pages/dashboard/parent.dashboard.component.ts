@@ -14,14 +14,14 @@ let app = require("application");
 
 @Component({
     moduleId: module.id,
-    selector: 'kid-dashboard-page',
-    templateUrl: './kid-dashboard.html',
+    selector: 'parent-dashboard-page',
+    templateUrl: './parent-dashboard.html',
     styleUrls: ["./dashboard.css"],
     providers: [ ConversationService,ParentService, ServerErrorService ]
 })
-export class KidDashboardComponent implements OnInit {
+export class ParentDashboardComponent implements OnInit {
     public isLoading: Boolean = false;
-    public kid: any;
+    public parent: any;
     public emptyNoteMessage: string;
     public posts: any;
 
@@ -34,7 +34,7 @@ export class KidDashboardComponent implements OnInit {
         private serverErrorService: ServerErrorService,
         private page: Page,
         private router: Router) {
-        this.kid = this.sharedData.kid;
+        this.parent = this.sharedData.parent;
 
         this.emptyNoteMessage = 'capture your family in action. tag a few or all. share with your circle.';
 
@@ -44,14 +44,7 @@ export class KidDashboardComponent implements OnInit {
     ngOnInit() {
         // show alert if no internet connection
         //this.page.actionBarHidden = true;
-    }
 
-    openSchoolsData(kid){
-        this.kid = this.sharedData.kid;
-        this.routerExtensions.navigate(["/kid-schools"],
-            {
-                transition: {name: "slideLeft"}
-            });
     }
 
 

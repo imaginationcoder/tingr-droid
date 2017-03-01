@@ -55,10 +55,8 @@ export class SettingsComponent implements OnInit{
 
 
     logOut() {
-        //TODO remove this
-       this.clearSession();
-        this.isLoading = true;
-
+        //TODO remove this 
+        this.isLoading = true; 
         this.parentService.logOff()
             .subscribe(
                 (result) => {
