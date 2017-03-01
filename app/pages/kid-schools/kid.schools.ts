@@ -49,6 +49,7 @@ export class KidSchoolsComponent implements OnInit {
     }
 
 
+
     getSchoolsData() {
         this.isLoading = true;
         this.kidService.getSchoolsData(this.kid.kl_id)
@@ -153,6 +154,16 @@ export class KidSchoolsComponent implements OnInit {
         }else{
             return
         }
+    }
+
+
+    onItemTap(args){
+       this.sharedData.formOrDoc = this.formsAndDocs[args.index];
+        this.routerExtensions.navigate(["/form-doc-webview"],
+            {
+                transition: {name: "slideLeft"}
+            });
+
     }
 
 

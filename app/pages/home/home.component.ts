@@ -92,7 +92,8 @@ export class HomeComponent extends DrawerPage implements OnInit {
         this.posts = [];
         // load posts only if org exists
         if(this.organization_id){
-          //  this.getOrgPosts(false);
+            this.isLoading = true;
+          this.getOrgPosts(false);
         }
 
     }

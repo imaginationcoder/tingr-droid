@@ -1,0 +1,21 @@
+<ActionBar title="">
+    <!-- left area  -->
+    <NavigationButton icon="res://ic_back_24dp" (tap)="goBack()"></NavigationButton>
+
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label [text]="formOrDoc.name" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+</ActionBar>
+
+
+<GridLayout class="form-doc-webview">
+    <ScrollView>
+        <WebView [src]="formOrDoc.url"></WebView>
+    </ScrollView>
+
+</GridLayout>

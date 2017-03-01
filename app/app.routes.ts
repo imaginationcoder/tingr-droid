@@ -19,11 +19,12 @@ import { MyFamilyComponent } from "./pages/my-family/my-family.component";
 import { KidDashboardComponent } from "./pages/dashboard/kid.dashboard.component";
 import { KidSchoolsComponent } from "./pages/kid-schools/kid.schools";
 import { ParentDashboardComponent } from "./pages/dashboard/parent.dashboard.component";
+import { FormDocWebviewComponent } from "./pages/form-docs/form.doc.webview";
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
 import { ModalPostComment } from "./pages/dialogs/modal-post-comment";
 
 export const APP_ROUTES = [
-    { path: "", redirectTo: "/my-family", pathMatch: 'full'},
+    { path: "", redirectTo: "/home", pathMatch: 'full'},
     { path: "verify-email", component: VerifyEmailComponent},
     { path: "verify-password", component: VerifyPasswordComponent},
     { path: "forgot-password", component: ForgotPasswordComponent},
@@ -42,7 +43,8 @@ export const APP_ROUTES = [
     { path: "my-family", component: MyFamilyComponent, canActivate: [AuthGuard]},
     { path: "kid-dashboard", component: KidDashboardComponent, canActivate: [AuthGuard]},
     { path: "kid-schools", component: KidSchoolsComponent, canActivate: [AuthGuard]},
-    { path: "parent-dashboard", component: ParentDashboardComponent, canActivate: [AuthGuard]}
+    { path: "parent-dashboard", component: ParentDashboardComponent, canActivate: [AuthGuard]},
+    { path: "form-doc-webview", component: FormDocWebviewComponent, canActivate: [AuthGuard]}
 ];
 
 
@@ -66,7 +68,8 @@ export const navigatableComponents = [
     MessagesComponent,
     KidDashboardComponent,
     KidSchoolsComponent,
-    ParentDashboardComponent, 
+    ParentDashboardComponent,
+    FormDocWebviewComponent,
     ModalServerError,
     ModalPostComment
 ];

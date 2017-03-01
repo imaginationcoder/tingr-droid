@@ -43,7 +43,7 @@ refer to http://docs.nativescript.org/ui/theme.
 
 Page {
     font-size: 15;
-    font-family: Roboto-Light;
+    font-family: Roboto-Regular;
     color: #656469;
 }
 
@@ -93,6 +93,15 @@ ActivityIndicator.busy {
     width: 100%;
     border: 0;
     box-shadow: 0 10 10 -10 #8c8b8b inset;
+}
+
+
+.hr-shadow-bottom {
+    height: 2;
+    background-color: #cccccc;
+    width: 100%;
+    border: 0;
+    box-shadow: 0 10 10 -10 #cccccc inset;
 }
 
 /* Card related styles */

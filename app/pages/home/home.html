@@ -40,11 +40,11 @@
                                         class="post-item">
                                 <GridLayout row="0">
                                     <StackLayout (tap)="openPostImages(post)" *ngIf="!post.text_only">
-                                        <!-- <FrescoDrawee height="250" imageUri="{{ post.images[0] }}"
-                                                       aspectRatio="1.33" verticalAlignment="top" showProgressBar="false"
+                                         <FrescoDrawee height="250" imageUri="{{ post.images[0] }}"
+                                                       verticalAlignment="top" showProgressBar="false"
                                                        placeholderImageUri="~/images/post-placeholder.jpg"
                                                        fadeDuration="600"
-                                                       failureImageUri="~/images/post-placeholder.jpg"></FrescoDrawee>-->
+                                                       failureImageUri="~/images/post-placeholder.jpg"></FrescoDrawee>
                                     </StackLayout>
                                     <StackLayout *ngIf="post.text_only">
                                         <StackLayout class="text-only-moment"

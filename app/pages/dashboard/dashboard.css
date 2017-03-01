@@ -3,13 +3,6 @@
     background-color: #fafafa;
 }
 
-.hr-shadow {
-    height: 2;
-    background-color: #cccccc;
-    width: 100%;
-    border: 0;
-    box-shadow: 0 10 10 -10 #cccccc inset;
-}
 
 .profile-details{
     background-color: #ffffff;
