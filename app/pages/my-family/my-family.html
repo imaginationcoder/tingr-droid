@@ -72,11 +72,10 @@
                                 <StackLayout row="0" col="0">
                                     <FrescoDrawee *ngIf="item.photograph" height="40" width="40"
                                                   class="kid-profile-pic"
-                                                  imageUri="{{ item.photograph_url }}"
+                                                  imageUri="{{ item.photograph }}"
                                                   verticalAlignment="top"
                                                   roundAsCircle="true"
                                                   fadeDuration="600"></FrescoDrawee>
-
                                     <StackLayout *ngIf="!item.photograph"
                                                  class="blue-circle-border small-avatar-with-name text-center"
                                                  verticalAlignment="center">

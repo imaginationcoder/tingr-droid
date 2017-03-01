@@ -7,11 +7,14 @@ import {TokenService} from "../../services/token.service";
 import {AuthService} from "../../services/oauth/auth.service";
 import {LoginService} from "../../services/login.service";
 import {SharedData} from "../../providers/data/shared_data";
+import { ParentInfo } from "../../providers/data/parent_info";
 import dialogs = require("ui/dialogs");
 import {SnackBar, SnackBarOptions} from "nativescript-snackbar";
 import {isAndroid} from "platform";
 var app = require("application");
 var view = require("ui/core/view");
+
+import * as appSettings from "application-settings"
 
 @Component({
     moduleId: module.id,
@@ -39,21 +42,35 @@ export class VerifyEmailComponent implements OnInit {
     }
 
     ngOnInit() {
+      /*  TokenService.authToken = '';
+        TokenService.accessToken = '';
+        ParentInfo.details = '';
+        appSettings.clear();*/
+
+        console.log('AuthToken '+ TokenService.authToken)
+
         this.page.actionBarHidden = true;
+
         // get AccessToken
         if (!!TokenService.accessToken === false) {
-            //this.isLoading = true;
+           this.isLoading = true;
             this.authService.getAccessToken()
                 .subscribe(
                     (result) => {
                         // save accessToken in appSettings and authData
                         TokenService.accessToken = result.access_token;
                         TokenService.accessTokenExpiry = result.expires_in;
+
+                        console.log("Access Token got "+ JSON.stringify(result));
+                        this.isLoading = false;
                         //this.isLoading = false;
                     },
                     (error) => {
                         //this.isLoading = false;
+                        this.isLoading = false;
+                        console.log("Error getting access token "+ JSON.stringify(error));
                         this.serverErrorService.showErrorModal();
+
                     }
                 );
         }

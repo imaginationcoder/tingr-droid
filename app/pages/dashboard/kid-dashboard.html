@@ -21,8 +21,22 @@
         <StackLayout row="0" backgroundColor="#ffffff" >
             <StackLayout class="kid-profile-details">
                 <GridLayout rows="*" , columns="*,100" verticalAlignment="center">
-                    <Label row="0" col="0" text="MyName" verticalAlignment="center" class="text-center"></Label>
-                    <Image row="0" col="1" src="~/images/user-icon-100.png" height="100" width="100"></Image>
+                    <Label row="0" col="0" [text]="kid.nickname" verticalAlignment="center" class="kid-wall-name text-center text-primary"></Label>
+                    <StackLayout row="0" col="1">
+                        <FrescoDrawee *ngIf="kid.photograph" height="100" width="100"
+                                      imageUri="{{ kid.photograph }}"
+                                      placeholderImageUri="~/images/user-icon-100.png"
+                                      failureImageUri="~/images/user-icon-100.png"
+                                      verticalAlignment="top"
+                                      roundAsCircle="true"
+                                      fadeDuration="600"></FrescoDrawee>
+
+                        <StackLayout *ngIf="!kid.photograph"
+                                     class="blue-circle-border extra-large-avatar-with-name text-center"
+                                     verticalAlignment="center">
+                            <Label [text]="kid | shortName | uppercase"></Label>
+                        </StackLayout>
+                    </StackLayout>
                 </GridLayout>
                 <GridLayout columns="*,*,*" verticalAlignment="center" class="text-center m-t-20">
                     <Image col="0" width="80" verticalAlignment="center" stretch="aspectFill"
@@ -54,21 +68,10 @@
             <StackLayout *ngIf="!posts.length" visibility="{{ isLoading ? 'collapsed' : 'visible'}}"
                          verticalAlignment="center" horizontalAlignment="center" class="m-20">
                 <Label [text]="emptyNoteMessage" textWrap="true" class="text-center font-italic empty-note-message"></Label>
-                <Stacklayout orientation="horizontal" horizontalAlignment="center" class="m-t-10">
-                    <Label text="it is "></Label>
-                    <Label text="quick, easy and secure" class="font-weight-bold"></Label>
-                </Stacklayout>
-                <Stacklayout orientation="horizontal" horizontalAlignment="center">
-                    <Label text="access 'em "></Label>
-                    <Label text="on the go " style="text-decoration: underline"></Label>
-                    <Label text="anytime"></Label>
-                </Stacklayout>
-
                 <StackLayout class="m-t-10">
-                    <Label text="&#xE145;" class="text-center material-icons md-48 md-chevron-add"></Label>
+                    <Label text="&#xE3B0;" class="text-center material-icons md-48 md-camera-alt"></Label>
                 </StackLayout>
             </StackLayout>
-
         </Gridlayout>
 
         <!-- ##### uncomment below if bottom navs to enable -->

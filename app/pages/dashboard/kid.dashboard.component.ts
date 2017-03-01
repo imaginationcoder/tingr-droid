@@ -14,12 +14,12 @@ let app = require("application");
 
 @Component({
     moduleId: module.id,
-    selector: 'kid-profile-page',
-    templateUrl: './kid-profile.html',
-    styleUrls: ["./kid-profile.css"],
+    selector: 'kid-dashboard-page',
+    templateUrl: './kid-dashboard.html',
+    styleUrls: ["./kid-dashboard.css"],
     providers: [ ConversationService,ParentService, ServerErrorService ]
 })
-export class KidProfileComponent implements OnInit {
+export class KidDashboardComponent implements OnInit {
     public isLoading: Boolean = false;
     public kid: any;
     public emptyNoteMessage: string;
@@ -36,9 +36,7 @@ export class KidProfileComponent implements OnInit {
         private router: Router) {
         this.kid = this.sharedData.kid;
 
-        this.emptyNoteMessage = 'while we wait for the school to share your kid moments ' +
-            'we encourage you to digitally organize your entire family documents now - like ' +
-            'driving licences, immunity records, insurance cards, son, etc. ';
+        this.emptyNoteMessage = 'capture your family in action. tag a few or all. share with your circle.';
 
         this.posts = [];
     }
@@ -47,7 +45,7 @@ export class KidProfileComponent implements OnInit {
         // show alert if no internet connection
         //this.page.actionBarHidden = true;
 
-    } 
+    }
 
 
     goBack() {

@@ -6,10 +6,7 @@
   "nativescript": {
     "id": "org.tingr.parent",
     "tns-android": {
-      "version": "2.4.1"
-    },
-    "tns-ios": {
-      "version": "2.4.0"
+      "version": "2.5.0"
     }
   },
   "dependencies": {
@@ -23,10 +20,12 @@
     "@angular/router": "3.3.1",
     "moment": "^2.17.1",
     "nativescript-angular": "1.3.0",
+    "nativescript-angular-snapshot": "1.3.0-5.2.361",
     "nativescript-cardview": "^1.2.1",
     "nativescript-carousel": "^2.2.0",
     "nativescript-dom": "^1.0.8",
     "nativescript-effects": "^0.3.0",
+    "nativescript-floatingactionbutton": "^2.2.7",
     "nativescript-fresco": "^1.0.16",
     "nativescript-imagepicker": "^2.4.1",
     "nativescript-iqkeyboardmanager": "^1.0.1",
@@ -35,7 +34,7 @@
     "nativescript-photoviewer": "^1.0.0",
     "nativescript-pulltorefresh": "^1.1.10",
     "nativescript-snackbar": "^1.1.6",
-    "nativescript-telerik-ui": "^1.5.1",
+    "nativescript-telerik-ui": "1.6.1",
     "nativescript-theme-core": "^0.2.1",
     "nativescript-toasts": "^1.0.2",
     "reflect-metadata": "~0.1.8",
@@ -49,7 +48,7 @@
     "lazy": "1.0.11",
     "nativescript-dev-android-snapshot": "^0.*.*",
     "nativescript-dev-typescript": "^0.3.2",
-    "typescript": "~2.0.10",
+    "typescript": "2.0.10",
     "zone.js": "~0.7.2"
   }
 }

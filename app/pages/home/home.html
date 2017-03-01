@@ -27,18 +27,8 @@
         <StackLayout *ngIf="!posts.length" visibility="{{ isLoading ? 'collapsed' : 'visible'}}"
                      verticalAlignment="center" horizontalAlignment="center" class="m-20">
             <Label [text]="emptyNoteMessage" textWrap="true" class="text-center font-italic empty-note-message"></Label>
-            <Stacklayout orientation="horizontal" horizontalAlignment="center" class="m-t-10">
-                <Label text="it is "></Label>
-                <Label text="quick, easy and secure" class="font-weight-bold"></Label>
-            </Stacklayout>
-            <Stacklayout orientation="horizontal" horizontalAlignment="center">
-                <Label text="access 'em "></Label>
-                <Label text="on the go " style="text-decoration: underline"></Label>
-                <Label text="anytime"></Label>
-            </Stacklayout>
-
             <StackLayout class="m-t-10">
-                <Label text="&#xE145;" class="text-center material-icons md-48 md-chevron-add"></Label>
+                <Label text="&#xE3B0;" class="text-center material-icons md-48 md-camera-alt"></Label>
             </StackLayout>
         </StackLayout>
         <GridLayout rows="*, auto">

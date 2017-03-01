@@ -34,12 +34,14 @@
                                 <StackLayout *ngFor="let message of groupedMessages.value" class="message-item">
                                     <GridLayout rows="*" columns="auto,*">
                                         <StackLayout row="0" col="0" class="profile-pic-container">
-                                            <FrescoDrawee *ngIf="message.photograph" height="60" width="60"
-                                                          class="profile-pic"
+                                            <FrescoDrawee *ngIf="message.photograph"  height="60" width="60"
                                                           imageUri="{{ message.photograph }}"
+                                                          placeholderImageUri="~/images/user-icon-100.png"
+                                                          failureImageUri="~/images/user-icon-100.png"
                                                           verticalAlignment="top"
                                                           roundAsCircle="true"
                                                           fadeDuration="600"></FrescoDrawee>
+
                                             <StackLayout *ngIf="!message.photograph"
                                                          class="blue-circle-border medium-avatar-with-name text-center"
                                                          verticalAlignment="center">

@@ -36,7 +36,8 @@ export class LoginService {
             command: "authentication",
             body: {
                 user_email: email,
-                password: password
+                password: password,
+                remember_me: true
             }
         });
         return this.http.post(
