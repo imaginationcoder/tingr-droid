@@ -26,24 +26,19 @@ let photoViewer = new PhotoViewer();
 let snackbar = new SnackBar();
 require( "nativescript-dom" );
 
-
 @Component({
     moduleId: module.id,
-    selector: "my-app",
+    selector: 'profile-dashboard-page',
+    templateUrl: './profile-dashboard.html',
+    styleUrls: ["./dashboard.css", "../home/home.css"],
     providers: [PostService,ServerErrorService, ModalDialogService , ParentService],
-    templateUrl: "./home.html",
-    styleUrls: ["./home.css"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent extends DrawerPage implements OnInit {
-    isLoading: Boolean = false;
-    public parentProfile: any;
-    public organizations: Array<any>;
+export class ProfileDashboardComponent implements OnInit {
+    public isLoading: Boolean = false;
+    public profile: any;
+    public isKidProfile: Boolean = true;
     public emptyNoteMessage: string;
-    public organization_id: string = '';
-    public isOrgExists: Boolean = false;
-    public moreThanOneOrg: Boolean = false;
-    public currentOrgName: string;
 
     // Posts related
     public lastModified: string = '';
@@ -55,7 +50,6 @@ export class HomeComponent extends DrawerPage implements OnInit {
     public posts: any;
     public textOnlyBgColors: Array<any>;
 
-
     constructor(private changeDetectorRef: ChangeDetectorRef,
                 private router: Router, private route: ActivatedRoute,
                 private modal: ModalDialogService,
@@ -66,40 +60,33 @@ export class HomeComponent extends DrawerPage implements OnInit {
                 private postService: PostService,
                 private vcRef: ViewContainerRef,
                 private serverErrorService: ServerErrorService) {
-        super(changeDetectorRef);
+        this.profile = this.sharedData.profile;
+        this.isKidProfile = this.sharedData.isKidProfile;
 
-        this.parentProfile = ParentInfo.profile;
-        this.organizations = ParentInfo.organizations;
-        console.log("Profile "+ JSON.stringify(ParentInfo.parsedDetails));
-        if(this.organizations.length){
-            let org = this.organizations[0];
-            this.organization_id = org.id;
-            this.isOrgExists = true;
-            this.currentOrgName = org.name;
-            if(this.organizations.length > 1){
-                this.moreThanOneOrg = true;
-            }
-        }
 
         this.textOnlyBgColors = ['#C46D21','#BE1C2F', '#FF3869', '#4195FF',
             '#A52BFF','#1E6587', '#32C4FC', '#FF2717','#FF601D', '#82AF52'];
 
         this.emptyNoteMessage = 'capture your family in action. tag a few or all. share with your circle.';
+
+        this.posts = [];
     }
 
     ngOnInit() {
-        //this.isLoading = true;
-        this.posts = [];
-        // load posts only if org exists 
-          this.isLoading = true;
-          this.getAllPosts(false); 
-
+        // show alert if no internet connection
+        //this.page.actionBarHidden = true;
+        this.isLoading = true;
+        this.getAllPosts(false);
     }
 
 
 
+    goBack() {
+        this.routerExtensions.backToPreviousPage();
+    }
+
     getAllPosts(loadingMorePosts) {
-        this.postService.getAllPosts(this.postCount, this.lastModified)
+        this.postService.getAllPosts(this.postCount, this.lastModified, this.profile.kl_id)
             .subscribe(
                 (result) => {
                     let body = result.body;
@@ -183,60 +170,12 @@ export class HomeComponent extends DrawerPage implements OnInit {
     }
 
 
-
-    goBack() {
-        this.routerExtensions.backToPreviousPage();
-    }
-
-    openOrganizations(){
-        if(this.moreThanOneOrg){
-            let orgs = this.organizations;
-            let actions = [];
-            for (let org of orgs) {
-                actions.push(org.name);
-            }
-            dialogs.action({
-                message: "Select Organization",
-                cancelButtonText: "Cancel",
-                actions: actions
-            }).then(result => {
-                if (result !== 'Cancel') {
-                    // don't fetch data if clicks on same room
-                    if (this.currentOrgName != result) {
-                        let currentOrg = orgs.filter(report => report.name === result)[0];
-                        // set the selected room in application data to access application wide
-                        this.currentOrgName = currentOrg.name;
-                        this.organization_id = currentOrg.id;
-                        /*
-                        TeacherInfo.currentRoom = JSON.stringify(this.currentRoom);
-                        this.roomName = this.currentRoom.session_name;
-                        this.loadManagedKids(this.currentRoom);*/
-                        this.changeDetectorRef.markForCheck();
-                    }
-                }
-
-
+    openSchoolsData(profile){
+        this.sharedData.kid = profile;
+        this.routerExtensions.navigate(["/kid-schools"],
+            {
+                transition: {name: "slideLeft"}
             });
-        }else{
-            return
-        }
-    }
-
-    openSchoolInfo(){
-        let navView = view.getViewById(this.page, "nav-school-info");
-        navView.classList.add('text-secondary');
-        this.sharedData.organizationId = this.organization_id;
-        this.sharedData.organizationName = this.currentOrgName;
-        this.routerExtensions.navigate(["/school-info"], {
-            transition: {
-                name: "slideLeft"
-            }
-        });
-
-        timerModule.setTimeout(()=> {
-            navView.classList.remove('text-secondary');
-        }, 1000);
-
     }
 
 
@@ -300,7 +239,7 @@ export class HomeComponent extends DrawerPage implements OnInit {
     editPost(post) {
         // save the post data in providers to available in next screen
         this.sharedData.currentPost = post;
-        this.routerExtensions.navigate(["/kid-edit-moment"], {
+        this.routerExtensions.navigate(["/edit-moment"], {
             transition: {
                 name: "slideLeft",
                 duration: 300,

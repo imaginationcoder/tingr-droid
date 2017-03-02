@@ -1,8 +1,3 @@
-.hearters-list  .hearter-profile-pic {
+.hearter-profile-pic {
     border-radius: 20;
-}
-
-.hearters-list .item{
-    margin: 10;
-    border-bottom: solid 2 grey;
 }

@@ -22,6 +22,9 @@ export class SharedData {
     
     public kid: any;
     public parent: any;
+    public profile: any;
+    public isKidProfile: Boolean = true;
+
     public formOrDoc: any;
 
     public constructor() { }

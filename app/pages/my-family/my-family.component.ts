@@ -43,8 +43,9 @@ export class MyFamilyComponent implements OnInit {
 
     openParentProfile(parent) {
        // let conversation = this.conversations[args.index];
-        this.sharedData.parent = parent;
-        this.routerExtensions.navigate(["/parent-dashboard"],
+        this.sharedData.profile = parent;
+        this.sharedData.isKidProfile = false;
+        this.routerExtensions.navigate(["/profile-dashboard"],
             {
                 transition: {name: "slideLeft"}
             });
@@ -52,8 +53,9 @@ export class MyFamilyComponent implements OnInit {
 
     openKidProfile(kid) {
         // let conversation = this.conversations[args.index];
-        this.sharedData.kid = kid;
-        this.routerExtensions.navigate(["/kid-dashboard"],
+        this.sharedData.profile = kid;
+        this.sharedData.isKidProfile = true;
+        this.routerExtensions.navigate(["/profile-dashboard"],
             {
                 transition: {name: "slideLeft"}
             });
@@ -65,8 +67,7 @@ export class MyFamilyComponent implements OnInit {
                 (result) => {
                     var body = result.body;
 
-                    this.kids = body.kids;
-                    console.log("Kids "+ JSON.stringify(this.kids));
+                    this.kids = body.kids; 
                     let currentParent;
                     body.parents.forEach(parent => {
                         if(parent.email === ParentInfo.profile.email){
@@ -75,10 +76,8 @@ export class MyFamilyComponent implements OnInit {
                             this.parents.push(parent);
                         }
                     });
-                    this.parents.unshift(currentParent); 
-                    console.log("Parents--------------")
-                    console.log(JSON.stringify(this.parents));
-                    console.log("Parents--------------")
+                    this.parents.unshift(currentParent);  
+                    console.log(JSON.stringify(this.parents)); 
                     this.isLoading = false;
                 },
                 (error) => {

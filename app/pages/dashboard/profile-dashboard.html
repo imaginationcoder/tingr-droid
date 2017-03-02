@@ -1,0 +1,280 @@
+<ActionBar title="">
+    <!-- left area  -->
+
+    <NavigationButton icon="res://ic_back_24dp" (tap)="goBack()"></NavigationButton>
+
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label text="" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+</ActionBar>
+
+
+<GridLayout class="kid-profile">
+    <ScrollView>
+        <Gridlayout rows="auto,auto,auto,*,auto" backgroundColor="#e3e0dc">
+            <!--- #######  KID Profile ############   -->
+            <StackLayout row="0" backgroundColor="#ffffff">
+                <StackLayout class="profile-details">
+                    <GridLayout rows="*" , columns="*,100" verticalAlignment="center">
+                        <Label row="0" col="0" [text]="isKidProfile ? profile.nickname : profile.fname "
+                               verticalAlignment="center" class="wall-name text-center text-primary"></Label>
+                        <StackLayout row="0" col="1">
+                            <FrescoDrawee *ngIf="profile.photograph" height="100" width="100"
+                                          imageUri="{{ profile.photograph }}"
+                                          backgroundUri="~/images/user-icon-100.png"
+                                          failureImageUri="~/images/user-icon-100.png"
+                                          verticalAlignment="top"
+                                          roundAsCircle="true"
+                                          fadeDuration="600"></FrescoDrawee>
+
+                            <StackLayout *ngIf="!profile.photograph"
+                                         class="blue-circle-border extra-large-avatar-with-name text-center"
+                                         verticalAlignment="center">
+                                <Label [text]="profile | shortName | uppercase"></Label>
+                            </StackLayout>
+                        </StackLayout>
+                    </GridLayout>
+                    <GridLayout [columns]="isKidProfile ? '*,*,*' : '*,*'" verticalAlignment="center"
+                                class="text-center m-t-20">
+                        <Image col="0" width="80" verticalAlignment="center" stretch="aspectFill"
+                               src="~/images/removable/profile-details.png"></Image>
+                        <Image col="1" width="80" verticalAlignment="center" stretch="aspectFill"
+                               src="~/images/removable/profile-vault.png"></Image>
+                        <Image *ngIf="isKidProfile" (tap)="openSchoolsData(profile)" col="2" width="80"
+                               verticalAlignment="center" stretch="aspectFill"
+                               src="~/images/removable/profile-orgs.png"></Image>
+                    </GridLayout>
+                </StackLayout>
+                <StackLayout class="hr-shadow-bottom"></StackLayout>
+            </StackLayout>
+
+
+            <!--- #######  Add Moment button  ############   -->
+            <StackLayout row="1">
+                <Stacklayout class="m-t-5 add-moment" height="50" verticalAlignment="center">
+                    <StackLayout orientation="horizontal" horizontalAlignment="center">
+                        <Label class="material-icons md-24 md-add-circle" text="&#xE147;"></Label>
+                        <Label text="Add moment" class="m-l-10"></Label>
+                    </StackLayout>
+                </Stacklayout>
+                <StackLayout class="hr-shadow-bottom"></StackLayout>
+            </StackLayout>
+
+
+            <!-- display only if first time posts are loading  -->
+            <StackLayout row="2" visibility="{{ isLoading ? 'visible' : 'collapsed'}}" class="m-t-10">
+                <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+            </StackLayout>
+
+            <Gridlayout *ngIf="!posts.length" row="3" backgroundColor="#ffffff">
+                <StackLayout visibility="{{ isLoading ? 'collapsed' : 'visible'}}"
+                             verticalAlignment="center" horizontalAlignment="center" class="m-20">
+                    <Label [text]="emptyNoteMessage" textWrap="true"
+                           class="text-center font-italic empty-note-message"></Label>
+                    <StackLayout class="m-t-10">
+                        <Label text="&#xE3B0;" class="text-center material-icons md-48 md-camera-alt"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </Gridlayout>
+
+            <StackLayout *ngIf="posts.length" row="3">
+                <Stacklayout *ngFor="let post of posts; let index= index; let isLast=last;">
+                    <CardView margin="5 0 5 0" elevation="7" class="whiteCard">
+                        <GridLayout rows="auto,auto,auto,auto, auto, auto, auto"
+                                    class="post-item">
+                            <GridLayout row="0">
+                                <StackLayout (tap)="openPostImages(post)" *ngIf="!post.text_only">
+                                    <FrescoDrawee height="250" imageUri="{{ post.images[0] }}"
+                                                  verticalAlignment="top" showProgressBar="false"
+                                                  placeholderImageUri="~/images/post-placeholder.jpg"
+                                                  fadeDuration="600"
+                                                  failureImageUri="~/images/post-placeholder.jpg"></FrescoDrawee>
+                                </StackLayout>
+                                <StackLayout *ngIf="post.text_only">
+                                    <StackLayout class="text-only-moment"
+                                                 [backgroundColor]="post.text_only_bg">
+                                        <StackLayout class="header">
+                                            <Gridlayout rows="auto" columns="*,auto" margin="12 0 12 0">
+                                                <Label row="0" col="0" [text]="post.new_title"
+                                                       class="text-left font-weight-bold m-l-10"></Label>
+                                                <StackLayout row="0" col="1" class="author m-r-10">
+                                                    <Label class="text-right p-l-5 p-r-5"
+                                                           horizontalAlignment="right"
+                                                           [text]="'by '+ post.author_name"></Label>
+                                                </StackLayout>
+                                            </Gridlayout>
+                                        </StackLayout>
+                                        <StackLayout class="content" verticalAlignment="center"
+                                                     horizontalAlignment="center">
+                                            <Label class="m-5" [text]="post.text" textWrap="true"></Label>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </GridLayout>
+                            <GridLayout row="1" class="moment-tags">
+                                <StackLayout orientation="vertical">
+                                    <GridLayout columns="*, auto" *ngIf="post.tagged_to.length">
+                                        <WrapLayout col="0" row="0" orientation="horizontal">
+                                            <StackLayout *ngFor="let item of post.tagged_to; let i = index"
+                                                         margin="3">
+
+
+                                                <FrescoDrawee *ngIf="item.photograph" height="40"
+                                                              width="40"
+                                                              class="kid-profile-pic"
+                                                              imageUri="{{ item.photograph }}"
+                                                              verticalAlignment="top"
+                                                              roundAsCircle="true"
+                                                              fadeDuration="600"></FrescoDrawee>
+
+                                                <StackLayout *ngIf="!item.photograph"
+                                                             class="blue-circle-border small-avatar-with-name text-center"
+                                                             verticalAlignment="center">
+                                                    <Label [text]="item | shortName | uppercase"></Label>
+                                                </StackLayout>
+
+                                            </StackLayout>
+                                        </WrapLayout>
+                                        <StackLayout col="1" row="0" horizontalAlignment="right"
+                                                     orientation="horizontal" height="50" verticalAlignment="top">
+                                            <StackLayout orientation="vertical">
+                                                <Label text="{{ post.created_at | timeAgo }}"
+                                                       class="tagged-on-date"></Label>
+                                                <Image (tap)="showPostLikes(post)" class="m-t-5"
+                                                       visibility="{{ post.hearts_count > 0 ? 'visible' : 'collapsed'}}"
+                                                       height="25" width="40" stretch="aspectFit"
+                                                       src="{{ post.hearts_count > 0 ? (post.asset_base_url + post.heart_icon) : '~/images/heart-icon-pink.png' }}"
+                                                       horizontalAlignment="right">
+                                                </Image>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </GridLayout>
+                                    <StackLayout *ngIf="post.new_title && !post.text_only" margin="5 5 2 5"
+                                                 class="font-weight-bold">
+                                        <Label textWrap="true" text="{{ post.new_title }}"></Label>
+                                    </StackLayout>
+                                    <StackLayout *ngIf="post.text && !post.text_only" margin="0 5 2 5">
+                                        <Label textWrap="true" text="{{ post.text }}"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                            </GridLayout>
+                            <GridLayout row="2">
+                                <StackLayout class="horizontal-separator" margin="0 10 0 10">
+                                </StackLayout>
+                            </GridLayout>
+                            <GridLayout row="3" class="moment-comments">
+                                <StackLayout>
+                                    <StackLayout *ngFor="let comment of post.comments; let i = index">
+                                        <StackLayout orientation="horizontal" verticalAlignment="center"
+                                                     class="moment-comment-item"
+                                                     id="comment-slug-{{ comment.slug }}">
+
+
+                                            <FrescoDrawee *ngIf="comment.commenter_photo" height="60"
+                                                          width="60"
+                                                          class="parent-profile-pic"
+                                                          imageUri="{{ comment.commenter_photo }}"
+                                                          verticalAlignment="top"
+                                                          roundAsCircle="true"
+                                                          fadeDuration="600"></FrescoDrawee>
+
+
+                                            <StackLayout *ngIf="!comment.commenter_photo"
+                                                         class="blue-circle-border medium-avatar-with-name text-center"
+                                                         verticalAlignment="center">
+                                                <Label [text]="comment | shortName | uppercase"></Label>
+                                            </StackLayout>
+
+
+                                            <StackLayout orientation="vertical" class="comment-details p-l-5">
+                                                <StackLayout orientation="horizontal">
+                                                    <Label [text]="comment.commented_by"
+                                                           class="profile-name font-weight-bold"></Label>
+                                                    <Label *ngIf="comment.child_name"
+                                                           text="{{ comment.child_name }}'s {{ comment.child_relationship }}"
+                                                           class="profile-relationship text-muted"></Label>
+                                                </StackLayout>
+                                                <Label [text]="comment.content" textWrap="true"></Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <GridLayout>
+                                            <StackLayout class="comment-hr-separator">
+                                            </StackLayout>
+                                        </GridLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </GridLayout>
+
+                            <GridLayout row="4">
+                                <StackLayout class="comment-hr-separator">
+                                </StackLayout>
+                            </GridLayout>
+                            <GridLayout row="5" class="moment-bottom-section">
+                                <GridLayout columns="auto,*,auto" verticalAlignment="center">
+                                    <StackLayout col="0" row="0" horizontalAlignment="left" orientation="horizontal"
+                                                 marginLeft="10">
+                                        <Image visibility="visible" stretch="none"
+                                               class="{{ post.hearted ? 'hearted' : 'not-hearted' }}"
+                                               (tap)="addOrRemoveHeart(post, index)"
+                                               src="res://heart_icon_{{ post.hearted ? 'gray' : 'light' }}"></Image>
+                                    </StackLayout>
+
+                                    <StackLayout (tap)="showModalCommentToPost(post, index)" col="1" row="0"
+                                                 horizontalAlignment="left" orientation="horizontal"
+                                                 marginLeft="10" verticalAlignment="center">
+                                        <Image stretch="none" src="res://comment_icon" class="m-r-10"></Image>
+                                        <Label text="Comment" class="comment-label"></Label>
+                                    </StackLayout>
+
+                                    <StackLayout col="3" row="0">
+                                        <StackLayout *ngIf="post.can_edit || post.can_delete"
+                                                     (tap)="selectPostActions($event,post, index)"
+                                                     horizontalAlignment="right"
+                                                     orientation="horizontal"
+                                                     margin="0 10 0 0">
+                                            <Image stretch="none" src="res://more_icon" horizontalAlignment="right"
+                                                   marginLeft="30"></Image>
+                                        </StackLayout>
+                                    </StackLayout>
+
+                                </GridLayout>
+                            </GridLayout>
+                        </GridLayout>
+                    </CardView>
+                </Stacklayout>
+
+                <Stacklayout *ngIf="isLoadingMore" class="load-more-posts">
+                    <StackLayout horizontalAlignment="center" class="p-10">
+                        <Stacklayout orientation="horizontal">
+                            <ActivityIndicator *ngIf="showLoadingIndicator" busy="true" height="20"
+                                               width="20"></ActivityIndicator>
+                            <Label [text]="loadMoreText | lowercase" (tap)="loadMoreOrgPosts()"
+                                   class="p-l-5 font-weight-bold"></Label>
+                        </Stacklayout>
+                    </StackLayout>
+                </Stacklayout>
+            </StackLayout>
+
+
+            <!-- ##### uncomment below if bottom navs to enable -->
+            <!--<StackLayout row="3" verticalAlignment="center">
+                <StackLayout class="hr-shadow-bottom"></StackLayout>
+                <GridLayout columns="auto,*,auto" class="navigation-menu">
+                    <Label col="0" id="nav-home" class="material-icons md-36 md-chevron-right text-secondary"
+                           text="&#xE88A;"></Label>
+                    <Label col="1" id="nav-add-post" class="material-icons md-36 md-chevron-right text-center"
+                           text="&#xE145;"></Label>
+                    <Label col="2" id="nav-school-info" (tap)="openSchoolInfo()"
+                           class="material-icons md-36 md-chevron-right" text="&#xE88E;"></Label>
+                </GridLayout>
+            </StackLayout>-->
+
+
+        </Gridlayout>
+    </ScrollView>
+</GridLayout>

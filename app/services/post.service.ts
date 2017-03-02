@@ -15,21 +15,19 @@ export class PostService {
 
     }
 
-    getOrgPosts(postCount = 0, lastModified = '', organization_id) {
+    getAllPosts(postCount = 0, lastModified = '', profile_id='') {
         let headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        console.log("accessToken "+ TokenService.accessToken);
-        console.log("authToken "+ TokenService.authToken)
-        console.log("organization_id "+ organization_id)
+        headers.append("Content-Type", "application/json"); 
         let data = JSON.stringify({
             access_token: TokenService.accessToken,
             auth_token: TokenService.authToken,
-            command: "all",
+            command: profile_id ? 'profile_posts_all' : "all",
             body: {
                 last_modified: lastModified,
                 post_count: postCount,
                 step: "next",
-                paginate: true
+                paginate: true,
+                profile_id: profile_id
             }
         });
 
@@ -39,8 +37,6 @@ export class PostService {
             }
         ).map((res: Response) => res.json())
             .catch(this.handleErrors)
-
-
     }
 
 

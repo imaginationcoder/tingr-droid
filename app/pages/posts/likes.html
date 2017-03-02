@@ -14,7 +14,7 @@
 </ActionBar>
 
 
-<GridLayout class="post-hearters-container">
+<GridLayout class="post-hearters-container" backgroundColor="#e3e0dc">
 
     <StackLayout *ngIf="!hearters.length" visibility="{{ isLoading ? 'collapsed' : 'visible'}}"
                  verticalAlignment="center">
@@ -23,35 +23,29 @@
         </StackLayout>
     </StackLayout>
     <PullToRefresh (refresh)="refreshList($event)" #pullToRefresh>
-        <ScrollView>
-            <StackLayout *ngIf="hearters.length" margin="10 0 0 0">
-                <StackLayout class="hearters-list">
-                    <StackLayout *ngFor="let hearter of hearters">
-                        <Gridlayout rows="auto" columns="auto,*" verticalAlignment="center" orientation="horizontal"
-                                    class="item">
-                            <StackLayout row='0' col="0" >
+        <ListView [items]="hearters" class="list-group">
+            <template let-hearter="item" let-index="index">
+                <Gridlayout rows="auto" columns="auto,*" verticalAlignment="center" orientation="horizontal" class="p-10">
+                    <StackLayout row='0' col="0" >
 
-                                <FrescoDrawee *ngIf="hearter.photograph_url" height="40" width="40"
-                                              class="hearter-profile-pic"
-                                              imageUri="{{ hearter.photograph_url }}"
-                                              verticalAlignment="top"
-                                              roundAsCircle="true"
-                                              fadeDuration="600"></FrescoDrawee>
-                            </StackLayout>
-
-                            <StackLayout *ngIf="!hearter.photograph_url" class="blue-circle-border small-avatar-with-name text-center" verticalAlignment="center" >
-                                <Label [text]="hearter | shortName | uppercase"></Label>
-                            </StackLayout>
-
-                            <Label row="0" col="1" verticalAlignment="center"
-                                   text="{{ hearter.fname }} {{ hearter.lname }}"
-                                   class="m-l-20 font-weight-bold"></Label>
-                        </Gridlayout>
-                        <StackLayout class="hr-light"></StackLayout>
+                        <FrescoDrawee *ngIf="hearter.photograph_url" height="40" width="40"
+                                      class="hearter-profile-pic"
+                                      imageUri="{{ hearter.photograph_url }}"
+                                      verticalAlignment="top"
+                                      roundAsCircle="true"
+                                      fadeDuration="600"></FrescoDrawee>
                     </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </ScrollView>
+
+                    <StackLayout *ngIf="!hearter.photograph_url" class="blue-circle-border small-avatar-with-name text-center" verticalAlignment="center" >
+                        <Label [text]="hearter | shortName | uppercase"></Label>
+                    </StackLayout>
+
+                    <Label row="0" col="1" verticalAlignment="center"
+                           text="{{ hearter.fname }} {{ hearter.lname }}"
+                           class="m-l-20 font-weight-bold"></Label>
+                </Gridlayout>
+            </template>
+        </ListView>
     </PullToRefresh>
 
     <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>

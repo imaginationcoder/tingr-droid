@@ -8,7 +8,7 @@ import {KidService} from "../../services/kid.service";
 import {ServerErrorService} from "../../services/server.error.service";
 import {ConversationService} from "../../services/conversation.service";
 import {SharedData} from "../../providers/data/shared_data";
-
+import dialogs = require("ui/dialogs");
 let nstoasts = require("nativescript-toasts");
 let app = require("application");
 
@@ -56,18 +56,13 @@ export class KidSchoolsComponent implements OnInit {
             .subscribe(
                 (result) => {
                     this.isLoading = false;
-                    var body = result.body;
-                    console.log("Schools ---eeeee-----------------------------" + JSON.stringify(body))
-                    body.organizations.forEach(school => {
-                        console.log("School name -----------------------------"+ school.name)
+                    var body = result.body; 
+                    body.organizations.forEach(school => { 
                         this.schoolsNames.push(school.name);
                     });
                     
-                    this.schools = body.organizations;
-                    console.log("Schools --------------------------------")
-                    console.log(JSON.stringify(this.schools))
-                    console.log("Schools --------------------------------")
-
+                    this.schools = body.organizations; 
+                    //console.log(JSON.stringify(this.schools));  
                     let currentSchoolObj = this.schools[0];
 
                     if(this.schoolsNames.length > 1){
@@ -76,9 +71,7 @@ export class KidSchoolsComponent implements OnInit {
                     if(currentSchoolObj){
                         this.currentSchoolName = currentSchoolObj.name;
                         this.formsAndDocs = currentSchoolObj.forms_and_documents;
-                    }
-
-
+                    } 
                 },
                 (error) => {
                     this.isLoading = false;
@@ -130,7 +123,7 @@ export class KidSchoolsComponent implements OnInit {
 
     changeSchool(){
         if(this.moreThanOneSchool){
-            let schoolNames = this.schoolNames;
+            let schoolNames = this.schoolsNames;
             let actions = [];
             for (let school of schoolNames) {
                 actions.push(school);
@@ -143,7 +136,7 @@ export class KidSchoolsComponent implements OnInit {
                 if (result !== 'Cancel') {
                     // don't fetch data if clicks on same room
                     if (this.currentSchoolName != result) {
-                        let currentSchoolObj = body.schools.filter(report => report.name === result)[0];
+                        let currentSchoolObj = this.schools.filter(report => report.name === result)[0];
                         if(currentSchoolObj){
                             this.currentSchoolName = currentSchoolObj.name;
                             this.formsAndDocs = currentSchoolObj.forms_and_documents;

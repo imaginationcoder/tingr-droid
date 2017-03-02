@@ -45,6 +45,7 @@ Page {
     font-size: 15;
     font-family: Roboto-Regular;
     color: #656469;
+    background-color: #e3e0dc;
 }
 
 TextField {

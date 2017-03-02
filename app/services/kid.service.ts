@@ -33,5 +33,9 @@ export class KidService {
             .catch(this.handleErrors);
     }
 
+    handleErrors(error: Response) {
+        return Observable.throw(error.json() || {error: 'Server error'})
+    }
+
 
 }
