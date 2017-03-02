@@ -76,15 +76,40 @@ export class ProfileDashboardComponent implements OnInit {
         // show alert if no internet connection
         //this.page.actionBarHidden = true;
         this.isLoading = true;
-        this.getAllPosts(false);
+        this.getAllPosts(false);  
     }
-
 
 
     goBack() {
-        this.routerExtensions.backToPreviousPage();
+        //this.routerExtensions.backToPreviousPage();
+        this.routerExtensions.navigate(["/my-family"],
+            {
+                transition: {name: "slideRight"}
+            });
     }
 
+    openProfileDetails(profile){
+        if(this.isKidProfile){
+            this.sharedData.kid = profile;
+            this.routerExtensions.navigate(["/kid-profile"],
+                {
+                    transition: {name: "slideLeft"}
+                });
+        }else{
+            // parent profile details page
+        }
+    }
+
+
+    openSchoolsData(profile){
+        this.sharedData.profile = profile;
+        this.routerExtensions.navigate(["/kid-schools"],
+            {
+                transition: {name: "slideLeft"}
+            });
+    }
+
+// POST related stuff ----------------------------------------------------
     getAllPosts(loadingMorePosts) {
         this.postService.getAllPosts(this.postCount, this.lastModified, this.profile.kl_id)
             .subscribe(
@@ -115,8 +140,7 @@ export class ProfileDashboardComponent implements OnInit {
                     this.isLoading = false;
                     this.changeDetectorRef.markForCheck();
                 },
-                (error) => {
-                    console.log("Success "+ JSON.stringify(error));
+                (error) => { 
                     this.isLoading = false;
                     this.serverErrorService.showErrorModal();
                 }
@@ -167,17 +191,7 @@ export class ProfileDashboardComponent implements OnInit {
         }
 
         return newPost;
-    }
-
-
-    openSchoolsData(profile){
-        this.sharedData.kid = profile;
-        this.routerExtensions.navigate(["/kid-schools"],
-            {
-                transition: {name: "slideLeft"}
-            });
-    }
-
+    } 
 
     addOrRemoveHeart(post, index) {
         let currentPostObject = this.posts[index];

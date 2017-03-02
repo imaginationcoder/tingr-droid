@@ -81,7 +81,28 @@ export class ParentService {
                 content: imageBase64DataWithFormat
             }
         });
+        return this.http.post(
+            Config.apiUrl + "document-vault", data, {
+                headers: this.headers
+            }
+        ).map((res: Response) => res.json())
+            .catch(this.handleErrors)
+    }
 
+    changePhotograph(imageBase64Data, profile_id){ 
+        let imageBase64DataWithFormat = "data:image/jpeg;base64," + imageBase64Data;
+        let imageFileName = new Date().getTime() + '.jpeg';
+        let data = JSON.stringify({
+            access_token: TokenService.accessToken,
+            auth_token: TokenService.authToken,
+            command: 'change_photograph',
+            body: {
+                profile_id: profile_id,
+                name: imageFileName,
+                content_type: "image/jpeg",
+                content: imageBase64DataWithFormat
+            }
+        });
         return this.http.post(
             Config.apiUrl + "document-vault", data, {
                 headers: this.headers
@@ -140,6 +161,29 @@ export class ParentService {
             .map((res: Response) => res.json())
             .catch(this.handleErrors);
     }
+
+
+    getKiProfileDetails(kid_klid) {
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        let data = JSON.stringify({
+            access_token: TokenService.accessToken,
+            auth_token: TokenService.authToken,
+            command: "kid_info",
+            body: {
+                kid_klid: kid_klid
+            }
+        });
+        return this.http.post(
+            Config.apiUrl + "teachers", data, {
+                headers: headers
+            }
+        )
+            .map(response => response.json())
+            .catch(this.handleErrors);
+    }
+
+
 
     handleErrors(error: Response) {
         return Observable.throw(error.json() || {error: 'Server error'})

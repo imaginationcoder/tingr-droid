@@ -68,6 +68,7 @@ export class MyFamilyComponent implements OnInit {
                     var body = result.body;
 
                     this.kids = body.kids; 
+                    console.log(JSON.stringify(this.kids)); 
                     let currentParent;
                     body.parents.forEach(parent => {
                         if(parent.email === ParentInfo.profile.email){
@@ -76,13 +77,12 @@ export class MyFamilyComponent implements OnInit {
                             this.parents.push(parent);
                         }
                     });
-                    this.parents.unshift(currentParent);  
+                    this.parents.unshift(currentParent); 
                     console.log(JSON.stringify(this.parents)); 
                     this.isLoading = false;
                 },
                 (error) => {
-                    this.isLoading = false;
-                    console.log("error "+ JSON.stringify(error));
+                    this.isLoading = false; 
                     this.serverErrorService.showErrorModal();
                 }
             );
@@ -94,8 +94,7 @@ export class MyFamilyComponent implements OnInit {
         this.parentService.myFamily()
             .subscribe(
                 (result) => {
-                    var body = result.body;
-                    JSON.stringify("My Family "+ JSON.stringify(body));
+                    var body = result.body; 
                     this.kids = body.kids;
                     this.parents = body.parents;
                     this.isLoading = false;

@@ -41,16 +41,8 @@ export class VerifyEmailComponent implements OnInit {
 
     }
 
-    ngOnInit() {
-      /*  TokenService.authToken = '';
-        TokenService.accessToken = '';
-        ParentInfo.details = '';
-        appSettings.clear();*/
-
-        console.log('AuthToken '+ TokenService.authToken)
-
-        this.page.actionBarHidden = true;
-
+    ngOnInit() { 
+        this.page.actionBarHidden = true; 
         // get AccessToken
         if (!!TokenService.accessToken === false) {
            this.isLoading = true;
@@ -59,18 +51,15 @@ export class VerifyEmailComponent implements OnInit {
                     (result) => {
                         // save accessToken in appSettings and authData
                         TokenService.accessToken = result.access_token;
-                        TokenService.accessTokenExpiry = result.expires_in;
-
-                        console.log("Access Token got "+ JSON.stringify(result));
+                        TokenService.accessTokenExpiry = result.expires_in; 
+                        //TODO implement expire in logic
                         this.isLoading = false;
                         //this.isLoading = false;
                     },
                     (error) => {
                         //this.isLoading = false;
-                        this.isLoading = false;
-                        console.log("Error getting access token "+ JSON.stringify(error));
-                        this.serverErrorService.showErrorModal();
-
+                        this.isLoading = false; 
+                        this.serverErrorService.showErrorModal(); 
                     }
                 );
         }

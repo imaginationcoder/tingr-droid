@@ -41,7 +41,7 @@
                     </GridLayout>
                     <GridLayout [columns]="isKidProfile ? '*,*,*' : '*,*'" verticalAlignment="center"
                                 class="text-center m-t-20">
-                        <Image col="0" width="80" verticalAlignment="center" stretch="aspectFill"
+                        <Image (tap)="openProfileDetails(profile)" col="0" width="80" verticalAlignment="center" stretch="aspectFill"
                                src="~/images/removable/profile-details.png"></Image>
                         <Image col="1" width="80" verticalAlignment="center" stretch="aspectFill"
                                src="~/images/removable/profile-vault.png"></Image>

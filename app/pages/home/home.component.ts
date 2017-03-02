@@ -69,8 +69,7 @@ export class HomeComponent extends DrawerPage implements OnInit {
         super(changeDetectorRef);
 
         this.parentProfile = ParentInfo.profile;
-        this.organizations = ParentInfo.organizations;
-        console.log("Profile "+ JSON.stringify(ParentInfo.parsedDetails));
+        this.organizations = ParentInfo.organizations; 
         if(this.organizations.length){
             let org = this.organizations[0];
             this.organization_id = org.id;
@@ -128,8 +127,7 @@ export class HomeComponent extends DrawerPage implements OnInit {
                     this.isLoading = false;
                     this.changeDetectorRef.markForCheck();
                 },
-                (error) => {
-                    console.log("Success "+ JSON.stringify(error));
+                (error) => { 
                     this.isLoading = false;
                     this.serverErrorService.showErrorModal();
                 }

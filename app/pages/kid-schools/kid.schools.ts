@@ -74,9 +74,7 @@ export class KidSchoolsComponent implements OnInit {
                     } 
                 },
                 (error) => {
-                    this.isLoading = false;
-
-                    console.log("error " + JSON.stringify(error));
+                    this.isLoading = false; 
                     this.serverErrorService.showErrorModal();
                 }
             );

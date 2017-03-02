@@ -1,0 +1,181 @@
+<ActionBar title="">
+    <!-- left area  -->
+
+    <NavigationButton icon="res://ic_back_24dp" (tap)="goBack()"></NavigationButton>
+
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label text="{{ kid.fname }} {{ kid.lname }}" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+</ActionBar>
+
+
+<GridLayout class="kid-profile">
+    <ScrollView>
+        <GridLayout rows="auto,auto" backgroundColor="#ffffff">
+            <StackLayout row="0">
+                <GridLayout rows="auto" columns="auto, *" class="kid-profile-header">
+                    <StackLayout row="0" col="0">
+                        <AbsoluteLayout>
+                            <StackLayout visibility="{{ picUploaded ? 'collapse' : 'visible'}}">
+                                <FrescoDrawee *ngIf="kid.photograph" height="100" width="100"
+                                              class="kid-profile-pic"
+                                              imageUri="{{ kid.photograph }}"
+                                              verticalAlignment="top"
+                                              roundAsCircle="true"
+                                              fadeDuration="600"></FrescoDrawee>
+
+                                <StackLayout *ngIf="!kid.photograph"
+                                             class="blue-circle-border extra-large-avatar-with-name text-center"
+                                             verticalAlignment="center">
+                                    <Label [text]="kid | shortName | uppercase"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                             <StackLayout visibility="{{ picUploaded ? 'visible' : 'collapse'}}">
+                                 <Image height="100" width="100" id="kidProfilePic"
+                                        class="uploaded-kid-profile-pic"
+                                        src="{{ kid.photograph || '~/images/user-icon-100.png' }}"></Image>
+                             </StackLayout>
+                            <StackLayout left="65" top="75" (tap)="selectChangePhotoOption()">
+                                <Label horizontalAlignment="center"
+                                       class="camera-icon-with-circle text-center material-icons md-24 md-photo-camera"
+                                       text="&#xE412;" verticalAlignment="center"></Label>
+                            </StackLayout>
+                        </AbsoluteLayout>
+                    </StackLayout>
+
+                    <StackLayout row="0" col="1" verticalAlignment="center" orientation="vertical" class="p-l-20">
+                        <Label [text]="kid.nickname" class="fname"></Label>
+                        <Label [text]="kid.age+' old'" class="text-muted age"></Label>
+                    </StackLayout>
+
+                    <!--<StackLayout (tap)="closeProfile()" row="0" col="2" class="text-right" verticalAlignment="top" horizontalAlignment="right">
+                        <Label class="material-icons md-24 md-close" text="&#xE5CD;"></Label>
+                    </StackLayout>-->
+                </GridLayout>
+                <StackLayout class="hr-light">
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout row="1">
+
+                <StackLayout>
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Full Name" class="header text-muted"></Label>
+                        <Label class="value" [text]="kid.fname +' ' + kid.mname+ ' '+ kid.lname"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Preferred Name" class="header text-muted"></Label>
+                        <Label class="value" [text]="kid.nickname"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Birthday" class="header text-muted"></Label>
+                        <Label class="value" [text]="kid.birthdate"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Gender" class="header text-muted"></Label>
+                        <Label class="value" [text]="kid.gender"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Other Basic Details" class="header text-muted"></Label>
+                        <Label class="" [text]="kid.other_basic_details || ' '" textWrap="true"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Primary Doctor" class="header text-muted"></Label>
+                        <Label class="value" [text]="kid.doctor?.name || ' '" textWrap="true"></Label>
+                        <Label class="blue2" [text]="kid.doctor?.email" textWrap="true"></Label>
+                        <Label class="blue2" [text]="kid.doctor?.phone_no" textWrap="true"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Dentist" class="header text-muted"></Label>
+                        <Label class="value" [text]="kid.dentist?.name || ' '" textWrap="true"></Label>
+                        <Label class="blue2" [text]="kid.dentist?.email" textWrap="true"></Label>
+                        <Label class="blue2" [text]="kid.dentist?.phone_no" textWrap="true"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Medicines" class="header text-muted"></Label>
+                        <Label class="" [text]="kid.medicines || ' '" textWrap="true"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Food Allergies" class="header text-muted"></Label>
+                        <Label class="" [text]="kid.food_allergies || ' '" textWrap="true"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Drug Allergies" class="header text-muted"></Label>
+                        <Label class="" [text]="kid.drug_allergies || ' '" textWrap="true"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Medical Issues" class="header text-muted"></Label>
+                        <Label class="" [text]="kid.medical_issues || ' '" textWrap="true"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Special Needs" class="header text-muted"></Label>
+                        <Label class="" [text]="kid.special_needs || ' '" textWrap="true"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+                    <StackLayout orientation="vertical" class="item-details">
+                        <Label text="Other Health/Wellness" class="header text-muted"></Label>
+                        <Label class="" [text]="kid.other_concerns || ' '" textWrap="true"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+
+                    <StackLayout *ngFor="let parent of kid.parents">
+                        <StackLayout orientation="vertical" class="item-details" *ngIf="parent">
+                            <Label [text]="parent.relation_ship" class="header text-muted"></Label>
+                            <Label class="value" [text]="parent.fname +' '+parent.lname " textWrap="true"></Label>
+                            <Label class="blue2" [text]="parent.email" textWrap="true"></Label>
+                            <StackLayout orientation="horizontal" *ngFor="let phone of parent.phone_numbers">
+                                <Label *ngIf="phone?.number" class="value blue2" [text]="phone.number"
+                                       textWrap="true"></Label>
+                                <Label *ngIf="phone?.type" class="p-l-10 text-muted" text="({{ phone.type }})"
+                                       textWrap="true"></Label>
+                            </StackLayout>
+
+                        </StackLayout>
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
+
+
+                </StackLayout>
+
+            </StackLayout>
+
+        </GridLayout>
+    </ScrollView>
+
+
+    <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
+    <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
+        <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+    </GridLayout>
+
+</GridLayout>

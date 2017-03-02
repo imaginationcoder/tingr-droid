@@ -1,0 +1,48 @@
+Image.kid-profile-pic{
+    border-radius: 50;
+}
+
+GridLayout.kid-profile {
+    /* background-color: #e4e4e4;*/
+}
+
+Image.uploaded-kid-profile-pic{
+    border-radius: 50%;
+}
+
+
+.kid-profile .kid-profile-header{
+    margin: 15;
+}
+
+.kid-profile .fname {
+    color: #46c8f0;
+    font-size: 22;
+    font-style: italic;
+    font-weight: bold;
+}
+.kid-profile .age {
+    font-weight: 700;
+}
+
+
+.kid-profile .item-details{
+    margin: 15;
+}
+.kid-profile .item-details .header{
+
+}
+.kid-profile .item-details .value{
+    font-weight: bold;
+}
+
+
+
+.camera-icon-with-circle{
+    padding-top: 6;
+    color: white;
+    border-radius: 17;
+    height: 35;
+    width: 35;
+    background-color: #faad41;
+}

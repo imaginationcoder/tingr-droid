@@ -108,12 +108,12 @@ export class FillProfileComponent implements OnInit {
     takePicture() {
         let teacherProfilePicView = view.getViewById(this.page, 'parentProfilePic');
         let options = {
-            width: 500, height: 500, keepAspectRatio: false, saveToGallery: false
+            saveToGallery: false
         };
         cameraModule.takePicture(options).then((imageAsset) => {
             let imageBase64Data =  imageAsset.toBase64String(enums.ImageFormat.jpeg);
-            this.picUploaded = true;
-            teacherProfilePicView.src = imageAsset;
+            this.picUploaded = true; 
+            teacherProfilePicView.src = imageAsset; 
             this.uploadPicture(imageBase64Data);
             GC();
         });
@@ -146,11 +146,11 @@ export class FillProfileComponent implements OnInit {
                 // this.changeDetectionRef.detectChanges();
                 let selectedImage = this.selectedImages[0];
                 selectedImage
-                    .getImage({ maxWidth: 500, maxHeight: 500})
+                    .getImage()
                     .then((imageSource) => {
                         let imageBase64Data = imageSource.toBase64String(enums.ImageFormat.jpeg);
-                        this.picUploaded = true;
-                        teacherProfilePicView.src = imageSource;
+                        this.picUploaded = true; 
+                        teacherProfilePicView.src = imageSource; 
                         this.uploadPicture(imageBase64Data);
 
                     }).catch((e) => {
@@ -169,6 +169,7 @@ export class FillProfileComponent implements OnInit {
             .subscribe(
                 (result) => {
                     let body = result.body;
+                    console.log("Upload to s3 result "+ JSON.stringify(result))
                     this.uploadedPicId = body.document.kl_id;
                 },
                 (error) => {
