@@ -27,8 +27,8 @@ import * as appSettings from "application-settings"
 export class VerifyEmailComponent implements OnInit {
     isLoggingIn = false;
     isLoading: Boolean = false;
-    //public email: string = '';
-    public email: string = 'qamaisa+1@gmail.com';
+    public email: string = '';
+    //public email: string = 'qamaisa+1@gmail.com';
     public emailError: Boolean = false;
 
     constructor(private router: Router,
