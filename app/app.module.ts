@@ -15,6 +15,7 @@ import { ServerErrorService } from "./services/server.error.service"
 import {ModalDialogService, ModalDialogOptions} from "nativescript-angular/modal-dialog";
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
 import { ModalPostComment } from "./pages/dialogs/modal-post-comment";
+import { ModalEditProfile } from "./pages/dialogs/modal-edit-profile";
 
 
 
@@ -90,7 +91,8 @@ if (applicationModule.android) {
     ],
     entryComponents: [
         ModalServerError,
-        ModalPostComment
+        ModalPostComment,
+        ModalEditProfile
     ]
 })
 export class AppModule {

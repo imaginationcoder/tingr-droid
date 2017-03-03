@@ -1,12 +1,13 @@
 import {Component} from "@angular/core";
 import { ParentInfo } from "../../providers/data/parent_info";
 import { ParentService} from "../../services/parent_service";
+import {ServerErrorService} from "../../services/server.error.service";
 let app = require("application");
 @Component({
     moduleId: module.id,
     selector: 'drawer-content',
     templateUrl: './drawer.component.html',
-    providers: [ParentService]
+    providers: [ParentService, ServerErrorService]
 })
 export class DrawerComponent {
 
@@ -14,7 +15,9 @@ export class DrawerComponent {
     public parentFullname: String;
     public parentPhotograph: String;
     public parentEmail: String;
-    constructor(private parentService: ParentService) {
+    public unreadMessages: number = 0;
+    constructor(private parentService: ParentService,
+                private serverErrorService: ServerErrorService) {
 
 
         this.parentInfo = ParentInfo.parsedDetails.profile;
@@ -23,6 +26,22 @@ export class DrawerComponent {
         this.parentEmail = this.parentInfo.email;
         // update teacher profile in background
         //this.getProfileDetails();
+        this.getPendingActions();
+    }
+
+    // get notifications, messages count etc.....
+    getPendingActions(){
+        this.parentService.pendingActions()
+            .subscribe(
+                (result) => {
+                    let body = result.body;
+                    this.unreadMessages = body.message_count;
+
+                },
+                (error) => {
+                    this.serverErrorService.showErrorModal();
+                }
+            );
     }
 
     /*getProfileDetails(){

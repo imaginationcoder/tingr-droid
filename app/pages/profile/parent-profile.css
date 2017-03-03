@@ -1,0 +1,16 @@
+Image.parent-profile-pic{
+    border-radius: 50%;
+}
+
+.uploaded-parent-profile-pic{
+    border-radius: 50%;
+}
+/*padding fix for android to center the camera icon*/
+.camera-icon-with-circle{
+    padding-top: 6;
+    color: white;
+    border-radius: 17;
+    height: 35;
+    width: 35;
+    background-color: #faad41;
+}

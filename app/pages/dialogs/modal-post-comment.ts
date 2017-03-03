@@ -11,33 +11,40 @@ let app = require("application");
     selector: 'modal-content',
     providers: [ PostService, ServerErrorService ],
     template: ` 
-      <StackLayout> 
-         <StackLayout class="m-x-20 m-t-10" verticalALignment="center" > 
-            <Gridlayout cols="auto,auto" verticalAlignment="center"> 
-              <Label row="0" col="0" text="Add Comment" class="font-weight-bold" horizontalAlignment="center"></Label> 
-              <StackLayout  row="0" col="1"   (tap)="close('close')" class="" horizontalAlignment="right" orientation="horizontal">  
-                <Label text="&#xE5CD;" class="text-left material-icons md-24 md-close"></Label>
-              </StackLayout> 
+      <StackLayout>  
+          <CardView elevation="10" class="whiteCard" verticalALignment="center"> 
+         
+            <Gridlayout cols="auto,auto,auto" verticalAlignment="center"  padding="10">
+            <StackLayout (tap)="close('close')" class="text-primary blue2" row="0" col="0" orientation="horizontal"> 
+               <Label text="&#xE5CD;" class="text-left material-icons md-24 md-chevron-right"></Label>
+            </StackLayout>
+            <Label row="0" col="1" class="action-label" horizontalAlignment="center" text="Comment"></Label>
+            
+             <!--<StackLayout (tap)="submit('submit')"  class="text-primary blue2" row="0" col="2"  horizontalAlignment="right" orientation="horizontal">  
+               <Label text="&#xE5CA;" class="material-icons md-24 md-chevron-right"></Label>
+             </StackLayout> -->
             </Gridlayout>  
-         </StackLayout>
-         <StackLayout class="hr-light m-5"></StackLayout>
+         </CardView> 
+         
          <StackLayout orientation="vertical">
               <GridLayout rows="200,auto, auto">
-                 <CardView row="0" margin="5 0 5 0"  elevation="5"  class="whiteCard">
+                 <CardView row="0" margin="5 0 5 0"  elevation="10"  class="whiteCard">
                     <TextView  style="color: black;" verticalAlignment="stretch" borderColor="white"
                       hint="enter your comment here..." id="message-text"
                       class="input-without-border-bottom message-text"
                       text="" [(ngModel)]="commentDescription" editable="true"> 
                     </TextView> 
                   </CardView> 
-                  <StackLayout row="1" orientation="vertical"> 
+                  <StackLayout row="1"> 
                       <StackLayout id="errorLabel">
                           <Label *ngIf="inputError" visibility="{{ commentDescription ? 'collapse' : 'visible' }}" text="can't be blank" margin="5 10 5 12" class="error-label"></Label>
+                       </StackLayout>
+                       <StackLayout orientation="horizontal" verticalAlignment="center" horizontalAlignment="center">
+                            <Button text="Send"  isEnabled="{{ isLoading ? false : true }}"
+                                class="btn btn-secondary btn-rounded-sm" (tap)="submit('submit')"></Button>     
+                            <ActivityIndicator visibility="{{ isLoading ? 'visible' : 'collapsed'}}" class="busy activity-indicator"
+                               busy="true"></ActivityIndicator>    
                        </StackLayout> 
-                     <Button width="200" text="Send"  isEnabled="{{ isLoading ? false : true }}"
-                        class="btn btn-secondary btn-rounded-sm" (tap)="submit('submit')"></Button>     
-                     <!--<ActivityIndicator visibility="{{ isLoading ? 'visible' : 'collapsed'}}" class="busy activity-indicator"
-                               busy="true"></ActivityIndicator>   -->          
                   </StackLayout>     
               </GridLayout>  
          </StackLayout> 

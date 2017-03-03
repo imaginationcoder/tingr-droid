@@ -1,0 +1,94 @@
+<ActionBar title="">
+    <!-- left area  -->
+
+    <NavigationButton icon="res://ic_back_24dp" (tap)="goBack()"></NavigationButton>
+
+    <!-- center area  -->
+    <StackLayout orientation="horizontal"
+                 android:horizontalAlignment="center">
+        <StackLayout orientation="horizontal" verticalAlignment="center">
+            <Label text="{{ parent.fname }} {{ parent.lname }}" class="action-label"></Label>
+        </StackLayout>
+    </StackLayout>
+    <!-- right area  -->
+</ActionBar>
+
+
+<GridLayout class="parent-profile">
+    <ScrollView>
+        <GridLayout rows="auto,auto, auto">
+            <CardView row="0" margin="0 0 10 0"   elevation="5" class="whiteCard">
+                <StackLayout verticalAlignment="center" horizontalAlignment="center" class="m-20">
+                    <AbsoluteLayout>
+                        <StackLayout visibility="{{ picUploaded ? 'collapse' : 'visible'}}">
+                            <FrescoDrawee *ngIf="parent.photograph" height="100" width="100"
+                                          class="parent-profile-pic"
+                                          imageUri="{{ parent.photograph }}"
+                                          verticalAlignment="top"
+                                          roundAsCircle="true"
+                                          fadeDuration="600"></FrescoDrawee>
+                            <StackLayout *ngIf="!parent.photograph"
+                                         class="blue-circle-border extra-large-avatar-with-name text-center"
+                                         verticalAlignment="center">
+                                <Label [text]="parent | shortName | uppercase"></Label>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <StackLayout visibility="{{ picUploaded ? 'visible' : 'collapse'}}">
+                            <Image height="100" width="100" id="parentProfilePic"
+                                   style="border-radius: 50;"
+                                   src="{{ parent.photograph || '~/images/avatar-100.png' }}"></Image>
+                        </StackLayout>
+
+                        <StackLayout *ngIf="isCurrentUserProfile" (tap)="selectChangePhotoOption()" left="65" top="75" class="">
+                            <Label horizontalAlignment="center"
+                                   class="camera-icon-with-circle text-center material-icons md-24 md-photo-camera"
+                                   text="&#xE412;" verticalAlignment="center"></Label>
+                        </StackLayout>
+                    </AbsoluteLayout>
+                </StackLayout>
+
+            </CardView>
+
+            <StackLayout row="1">
+                <CardView margin="0 0 0 0"  elevation="5" class="whiteCard">
+                    <StackLayout>
+                        <Gridlayout rows="auto" columns="*,auto" class="p-15">
+                            <StackLayout row="0" col="0">
+                                <Label text="Full name" class="text-muted"></Label>
+                                <Label class="font-weight-bold" horizontalAlignment="left"
+                                       [text]="parent.fname +' '+ parent.lname"></Label>
+                            </StackLayout>
+                            <StackLayout row="0" col="1" verticalAlignment="center">
+                                <Label *ngIf="isCurrentUserProfile" (tap)="openEditModal()"
+                                       class="material-icons md-24 md-chevron-right" text="&#xE254;"></Label>
+                            </StackLayout>
+                        </Gridlayout>
+                        <StackLayout class="hr-light">
+                        </StackLayout>
+                        <StackLayout  class="p-15">
+                            <Label text="Email" class="text-muted"></Label>
+                            <Label class="font-weight-bold" [text]="parent.email"></Label>
+                        </StackLayout>
+                        <StackLayout class="hr-light">
+                        </StackLayout>
+                        <StackLayout  class="p-15" *ngIf="parent.phone_numbers.length">
+                            <Label text="Phone numbers" class="text-muted"></Label>
+                            <StackLayout *ngFor="let phone of parent.phone_numbers">
+                                <Label *ngIf="phone.number" [text]="phone.number + ' ('+ phone.type+ ') ' "></Label>
+                            </StackLayout>
+                        </StackLayout>
+
+                    </StackLayout>
+                </CardView>
+            </StackLayout>
+        </GridLayout>
+    </ScrollView>
+
+
+    <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
+    <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">
+        <ActivityIndicator class="busy activity-indicator" busy="true"></ActivityIndicator>
+    </GridLayout>
+
+</GridLayout>

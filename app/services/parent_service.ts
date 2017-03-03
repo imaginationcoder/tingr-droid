@@ -182,6 +182,47 @@ export class ParentService {
             .map(response => response.json())
             .catch(this.handleErrors);
     }
+    
+
+    pendingActions(){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        let data = JSON.stringify({
+            access_token: TokenService.accessToken,
+            auth_token: TokenService.authToken,
+            command: "any_pending_actions",
+            body: { 
+            }
+        });
+        return this.http.post(
+            Config.apiUrl + "v2/invitations", data, {
+                headers: headers
+            }
+        )
+            .map(response => response.json())
+            .catch(this.handleErrors);
+    }
+
+    updateProfile(info,parent_klid){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        let data = JSON.stringify({
+            access_token: TokenService.accessToken,
+            auth_token: TokenService.authToken,
+            command: "update_parent_profile",
+            body: {
+                fname: info.fname,
+                lname: info.lname
+            }
+        });
+        return this.http.post(
+            Config.apiUrl + "profiles/"+parent_klid, data, {
+                headers: headers
+            }
+        )
+            .map(response => response.json())
+            .catch(this.handleErrors);
+    }
 
 
 

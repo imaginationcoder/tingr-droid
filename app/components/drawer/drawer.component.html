@@ -19,9 +19,9 @@
                 <StackLayout class="m-t-10">
                     <Label text="{{ parentFullname }}" class="parent-name"></Label>
                 </StackLayout>
-                <StackLayout>
+               <!-- <StackLayout>
                     <Label text="{{ parentEmail }}" class="parent-email"></Label>
-                </StackLayout>
+                </StackLayout>-->
             </StackLayout>
             <StackLayout col="1" horizontalAlignment="right" [nsRouterLink]="['/parent-profile']"
                          pageTransition="slideLeft">
@@ -52,6 +52,7 @@
                  pageTransition="slideLeft">
         <Label class="material-icons md-24 md-message" text="&#xE0C9;"></Label>
         <Label class="text" text="Messages"></Label>
+        <Label *ngIf="unreadMessages > 0" class="text text-right pull-right" text="({{ unreadMessages }})"></Label>
     </StackLayout>
 
     <StackLayout class="drawer-link"

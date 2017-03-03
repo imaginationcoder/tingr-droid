@@ -1,4 +1,5 @@
-import {Component, ViewContainerRef, OnInit} from "@angular/core";
+import {Component, ViewContainerRef, ChangeDetectorRef, OnInit} from "@angular/core";
+import {DrawerPage} from "../drawer.page";
 import { RouterExtensions } from 'nativescript-angular/router';
 import {Router, NavigationExtras} from "@angular/router";
 import { TokenService } from "../../services/token.service";
@@ -18,12 +19,13 @@ let app = require("application");
     styleUrls: ["./my-family.css"],
     providers: [ ConversationService,ParentService, ServerErrorService ]
 })
-export class MyFamilyComponent implements OnInit {
+export class MyFamilyComponent extends DrawerPage implements OnInit {
     public isLoading: Boolean = false;
     public kids: Array<any>;
     public parents: Array<any>;
 
     constructor(
+        private changeDetectorRef: ChangeDetectorRef,
         private routerExtensions: RouterExtensions,
         private parentService: ParentService,
         private conversationService: ConversationService,
@@ -31,6 +33,7 @@ export class MyFamilyComponent implements OnInit {
         private sharedData: SharedData,
         private serverErrorService: ServerErrorService,
         private router: Router) {
+        super(changeDetectorRef);
 
         this.kids = [];
         this.parents = []

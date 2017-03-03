@@ -18,13 +18,15 @@ import { SchoolInfoWebComponent } from "./pages/school/school-info-web.component
 import { MyFamilyComponent } from "./pages/my-family/my-family.component"; 
 import { KidSchoolsComponent } from "./pages/kid-schools/kid.schools";
 import { KidProfileComponent } from "./pages/profile/kid.profile.component";
+import { ParentProfileComponent } from "./pages/profile/parent.profile.component";
 import { ProfileDashboardComponent } from "./pages/dashboard/profile.dashboard.component";
 import { FormDocWebviewComponent } from "./pages/form-docs/form.doc.webview";
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
 import { ModalPostComment } from "./pages/dialogs/modal-post-comment";
+import { ModalEditProfile } from "./pages/dialogs/modal-edit-profile";
 
 export const APP_ROUTES = [
-    { path: "", redirectTo: "/fill-profile", pathMatch: 'full'},
+    { path: "", redirectTo: "/my-family", pathMatch: 'full'},
     { path: "verify-email", component: VerifyEmailComponent},
     { path: "verify-password", component: VerifyPasswordComponent},
     { path: "forgot-password", component: ForgotPasswordComponent},
@@ -43,6 +45,7 @@ export const APP_ROUTES = [
     { path: "my-family", component: MyFamilyComponent, canActivate: [AuthGuard]}, 
     { path: "kid-schools", component: KidSchoolsComponent, canActivate: [AuthGuard]},
     { path: "kid-profile", component: KidProfileComponent, canActivate: [AuthGuard]},
+    { path: "parent-profile", component: ParentProfileComponent, canActivate: [AuthGuard]},
     { path: "profile-dashboard", component: ProfileDashboardComponent, canActivate: [AuthGuard]},
     { path: "form-doc-webview", component: FormDocWebviewComponent, canActivate: [AuthGuard]}
 ];
@@ -68,10 +71,12 @@ export const navigatableComponents = [
     MessagesComponent, 
     KidSchoolsComponent,
     KidProfileComponent,
+    ParentProfileComponent,
     ProfileDashboardComponent,
     FormDocWebviewComponent,
     ModalServerError,
-    ModalPostComment
+    ModalPostComment,
+    ModalEditProfile
 ];
 
 export const authProviders = [

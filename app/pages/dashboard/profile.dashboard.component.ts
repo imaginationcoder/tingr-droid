@@ -96,7 +96,11 @@ export class ProfileDashboardComponent implements OnInit {
                     transition: {name: "slideLeft"}
                 });
         }else{
-            // parent profile details page
+            this.sharedData.parent = profile;
+            this.routerExtensions.navigate(["/parent-profile"],
+                {
+                    transition: {name: "slideLeft"}
+                });
         }
     }
 

@@ -19,7 +19,7 @@
             <Label class="message text-center" text="get conversation started with parent(s)" textWrap="true"></Label>
         </StackLayout>
     </StackLayout>
-    <GridLayout rows="*, auto">
+    <GridLayout rows="*, auto" backgroundColor="#ffffff">
         <GridLayout row="0">
             <PullToRefresh (refresh)="refreshList($event)" #pullToRefresh>
                 <ScrollView #messagesScroll>
