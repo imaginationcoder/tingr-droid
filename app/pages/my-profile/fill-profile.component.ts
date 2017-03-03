@@ -168,8 +168,7 @@ export class FillProfileComponent implements OnInit {
         this.parentService.uploadPicture(imageBase64Data)
             .subscribe(
                 (result) => {
-                    let body = result.body;
-                    console.log("Upload to s3 result "+ JSON.stringify(result))
+                    let body = result.body; 
                     this.uploadedPicId = body.document.kl_id;
                 },
                 (error) => {

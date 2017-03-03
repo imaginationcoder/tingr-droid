@@ -26,7 +26,7 @@ import { ModalPostComment } from "./pages/dialogs/modal-post-comment";
 import { ModalEditProfile } from "./pages/dialogs/modal-edit-profile";
 
 export const APP_ROUTES = [
-    { path: "", redirectTo: "/my-family", pathMatch: 'full'},
+    { path: "", redirectTo: "/home", pathMatch: 'full'},
     { path: "verify-email", component: VerifyEmailComponent},
     { path: "verify-password", component: VerifyPasswordComponent},
     { path: "forgot-password", component: ForgotPasswordComponent},

@@ -48,8 +48,7 @@ export class ParentProfileComponent implements OnInit {
                 private serverErrorService:ServerErrorService) {
         //super(changeDetectorRef);
         this.parent = this.sharedData.parent;
-        let parentInfo = ParentInfo.parsedDetails.profile;
-        console.log('Parent -------------- '+ JSON.stringify(this.parent));
+        let parentInfo = ParentInfo.parsedDetails.profile; 
 
         if(this.parent.email === parentInfo.email){
             this.isCurrentUserProfile = true;
@@ -198,8 +197,7 @@ export class ParentProfileComponent implements OnInit {
     }
 
 
-    openEditModal() {
-        console.log('------------ Open Modal ----------------')
+    openEditModal() { 
         var options:ModalDialogOptions = {
             viewContainerRef: this.vcRef,
             context: {
@@ -231,13 +229,11 @@ export class ParentProfileComponent implements OnInit {
             .subscribe(
                 (result) => {
                     let body = result.body;
-                    this.parent = body.profile;
-                    console.log("Result ------- "+ JSON.stringify(body))
+                    this.parent = body.profile; 
                      // update parent info in app settings
                      ParentInfo.details = JSON.stringify(body);
                 },
-                (error) => {
-                    console.log("Error ------- "+ JSON.stringify(error))
+                (error) => { 
                     //console.log("error "+ JSON.stringify(error));
                 }
             );

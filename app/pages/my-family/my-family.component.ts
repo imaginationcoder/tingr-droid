@@ -70,8 +70,7 @@ export class MyFamilyComponent extends DrawerPage implements OnInit {
                 (result) => {
                     var body = result.body;
 
-                    this.kids = body.kids; 
-                    console.log(JSON.stringify(this.kids)); 
+                    this.kids = body.kids;  
                     let currentParent;
                     body.parents.forEach(parent => {
                         if(parent.email === ParentInfo.profile.email){
@@ -80,8 +79,7 @@ export class MyFamilyComponent extends DrawerPage implements OnInit {
                             this.parents.push(parent);
                         }
                     });
-                    this.parents.unshift(currentParent); 
-                    console.log(JSON.stringify(this.parents)); 
+                    this.parents.unshift(currentParent);   
                     this.isLoading = false;
                 },
                 (error) => {
