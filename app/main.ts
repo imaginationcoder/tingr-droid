@@ -5,11 +5,25 @@ import {StatusBar} from "./utils/native";
 
 // enable production mode...
 import {enableProdMode} from '@angular/core';
-//enableProdMode();
+enableProdMode();
 
 // to check if its production
 // require 'environment'
 // then if environment.production ..
+
+import firebase = require("nativescript-plugin-firebase");
+firebase.init({
+    // Optionally pass in properties for database, authentication and cloud messaging,
+    // see their respective docs.
+}).then(
+    (instance) => {
+        console.log("-----------------  firebase.init done");
+    },
+    (error) => {
+        console.log("-----------------  firebase.init error: " + error);
+    }
+);
+
 
 
 //StatusBar.setColor('#ffffff');

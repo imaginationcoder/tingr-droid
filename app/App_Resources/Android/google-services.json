@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "670676588257",
+    "firebase_url": "https://tingr-152315.firebaseio.com",
+    "project_id": "tingr-152315",
+    "storage_bucket": "tingr-152315.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670676588257:android:219816e9c7433744",
+        "android_client_info": {
+          "package_name": "org.tingr.parent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670676588257-am2n3898s4pvu43obe2jg96l9fes8vtn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMFqPVhOrn-9gJPMJotapM9SvspavEI98"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

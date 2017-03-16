@@ -32,6 +32,7 @@
     "nativescript-pdf-view": "latest",
     "nativescript-permissions": "^1.2.2",
     "nativescript-photoviewer": "^1.0.0",
+    "nativescript-plugin-firebase": "^3.10.2",
     "nativescript-pulltorefresh": "^1.1.10",
     "nativescript-snackbar": "^1.1.6",
     "nativescript-telerik-ui": "1.6.1",
