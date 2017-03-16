@@ -120,6 +120,7 @@ export class KidProfileComponent implements OnInit {
     takePicture() {
         let kidProfilePicView = view.getViewById(this.page, 'kidProfilePic');
         let options = {
+            width: 400, height: 400, keepAspectRatio: true,
             saveToGallery: false
         };
         cameraModule.takePicture(options).then((imageAsset) => { 

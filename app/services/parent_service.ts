@@ -203,6 +203,25 @@ export class ParentService {
             .catch(this.handleErrors);
     }
 
+    profileDetails(parent_klid){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        let data = JSON.stringify({
+            access_token: TokenService.accessToken,
+            auth_token: TokenService.authToken,
+            command: "parent_info",
+            body: { 
+            }
+        });
+        return this.http.post(
+            Config.apiUrl + "profiles/"+parent_klid, data, {
+                headers: headers
+            }
+        )
+            .map(response => response.json())
+            .catch(this.handleErrors);
+    }
+
     updateProfile(info,parent_klid){
         let headers = new Headers();
         headers.append("Content-Type", "application/json");

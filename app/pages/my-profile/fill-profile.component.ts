@@ -108,6 +108,7 @@ export class FillProfileComponent implements OnInit {
     takePicture() {
         let teacherProfilePicView = view.getViewById(this.page, 'parentProfilePic');
         let options = {
+            width: 400, height: 400, keepAspectRatio: true,
             saveToGallery: false
         };
         cameraModule.takePicture(options).then((imageAsset) => {

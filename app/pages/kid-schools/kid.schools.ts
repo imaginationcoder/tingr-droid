@@ -38,6 +38,7 @@ export class KidSchoolsComponent implements OnInit {
                 private router:Router) {
 
         this.kid = this.sharedData.kid;
+        console.log("KID "+ JSON.stringify(this.kid));
         this.schools = [];
         this.schoolsNames = [];
         this.formsAndDocs = [];
@@ -56,7 +57,8 @@ export class KidSchoolsComponent implements OnInit {
             .subscribe(
                 (result) => {
                     this.isLoading = false;
-                    var body = result.body; 
+                    var body = result.body;
+                    console.log("Schools "+ JSON.stringify(body));
                     body.organizations.forEach(school => { 
                         this.schoolsNames.push(school.name);
                     });

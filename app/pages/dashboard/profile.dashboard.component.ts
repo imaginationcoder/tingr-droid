@@ -106,7 +106,7 @@ export class ProfileDashboardComponent implements OnInit {
 
 
     openSchoolsData(profile){
-        this.sharedData.profile = profile;
+        this.sharedData.kid = profile;
         this.routerExtensions.navigate(["/kid-schools"],
             {
                 transition: {name: "slideLeft"}
