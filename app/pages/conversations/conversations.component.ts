@@ -44,6 +44,7 @@ export class ConversationsComponent implements OnInit {
         // set orgId and conversationId
         this.sharedData.organizationId = conversation.org_id;
         this.sharedData.conversationId = conversation.conversation_klid;
+        this.sharedData.conversationKidId = conversation.kid_klid;
 
         this.routerExtensions.navigate(["/messages"], {
             transition: {
@@ -51,14 +52,12 @@ export class ConversationsComponent implements OnInit {
             }
         });
     }
-
     getList(){
         this.isLoading = true;
         this.conversationService.getList()
             .subscribe(
                 (result) => {
                     var body = result.body;
-                    JSON.stringify("Conversations "+ JSON.stringify(body));
                     this.conversations = body.conversations;
                     this.isLoading = false;
                 },

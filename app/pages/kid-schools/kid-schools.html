@@ -6,12 +6,14 @@
                  ios:horizontalAlignment="center"
                  android:horizontalAlignment="center">
         <StackLayout orientation="horizontal" verticalAlignment="center" (tap)="changeSchool()">
-            <Label [text]="currentSchoolName || 'Tingr'" class="action-label" textWrap="true"></Label>
+            <Label [text]="currentSchoolName || 'Tingr'" class="action-label text-center" textWrap="true"></Label>
             <Label *ngIf="moreThanOneSchool" class="text-primary material-icons md-24 md-arrow-drop-down" margin="3 0 0 3"
                    text="&#xE5C5;"></Label>
         </StackLayout>
     </StackLayout>
     <!-- right area  -->
+    <ActionItem  andriod.postion="actionBar">
+    </ActionItem>
 </ActionBar>
 
 

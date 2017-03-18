@@ -7,7 +7,7 @@ import { TokenService } from "../../services/token.service";
 import { ParentInfo } from "../../providers/data/parent_info";
 import { ParentService } from "../../services/parent_service";
 import { ServerErrorService } from "../../services/server.error.service";
-
+import firebase = require("nativescript-plugin-firebase");
 let nstoasts = require("nativescript-toasts");
 let app = require("application");
 
@@ -85,6 +85,8 @@ export class SettingsComponent implements OnInit{
     }
 
     clearSession(){
+        //unsubscribe from push notificaitons
+        firebase.unsubscribeFromTopic("tingr_"+ParentInfo.parsedDetails.profile.kl_id);
         TokenService.authToken = '';
         TokenService.accessToken = '';
         ParentInfo.details = '';

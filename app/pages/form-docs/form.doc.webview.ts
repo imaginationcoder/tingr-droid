@@ -18,6 +18,7 @@ let app = require("application");
 export class FormDocWebviewComponent implements OnInit{
     public isLoading: Boolean = false;
     public formOrDoc: any;
+    public isPdfView: Boolean = false;
 
     constructor(private sharedData: SharedData,
                 private routerExtensions: RouterExtensions, 
@@ -29,6 +30,12 @@ export class FormDocWebviewComponent implements OnInit{
 
     ngOnInit(){
         // show alert if no internet connection
+
+        let extension = this.formOrDoc.url.split('.').pop();
+        if(this.formOrDoc.type === 'Document' && extension === 'pdf') {
+            this.isPdfView = true;
+        }
+
     }
 
     goBack(){

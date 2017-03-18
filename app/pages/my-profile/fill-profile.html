@@ -30,7 +30,7 @@
                     <TextField class="input input-text-center"
                                hint="Last Name" [(ngModel)]="lastName" id="last-name"></TextField>
                     <Label *ngIf="lastNameError" visibility="{{ lastName ? 'collapse' : 'visible' }}"
-                           text="confirm password can't be blank" class="error-label"></Label>
+                           text="last name can't be blank" class="error-label"></Label>
                 </StackLayout>
                 <StackLayout row="3" orientation="horizontal">
                     <Gridlayout rows="auto" columns="auto,*" verticalAlignment="center" orientation="horizontal">

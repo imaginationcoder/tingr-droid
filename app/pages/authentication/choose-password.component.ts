@@ -12,6 +12,8 @@ import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
 import { isAndroid } from "platform";
 
 import dialogs = require("ui/dialogs");
+import firebase = require("nativescript-plugin-firebase");
+
 let app = require("application");
 let view = require("ui/core/view");
 let tnsfx = require('nativescript-effects');
@@ -105,6 +107,8 @@ export class ChoosePasswordComponent implements OnInit {
                             TokenService.userVerified = body.verified;
                             // save parent info in app-settings to invoke rest api's ..
                             ParentInfo.details = JSON.stringify(body);
+                            // subscribe to push notifications
+                            firebase.subscribeToTopic("tingr_"+body.profile.kl_id);
                             // check onboarding => tour or org_tour
                             let navigateTo = 'home';
                             if(body.verified === false){

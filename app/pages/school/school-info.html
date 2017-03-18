@@ -6,10 +6,12 @@
     <StackLayout orientation="horizontal"
                  android:horizontalAlignment="center">
         <StackLayout orientation="horizontal" verticalAlignment="center">
-            <Label [text]="orgName" class="action-label"></Label>
+            <Label [text]="orgName" class="action-label text-center" textWrap="true"></Label>
         </StackLayout>
     </StackLayout>
     <!-- right area  -->
+    <ActionItem  andriod.postion="actionBar">
+    </ActionItem>
 </ActionBar>
 
 
@@ -21,15 +23,21 @@
         </StackLayout>
     </StackLayout>
 
+    <StackLayout *ngIf="links.length" backgroundColor="#e3e0dc" class="p-t-20">
+        <CardView margin="0 5 0 5" radius="5" elevation="5" class="whiteCard">
+            <ListView [items]="links" (itemTap)="onItemTap($event)" class="list-group">
+                <template let-item="item" let-index="index">
+                    <GridLayout columsn="*, auto" class="p-15" verticalAlignment="center">
+                        <Label col="0" [text]="item.name"  style="font-size: 18; font-weight: 900"></Label>
+                        <Label col="1" class="material-icons md-24 md-chevron-right text-right" text="&#xE5CC;"></Label>
+                    </GridLayout>
+                </template>
+            </ListView>
+        </CardView>
+    </StackLayout>
 
-    <ListView [items]="links" (itemTap)="onItemTap($event)" class="list-group">
-        <template let-item="item" let-index="index">
-            <GridLayout columsn="*, auto" class="p-15" verticalAlignment="center">
-                <Label col="0" [text]="item.name"  style="font-size: 18; font-weight: 900"></Label>
-                <Label col="1" class="material-icons md-24 md-chevron-right text-right" text="&#xE5CC;"></Label>
-            </GridLayout>
-        </template>
-    </ListView>
+
+
 
     <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
     <GridLayout rows="*" visibility="{{ isLoading ? 'visible' : 'collapsed'}}">

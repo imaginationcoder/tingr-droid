@@ -17,6 +17,7 @@ import {GC} from 'utils/utils';
 let enums = require("ui/enums");
 let imagepicker = require("nativescript-imagepicker");
 import dialogs = require("ui/dialogs");
+import firebase = require("nativescript-plugin-firebase");
 let nstoasts = require("nativescript-toasts");
 var app = require("application");
 var view = require("ui/core/view");
@@ -206,6 +207,8 @@ export class FillProfileComponent implements OnInit {
                         TokenService.userVerified = body.verified;
                         // save parent info in app-settings to invoke rest api's ..
                         ParentInfo.details = JSON.stringify(body);
+                        // subscribe to push notifications
+                        firebase.subscribeToTopic("tingr_"+body.profile.kl_id);
                         // check onboarding => tour or org_tour
                         let navigateTo = 'home';
                         if(body.verified === false){

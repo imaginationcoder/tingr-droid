@@ -5,17 +5,14 @@
     <StackLayout orientation="horizontal"
                  android:horizontalAlignment="center">
         <StackLayout orientation="horizontal" verticalAlignment="center">
-            <Label [text]="formOrDoc.name" class="action-label text-center" textWrap="true"></Label>
+            <Label text="Support" class="action-label"></Label>
         </StackLayout>
     </StackLayout>
     <!-- right area  -->
-    <ActionItem  andriod.postion="actionBar">
-    </ActionItem>
 </ActionBar>
 
-<GridLayout class="form-doc-webview">
+<GridLayout class="support-page">
     <ScrollView>
-        <WebView [src]="formOrDoc.url" *ngIf="!isPdfView"></WebView>
-        <PDFView [src]="formOrDoc.url"  *ngIf="isPdfView"></PDFView>
+        <WebView src="https://tingr.org/help.html"></WebView>
     </ScrollView>
 </GridLayout>

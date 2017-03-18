@@ -11,6 +11,7 @@ import { OrgTourComponent } from "./pages/tour/org-tour.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { LikesComponent } from "./pages/posts/likes.component";
 import { SettingsComponent } from "./pages/settings/settings.page";
+import { SupportComponent } from "./pages/settings/support.component";
 import { ConversationsComponent } from "./pages/conversations/conversations.component";
 import { MessagesComponent } from "./pages/conversations/messages.component";
 import { SchoolInfoComponent } from "./pages/school/school-info.component";
@@ -21,6 +22,7 @@ import { KidProfileComponent } from "./pages/profile/kid.profile.component";
 import { ParentProfileComponent } from "./pages/profile/parent.profile.component";
 import { ProfileDashboardComponent } from "./pages/dashboard/profile.dashboard.component";
 import { FormDocWebviewComponent } from "./pages/form-docs/form.doc.webview";
+import { ChangePasswordComponent } from "./pages/change-password/change-password.component";
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
 import { ModalPostComment } from "./pages/dialogs/modal-post-comment";
 import { ModalEditProfile } from "./pages/dialogs/modal-edit-profile";
@@ -47,7 +49,9 @@ export const APP_ROUTES = [
     { path: "kid-profile", component: KidProfileComponent, canActivate: [AuthGuard]},
     { path: "parent-profile", component: ParentProfileComponent, canActivate: [AuthGuard]},
     { path: "profile-dashboard", component: ProfileDashboardComponent, canActivate: [AuthGuard]},
-    { path: "form-doc-webview", component: FormDocWebviewComponent, canActivate: [AuthGuard]}
+    { path: "form-doc-webview", component: FormDocWebviewComponent, canActivate: [AuthGuard]},
+    { path: "change-password", component: ChangePasswordComponent, canActivate: [AuthGuard]},
+    { path: "support", component: SupportComponent, canActivate: [AuthGuard]}
 ];
 
 
@@ -74,6 +78,8 @@ export const navigatableComponents = [
     ParentProfileComponent,
     ProfileDashboardComponent,
     FormDocWebviewComponent,
+    ChangePasswordComponent,
+    SupportComponent,
     ModalServerError,
     ModalPostComment,
     ModalEditProfile

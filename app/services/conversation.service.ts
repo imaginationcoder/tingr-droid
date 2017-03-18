@@ -34,7 +34,7 @@ export class ConversationService {
     }
 
 
-    sendMessage(msg_text, organization_id, conversation_klid = '') {
+    sendMessage(msg_text, organization_id, conversation_klid , kid_klid) {
         let parent = ParentInfo.profile;
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
@@ -44,7 +44,7 @@ export class ConversationService {
             command: "send_message",
             body: {
                 text: msg_text,
-                kid_klid: '', // reciver
+                kid_klid: kid_klid, // reciver
                 sender_klid: parent.kl_id, //sender
                 conversation_klid: conversation_klid,
                 organization_id: organization_id
@@ -60,7 +60,7 @@ export class ConversationService {
     }
 
     // get messages kid associated for
-    getMessages(organization_id,conversation_klid, last_message_time = ''){
+    getMessages(organization_id,conversation_klid,kid_klid, last_message_time = ''){
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
         let data = JSON.stringify({
@@ -69,7 +69,7 @@ export class ConversationService {
             command: "messages",
             body: {
                 conversation_klid : conversation_klid,
-                kid_klid: '',
+                kid_klid: kid_klid,
                 organization_id: organization_id,
                 last_message_time: last_message_time
             }

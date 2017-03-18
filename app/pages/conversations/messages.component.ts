@@ -49,6 +49,7 @@ export class MessagesComponent implements OnInit, OnChanges {
     public conversationKlId: string = '';
     public orgId: string = '';
     public lastMessageTime: string = '';
+    public conversationKidId: string = '';
     @ViewChild("messagesScroll") messagesScrollRef: ElementRef;
 
 
@@ -64,6 +65,7 @@ export class MessagesComponent implements OnInit, OnChanges {
         this.messages = {};
         this.msgs = {};
         this.conversationKlId = this.sharedData.conversationId;
+        this.conversationKidId = this.sharedData.conversationKidId;
         this.orgId = this.sharedData.organizationId;
 
 
@@ -86,7 +88,7 @@ export class MessagesComponent implements OnInit, OnChanges {
 
     getNewMessages(scrollToBottom = false, pullRefresh) {
         setTimeout(() => {
-            this.conversationService.getMessages(this.orgId, this.conversationKlId, this.lastMessageTime,)
+            this.conversationService.getMessages(this.orgId, this.conversationKlId, this.conversationKidId, this.lastMessageTime)
                 .subscribe(
                     (result) => {
                         let body = result.body;
@@ -204,7 +206,7 @@ export class MessagesComponent implements OnInit, OnChanges {
 
         this.scrollToBottom();
         // send message to server in background
-        this.conversationService.sendMessage(msgText, this.orgId, this.conversationKlId)
+        this.conversationService.sendMessage(msgText, this.orgId, this.conversationKlId, this.conversationKidId)
             .subscribe(
                 (result) => {
                     let body = result.body;
@@ -213,7 +215,6 @@ export class MessagesComponent implements OnInit, OnChanges {
                     }
                 },
                 (error) => {
-                    //console.log("Error " + JSON.stringify(error));
                     this.serverErrorService.showErrorModal();
                 }
             );

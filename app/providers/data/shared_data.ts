@@ -19,7 +19,8 @@ export class SharedData {
     public schoolLinkName: string;
     public organizationName: string;
     public conversationId: string;
-    
+    public conversationKidId: string;
+
     public kid: any;
     public parent: any;
     public profile: any;

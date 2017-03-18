@@ -12,13 +12,34 @@
     </StackLayout>
     <!-- right area  -->
 </ActionBar>
-
-
-
 <GridLayout rows="*,auto">
     <StackLayout backgroundColor="#e3e0dc" class="p-t-20">
         <CardView margin="0 5 0 5" radius="5" elevation="5" class="whiteCard">
             <Stacklayout  padding="0 15 0 15">
+                <Gridlayout rows="auto" columns="auto,*,auto" verticalAlignment="center" class="settings-item"
+                            orientation="horizontal" [nsRouterLink]="['/change-password']"
+                            pageTransition="slideTop">
+                    <Label row="0" col="0" text=""></Label>
+                    <Label row="0" col="1" verticalAlignment="center" text="Change Password"
+                           class="text-left font-weight-bold"></Label>
+                    <Label row="0" col="2" verticalAlignment="center" horizontalAlignment="right"
+                           class="material-icons md-24 md-chevron-right text-right" text="&#xE5CC;"></Label>
+                </Gridlayout>
+
+                <StackLayout class="hr-light"></StackLayout>
+
+                <Gridlayout rows="auto" columns="auto,*,auto" verticalAlignment="center" class="settings-item"
+                            orientation="horizontal" [nsRouterLink]="['/support']"
+                            pageTransition="slideTop">
+                    <Label row="0" col="0" text=""></Label>
+                    <Label row="0" col="1" verticalAlignment="center" text="Support"
+                           class="text-left font-weight-bold"></Label>
+                    <Label row="0" col="2" verticalAlignment="center" horizontalAlignment="right"
+                           class="material-icons md-24 md-chevron-right text-right" text="&#xE5CC;"></Label>
+                </Gridlayout>
+
+                <StackLayout class="hr-light"></StackLayout>
+
                 <Gridlayout rows="auto" columns="auto,*,auto" verticalAlignment="center" class="settings-item"
                             orientation="horizontal" (tap)="getTour()">
                     <Label row="0" col="0" text=""></Label>

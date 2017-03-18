@@ -67,7 +67,14 @@ export class ProfileDashboardComponent implements OnInit {
         this.textOnlyBgColors = ['#C46D21','#BE1C2F', '#FF3869', '#4195FF',
             '#A52BFF','#1E6587', '#32C4FC', '#FF2717','#FF601D', '#82AF52'];
 
-        this.emptyNoteMessage = 'capture your family in action. tag a few or all. share with your circle.';
+        if(this.isKidProfile){
+            this.emptyNoteMessage = 'while we wait for the school to share your kid moments ' +
+                'we encourage you to digitally organize your entire family documents now - like ' +
+                'driving licences, immunity records, insurance cards, son, etc. ';
+        }else{
+            this.emptyNoteMessage = 'capture your family in action. tag a few or all. share with your circle.';
+        }
+
 
         this.posts = [];
     }

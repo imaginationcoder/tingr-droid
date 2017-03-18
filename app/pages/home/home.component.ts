@@ -17,6 +17,7 @@ import {ModalPostComment} from "../../pages/dialogs/modal-post-comment";
 import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
 import * as timerModule  from "timer";
 import dialogs = require("ui/dialogs");
+import firebase = require("nativescript-plugin-firebase");
 let app = require("application");
 let view = require("ui/core/view");
 let tnsfx = require('nativescript-effects');
@@ -24,113 +25,125 @@ let nstoasts = require("nativescript-toasts");
 let PhotoViewer = require("nativescript-photoviewer");
 let photoViewer = new PhotoViewer();
 let snackbar = new SnackBar();
-require( "nativescript-dom" );
+require("nativescript-dom");
 
 
 @Component({
     moduleId: module.id,
     selector: "my-app",
-    providers: [PostService,ServerErrorService, ModalDialogService , ParentService],
+    providers: [PostService, ServerErrorService, ModalDialogService, ParentService],
     templateUrl: "./home.html",
     styleUrls: ["./home.css"],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent extends DrawerPage implements OnInit {
-    isLoading: Boolean = false;
-    public parentProfile: any;
-    public organizations: Array<any>;
-    public emptyNoteMessage: string;
-    public organization_id: string = '';
-    public isOrgExists: Boolean = false;
-    public moreThanOneOrg: Boolean = false;
-    public currentOrgName: string;
+    isLoading:Boolean = false;
+    public parentProfile:any;
+    public organizations:Array<any>;
+    public emptyNoteMessage:string;
+    public organization_id:string = '';
+    public isOrgExists:Boolean = false;
+    public moreThanOneOrg:Boolean = false;
+    public currentOrgName:string;
 
     // Posts related
-    public lastModified: string = '';
-    public postCount: number = 0;
-    public loadOnDemandFired: Boolean = false;
-    public isLoadingMore: Boolean = false;
-    public showLoadingIndicator: Boolean = false;
-    public loadMoreText: string = 'load more';
-    public posts: any;
-    public textOnlyBgColors: Array<any>;
+    public lastModified:string = '';
+    public postCount:number = 0;
+    public loadOnDemandFired:Boolean = false;
+    public isLoadingMore:Boolean = false;
+    public showLoadingIndicator:Boolean = false;
+    public loadMoreText:string = 'load more';
+    public posts:any;
+    public textOnlyBgColors:Array<any>;
 
 
-    constructor(private changeDetectorRef: ChangeDetectorRef,
-                private router: Router, private route: ActivatedRoute,
-                private modal: ModalDialogService,
-                private sharedData: SharedData,
-                private routerExtensions: RouterExtensions,
-                private page: Page,
-                private parentService: ParentService,
-                private postService: PostService,
-                private vcRef: ViewContainerRef,
-                private serverErrorService: ServerErrorService) {
+    constructor(private changeDetectorRef:ChangeDetectorRef,
+                private router:Router, private route:ActivatedRoute,
+                private modal:ModalDialogService,
+                private sharedData:SharedData,
+                private routerExtensions:RouterExtensions,
+                private page:Page,
+                private parentService:ParentService,
+                private postService:PostService,
+                private vcRef:ViewContainerRef,
+                private serverErrorService:ServerErrorService) {
         super(changeDetectorRef);
 
         this.parentProfile = ParentInfo.profile;
-        this.organizations = ParentInfo.organizations; 
-        if(this.organizations.length){
+        this.organizations = ParentInfo.organizations;
+        if (this.organizations.length) {
             let org = this.organizations[0];
             this.organization_id = org.id;
             this.isOrgExists = true;
             this.currentOrgName = org.name;
-            if(this.organizations.length > 1){
+            if (this.organizations.length > 1) {
                 this.moreThanOneOrg = true;
             }
         }
 
-        this.textOnlyBgColors = ['#C46D21','#BE1C2F', '#FF3869', '#4195FF',
-            '#A52BFF','#1E6587', '#32C4FC', '#FF2717','#FF601D', '#82AF52'];
+        this.textOnlyBgColors = ['#C46D21', '#BE1C2F', '#FF3869', '#4195FF',
+            '#A52BFF', '#1E6587', '#32C4FC', '#FF2717', '#FF601D', '#82AF52'];
 
-        this.emptyNoteMessage = 'capture your family in action. tag a few or all. share with your circle.';
+        this.emptyNoteMessage = 'while we wait for the school to share your kid moments ' +
+            'we encourage you to digitally organize your entire family documents now - like ' +
+            'driving licences, immunity records, insurance cards, son, etc. ';
     }
 
     ngOnInit() {
+        // get firebase device token
+        firebase.addOnPushTokenReceivedCallback(
+            function(token) {
+                // you can use this token to send to your own backend server,
+                // so you can send notifications to this specific device
+                console.log("Firebase plugin received a push token: " + token);
+            }
+        );
+
+
         //this.isLoading = true;
         this.posts = [];
         // load posts only if org exists 
-          this.isLoading = true;
-          this.getAllPosts(false);
-        
-    } 
-    
+        this.isLoading = true;
+        this.getAllPosts(false);
+
+    }
+
 
     getAllPosts(loadingMorePosts) {
         this.postService.getAllPosts(this.postCount, this.lastModified)
             .subscribe(
-                (result) => {
-                    let body = result.body;
-                    //console.log("Success "+ JSON.stringify(body));
-                    body.posts.forEach(post => {
-                        this.posts.push(this.addNewPostToListView(post));
-                    });
-                    this.postCount = body.post_count;
-                    this.lastModified = body.last_modified;
-                    if (loadingMorePosts) {
-                        this.showLoadingIndicator = false;
-                        this.loadMoreText = 'load more';
-                        if (body.posts.length < 1) {
-                            this.isLoadingMore = false;
-                            /* nstoasts.show({
-                             text: 'reached end of results',
-                             duration: nstoasts.DURATION.SHORT
-                             });*/
-                        }
-                    } else {
-                        this.isLoadingMore = true;
-                        if(body.posts.length < 1) {
-                            this.isLoadingMore = false;
-                        }
+            (result) => {
+                let body = result.body;
+                //console.log("Success "+ JSON.stringify(body));
+                body.posts.forEach(post => {
+                    this.posts.push(this.addNewPostToListView(post));
+                });
+                this.postCount = body.post_count;
+                this.lastModified = body.last_modified;
+                if (loadingMorePosts) {
+                    this.showLoadingIndicator = false;
+                    this.loadMoreText = 'load more';
+                    if (body.posts.length < 1) {
+                        this.isLoadingMore = false;
+                        /* nstoasts.show({
+                         text: 'reached end of results',
+                         duration: nstoasts.DURATION.SHORT
+                         });*/
                     }
-                    this.isLoading = false;
-                    this.changeDetectorRef.markForCheck();
-                },
-                (error) => { 
-                    this.isLoading = false;
-                    this.serverErrorService.showErrorModal();
+                } else {
+                    this.isLoadingMore = true;
+                    if (body.posts.length < 1) {
+                        this.isLoadingMore = false;
+                    }
                 }
-            );
+                this.isLoading = false;
+                this.changeDetectorRef.markForCheck();
+            },
+            (error) => {
+                this.isLoading = false;
+                this.serverErrorService.showErrorModal();
+            }
+        );
     }
 
     loadMoreOrgPosts() {
@@ -153,9 +166,9 @@ export class HomeComponent extends DrawerPage implements OnInit {
         newPost.large_images = post.large_images;
         newPost.img_keys = post.img_keys;
         let isTextOnly = post.images[0] ? false : true;
-        newPost.text_only =  isTextOnly;
-        if(isTextOnly){
-            newPost.text_only_bg = this.textOnlyBgColors[Math.floor((Math.random()*this.textOnlyBgColors.length))]
+        newPost.text_only = isTextOnly;
+        if (isTextOnly) {
+            newPost.text_only_bg = this.textOnlyBgColors[Math.floor((Math.random() * this.textOnlyBgColors.length))]
         }
         // add comments
         if (post.comments.length) {
@@ -180,13 +193,12 @@ export class HomeComponent extends DrawerPage implements OnInit {
     }
 
 
-
     goBack() {
         this.routerExtensions.backToPreviousPage();
     }
 
-    openOrganizations(){
-        if(this.moreThanOneOrg){
+    openOrganizations() {
+        if (this.moreThanOneOrg) {
             let orgs = this.organizations;
             let actions = [];
             for (let org of orgs) {
@@ -205,30 +217,42 @@ export class HomeComponent extends DrawerPage implements OnInit {
                         this.currentOrgName = currentOrg.name;
                         this.organization_id = currentOrg.id;
                         /*
-                        TeacherInfo.currentRoom = JSON.stringify(this.currentRoom);
-                        this.roomName = this.currentRoom.session_name;
-                        this.loadManagedKids(this.currentRoom);*/
+                         TeacherInfo.currentRoom = JSON.stringify(this.currentRoom);
+                         this.roomName = this.currentRoom.session_name;
+                         this.loadManagedKids(this.currentRoom);*/
                         this.changeDetectorRef.markForCheck();
                     }
                 }
 
 
             });
-        }else{
+        } else {
             return
         }
     }
 
-    openSchoolInfo(){
+    openSchoolInfo() {
         let navView = view.getViewById(this.page, "nav-school-info");
         navView.classList.add('text-secondary');
-        this.sharedData.organizationId = this.organization_id;
-        this.sharedData.organizationName = this.currentOrgName;
-        this.routerExtensions.navigate(["/school-info"], {
-            transition: {
-                name: "slideLeft"
-            }
-        });
+
+        if (this.isOrgExists) {
+            this.sharedData.organizationId = this.organization_id;
+            this.sharedData.organizationName = this.currentOrgName;
+            this.routerExtensions.navigate(["/school-info"], {
+                transition: {
+                    name: "slideLeft"
+                }
+            });
+        } else {
+            this.sharedData.schoolUrl = "https://tingr.org/";
+            this.sharedData.schoolLinkName = "Tingr";
+            this.routerExtensions.navigate(["/school-webview"], {
+                transition: {
+                    name: "slideLeft"
+                }
+            });
+        }
+
 
         timerModule.setTimeout(()=> {
             navView.classList.remove('text-secondary');
@@ -250,21 +274,21 @@ export class HomeComponent extends DrawerPage implements OnInit {
         }
         this.postService.addOrRemoveHeart(post, isHearted)
             .subscribe(
-                (result) => {
-                    let body = result.body;
-                    // update currentPost with new data
-                    currentPostObject.asset_base_url = body.asset_base_url;
-                    currentPostObject.heart_icon = body.heart_icon;
-                    currentPostObject.hearts_count = body.hearts_count;
-                    nstoasts.show({
-                        text: result.message,
-                        duration: nstoasts.DURATION.SHORT
-                    });
-                    this.changeDetectorRef.markForCheck();
-                },
-                (error) => {
-                }
-            );
+            (result) => {
+                let body = result.body;
+                // update currentPost with new data
+                currentPostObject.asset_base_url = body.asset_base_url;
+                currentPostObject.heart_icon = body.heart_icon;
+                currentPostObject.hearts_count = body.hearts_count;
+                nstoasts.show({
+                    text: result.message,
+                    duration: nstoasts.DURATION.SHORT
+                });
+                this.changeDetectorRef.markForCheck();
+            },
+            (error) => {
+            }
+        );
     }
 
     // edit , delete post etc..
@@ -273,7 +297,7 @@ export class HomeComponent extends DrawerPage implements OnInit {
 
         if (post.can_edit) {
             //TODO enable after completing the editPostSection
-           // actions.push('Edit')
+            // actions.push('Edit')
         }
         if (post.can_delete) {
             actions.push('Delete')
@@ -313,11 +337,11 @@ export class HomeComponent extends DrawerPage implements OnInit {
         this.changeDetectorRef.markForCheck();
         this.postService.deletePost(post)
             .subscribe(
-                (result) => {
-                },
-                (error) => {
-                }
-            );
+            (result) => {
+            },
+            (error) => {
+            }
+        );
     }
 
     showPostLikes(post) {
@@ -341,7 +365,7 @@ export class HomeComponent extends DrawerPage implements OnInit {
     }
 
     showModalCommentToPost(post, index) {
-        var options: ModalDialogOptions = {
+        var options:ModalDialogOptions = {
             viewContainerRef: this.vcRef,
             context: {
                 post_kl_id: post.kl_id,

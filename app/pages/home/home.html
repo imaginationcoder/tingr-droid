@@ -8,12 +8,14 @@
                  ios:horizontalAlignment="center"
                  android:horizontalAlignment="center">
         <StackLayout orientation="horizontal" verticalAlignment="center" (tap)="openOrganizations()">
-            <Label [text]="currentOrgName || 'Tingr'" class="action-label"></Label>
+            <Label [text]="currentOrgName || 'Tingr'" class="action-label text-center" textWrap="true"></Label>
             <Label *ngIf="moreThanOneOrg" class="text-primary material-icons md-24 md-arrow-drop-down" margin="3 0 0 3"
                    text="&#xE5C5;"></Label>
         </StackLayout>
     </StackLayout>
     <!-- right area  -->
+    <ActionItem  andriod.postion="actionBar">
+    </ActionItem>
 </ActionBar>
 
 
@@ -27,8 +29,18 @@
         <StackLayout *ngIf="!posts.length" visibility="{{ isLoading ? 'collapsed' : 'visible'}}"
                      verticalAlignment="center" horizontalAlignment="center" class="m-20">
             <Label [text]="emptyNoteMessage" textWrap="true" class="text-center font-italic empty-note-message"></Label>
+            <Stacklayout orientation="horizontal" horizontalAlignment="center" class="m-t-10">
+                <Label text="it is "></Label>
+                <Label text="quick, easy and secure" class="font-weight-bold"></Label>
+            </Stacklayout>
+            <Stacklayout orientation="horizontal" horizontalAlignment="center">
+                <Label text="access 'em "></Label>
+                <Label text="on the go " style="text-decoration: underline"></Label>
+                <Label text="anytime"></Label>
+            </Stacklayout>
+
             <StackLayout class="m-t-10">
-                <Label text="&#xE3B0;" class="text-center material-icons md-48 md-camera-alt"></Label>
+                <Label text="" class="text-center material-icons md-48 md-chevron-add"></Label>
             </StackLayout>
         </StackLayout>
         <GridLayout rows="*, auto">
