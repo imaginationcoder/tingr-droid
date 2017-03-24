@@ -5,7 +5,6 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {RouterExtensions, PageRoute} from "nativescript-angular/router";
 import {ServerErrorService} from "../../services/server.error.service";
 import { SharedData } from "../../providers/data/shared_data";
-import 'nativescript-pdf-view';
 let nstoasts = require("nativescript-toasts");
 let app = require("application");
 

@@ -16,7 +16,6 @@ import firebase = require("nativescript-plugin-firebase");
 
 let app = require("application");
 let view = require("ui/core/view");
-let tnsfx = require('nativescript-effects');
 
 @Component({
     moduleId: module.id,

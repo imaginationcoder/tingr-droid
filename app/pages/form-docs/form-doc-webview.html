@@ -16,6 +16,7 @@
 <GridLayout class="form-doc-webview">
     <ScrollView>
         <WebView [src]="formOrDoc.url" *ngIf="!isPdfView"></WebView>
-        <PDFView [src]="formOrDoc.url"  *ngIf="isPdfView"></PDFView>
+        <WebView src="http://drive.google.com/viewerng/viewer?embedded=true&url={{ formOrDoc.url }}"  *ngIf="isPdfView"></WebView>
+
     </ScrollView>
 </GridLayout>

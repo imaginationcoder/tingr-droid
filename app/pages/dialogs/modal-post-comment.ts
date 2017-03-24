@@ -3,7 +3,6 @@ import {ModalDialogParams} from "nativescript-angular/directives/dialogs";
 import {Page} from "ui/page";
 import {PostService} from "../../services/post.service";
 import {ServerErrorService} from "../../services/server.error.service";
-let tnsfx = require('nativescript-effects');
 let view = require("ui/core/view");
 let app = require("application");
 
@@ -101,7 +100,7 @@ export class ModalPostComment implements OnInit {
         }else{
             this.inputError = true;
             let errorLabel = view.getViewById(this.page, 'errorLabel');
-            errorLabel.floatIn('fast', 'right');
+            //errorLabel.floatIn('fast', 'right');
             //this.params.closeCallback('close');
         }
     }

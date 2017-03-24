@@ -26,6 +26,7 @@ import { ChangePasswordComponent } from "./pages/change-password/change-password
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
 import { ModalPostComment } from "./pages/dialogs/modal-post-comment";
 import { ModalEditProfile } from "./pages/dialogs/modal-edit-profile";
+import { ModalImageViewer } from "./pages/dialogs/modal-image-viewer";
 
 export const APP_ROUTES = [
     { path: "", redirectTo: "/home", pathMatch: 'full'},
@@ -82,7 +83,8 @@ export const navigatableComponents = [
     SupportComponent,
     ModalServerError,
     ModalPostComment,
-    ModalEditProfile
+    ModalEditProfile,
+    ModalImageViewer,
 ];
 
 export const authProviders = [

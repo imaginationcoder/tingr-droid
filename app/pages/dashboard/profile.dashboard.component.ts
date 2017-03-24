@@ -15,14 +15,13 @@ import {PostService, Post, TaggedTo, Comment} from "../../services/post.service"
 import {ModalDialogService, ModalDialogOptions} from "nativescript-angular/directives/dialogs";
 import {ModalPostComment} from "../../pages/dialogs/modal-post-comment";
 import { SnackBar, SnackBarOptions } from "nativescript-snackbar";
+import {ModalImageViewer} from "../../pages/dialogs/modal-image-viewer";
+
 import * as timerModule  from "timer";
 import dialogs = require("ui/dialogs");
 let app = require("application");
 let view = require("ui/core/view");
-let tnsfx = require('nativescript-effects');
 let nstoasts = require("nativescript-toasts");
-let PhotoViewer = require("nativescript-photoviewer");
-let photoViewer = new PhotoViewer();
 let snackbar = new SnackBar();
 require( "nativescript-dom" );
 
@@ -299,12 +298,23 @@ export class ProfileDashboardComponent implements OnInit {
         });
     }
 
+
     openPostImages(post) {
-        // Add to array and pass to showViewer
-        // add multiple images if post has
-        let postImages = post.large_images;
-        //postImages.push(post.large_images);
-        photoViewer.showViewer(postImages);
+        //let postImages = post.large_images;
+        let postImages = post.images;
+        var options: ModalDialogOptions = {
+            viewContainerRef: this.vcRef,
+            context: {
+                imageUrls: postImages
+            },
+            fullscreen: true
+        };
+        this.modal.showModal(ModalImageViewer, options).then((result) => {
+            if (result === 'close' || typeof(result) == "undefined") {
+                // modal closed
+            } else {
+            }
+        })
     }
 
     showModalCommentToPost(post, index) {

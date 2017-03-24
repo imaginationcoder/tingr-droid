@@ -6,8 +6,10 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 
 import {AppComponent} from "./app.component";
-import {SIDEDRAWER_DIRECTIVES} from "nativescript-telerik-ui/sidedrawer/angular";
-import { LISTVIEW_DIRECTIVES } from 'nativescript-telerik-ui/listview/angular';
+// --- The built-in 'nativescript-telerik-ui' modules
+import { NativeScriptUISideDrawerModule } from "nativescript-telerik-ui/sidedrawer/angular";
+import { NativeScriptUIListViewModule } from "nativescript-telerik-ui/listview/angular";
+
 import {APP_ROUTES, authProviders, navigatableComponents} from "./app.routes";
 
 import { ServerErrorService } from "./services/server.error.service"
@@ -16,6 +18,7 @@ import {ModalDialogService, ModalDialogOptions} from "nativescript-angular/modal
 import { ModalServerError } from "./pages/dialogs/modal-server-error";
 import { ModalPostComment } from "./pages/dialogs/modal-post-comment";
 import { ModalEditProfile } from "./pages/dialogs/modal-edit-profile";
+import { ModalImageViewer } from "./pages/dialogs/modal-image-viewer";
 
 
 
@@ -44,8 +47,6 @@ registerElement("PullToRefresh", () => {
 
 registerElement("Carousel", () => require("nativescript-carousel").Carousel);
 registerElement("CarouselItem", () => require("nativescript-carousel").CarouselItem);
-registerElement("Fab", () => require("nativescript-floatingactionbutton").Fab);
-registerElement("DropDown", () => require("nativescript-drop-down/drop-down").DropDown);
 //registerElement("FrescoDrawee", () => frescoModule.FrescoDrawee);
 
 if (applicationModule.android) {
@@ -58,8 +59,6 @@ if (applicationModule.android) {
 
 @NgModule({
     declarations: [
-        SIDEDRAWER_DIRECTIVES,
-        LISTVIEW_DIRECTIVES,
         AppComponent,
         KeysPipe,
         TimeAgoPipe,
@@ -71,6 +70,8 @@ if (applicationModule.android) {
     ],
     imports: [
         NativeScriptModule,
+        NativeScriptUIListViewModule,
+        NativeScriptUISideDrawerModule,
         NativeScriptFormsModule,
         NativeScriptHttpModule,
         NativeScriptRouterModule,
@@ -92,7 +93,8 @@ if (applicationModule.android) {
     entryComponents: [
         ModalServerError,
         ModalPostComment,
-        ModalEditProfile
+        ModalEditProfile,
+        ModalImageViewer
     ]
 })
 export class AppModule {

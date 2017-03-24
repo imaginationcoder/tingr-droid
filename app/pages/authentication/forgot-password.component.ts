@@ -10,7 +10,6 @@ import { isAndroid } from "platform";
 
 var view = require("ui/core/view");
 var app = require("application");
-let tnsfx = require('nativescript-effects');
 
 
 @Component({

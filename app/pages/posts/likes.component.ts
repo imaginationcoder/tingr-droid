@@ -7,7 +7,6 @@ import {SharedData} from "../../providers/data/shared_data";
 import {ServerErrorService} from "../../services/server.error.service";
 import { PostService } from "../../services/post.service";
 var view = require("ui/core/view");
-var tnsfx = require('nativescript-effects');
 var app = require("application");
 
 

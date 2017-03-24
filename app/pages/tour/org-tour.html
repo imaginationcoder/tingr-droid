@@ -18,8 +18,7 @@
 
 
     <ScrollView>
-        <WebView [src]="orgTourUrl" *ngIf="!isAndroid"></WebView>
-        <PDFView [src]="orgTourUrl" *ngIf="isAndroid"></PDFView>
+        <WebView [src]="orgTourUrl"></WebView>
     </ScrollView>
 
     <StackLayout class="dimmer" visibility="{{ isLoading ? 'visible' : 'collapsed'}}"></StackLayout>
